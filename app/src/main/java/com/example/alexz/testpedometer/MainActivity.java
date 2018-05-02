@@ -15,11 +15,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private TextView mStepDetector;
     private int count = 0;
+    private FirebaseDatabase db;
+    private DatabaseReference myDBRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        db = FirebaseDatabase.getInstance();
+        myDBRef = db.getReference("Steps");
+
         mStepDetector = (TextView)findViewById(R.id.test);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
@@ -47,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         count++;
+        myDBRef.setValue(count);
+
         mStepDetector.setText(String.valueOf(count));
     }
 
