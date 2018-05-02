@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "492712064115",
+    "firebase_url": "https://teamwow-b91d2.firebaseio.com",
+    "project_id": "teamwow-b91d2",
+    "storage_bucket": "teamwow-b91d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492712064115:android:449942f1c875d36a",
+        "android_client_info": {
+          "package_name": "com.example.alexz.testpedometer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492712064115-84b3kehb51l4huckvap1k2j17l1fch7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alexz.testpedometer",
+            "certificate_hash": "15dbc7d2b65bfbbce3032fc2913664d811c4c621"
+          }
+        },
+        {
+          "client_id": "492712064115-oigkkp3u9fp13o2146sseoqsi7jb8bg3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy1RcVXUPegmvdNlsSfYNxPbQBCmw-gEk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492712064115-oigkkp3u9fp13o2146sseoqsi7jb8bg3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

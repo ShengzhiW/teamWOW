@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TestPedometer.iml" filepath="$PROJECT_DIR$/TestPedometer.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/teamWOW.iml" filepath="$PROJECT_DIR$/teamWOW.iml" />
     </modules>
   </component>
 </project>
