@@ -27,9 +27,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
+    // variables for sensor manager and sensor, used to implement step detector
     private SensorManager mSensorManager;
     private Sensor mSensor;
+
+    // variable for the default text currently on screen ("Hello World")
     private TextView mStepDetector;
+
+    // step count
     private int count = 0;
 
     // Firebase authentication
@@ -61,18 +66,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 .build(), RC_SIGN_IN);
 
 
+        // gets the text with id "test", centered on screen
         mStepDetector = (TextView)findViewById(R.id.test);
+
+        // set up step detector using a manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
 
+        // begin listening for steps, set the delay time to fastest speed
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
+    /**
+     * @author Alex Zhu
+     *
+     * Event listener that fires when the step detector is triggered, i.e. a step
+     * is taken.
+     *
+     * @param event - holds information about the fired event, irrelevant
+     * for this function for now
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
+        // increment count and store value in database
         count++;
         myDBRef.setValue(count); // Write the count value to the database
 
+        // set text to current step count
         mStepDetector.setText(String.valueOf(count));
     }
 
@@ -98,6 +118,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * @author Alex Zhu
+     *
+     * Placeholder function to satisfy interface, fires when accuracy of
+     * the sensor changes.
+     */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
