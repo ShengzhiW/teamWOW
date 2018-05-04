@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // Reference to the firebase database
     private FirebaseDatabase db;
     private DatabaseReference myDBRef;
+    private DatabaseReference userStepCount; // Step count for the current user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         /* Firebase Database */
         db = FirebaseDatabase.getInstance(); // Get the firebase database
-        myDBRef = db.getReference("Steps"); // Get a database reference for the "Steps" db
+        myDBRef = db.getReference("Steps"); // Get a database reference for the "Steps" d
 
         /* Firebase Authentication */
         auth = FirebaseAuth.getInstance();
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
                 .build(), RC_SIGN_IN);
-
 
         // gets the text with id "test", centered on screen
         mStepDetector = (TextView)findViewById(R.id.test);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // increment count and store value in database
         count++;
         myDBRef.setValue(count); // Write the count value to the database
-
+        if(userStepCount != null) userStepCount.setValue(count); // Write the count value to the database under the user
         // set text to current step count
         mStepDetector.setText(String.valueOf(count));
     }
@@ -147,9 +147,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(requestCode == RC_SIGN_IN){
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
-            // If sucessfully signed in
+            // If successfully signed in
             if(resultCode == RESULT_OK) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                // Look up / add the specific user in/to the database and keep a reference while app is open
+                String email = user.getEmail();
+                String uid = user.getUid();
+                db.getReference("Users").child(uid).child("Email").setValue(email);
+                userStepCount = db.getReference("Users").child(uid).child("Steps");
+
                 //loginUser();
             }
             if(resultCode == RESULT_CANCELED){
