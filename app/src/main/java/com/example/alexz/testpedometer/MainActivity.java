@@ -3,20 +3,12 @@ package com.example.alexz.testpedometer;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,7 +17,6 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -38,8 +29,6 @@ public class MainActivity extends AppCompatActivity{
 
     // Reference to the firebase database
     private FirebaseDatabase db;
-    private DatabaseReference myDBRef;
-    private DatabaseReference userStepCount; // Step count for the current user
 
     private TextView mTextMessage;
 
@@ -53,7 +42,6 @@ public class MainActivity extends AppCompatActivity{
 
         /* Firebase Database */
         db = FirebaseDatabase.getInstance(); // Get the firebase database
-        myDBRef = db.getReference("Steps"); // Get a database reference for the "Steps" d
 
         /* Firebase Authentication */
         auth = FirebaseAuth.getInstance();
@@ -91,9 +79,10 @@ public class MainActivity extends AppCompatActivity{
 
                 // Look up / add the specific user in/to the database and keep a reference while app is open
                 String email = user.getEmail();
+                String name = user.getDisplayName();
                 String uid = user.getUid();
                 db.getReference("Users").child(uid).child("Email").setValue(email);
-                userStepCount = db.getReference("Users").child(uid).child("Steps");
+                db.getReference("Users").child(uid).child("Name").setValue(name);
 
                 //loginUser();
                 //Test making an intent
@@ -118,10 +107,7 @@ public class MainActivity extends AppCompatActivity{
      */
     private boolean isUserLogin(){
         // If the current user is signed in
-        if(auth.getCurrentUser() != null){
-            return true;
-        }
-        return false;
+        return (auth.getCurrentUser() != null);
     }
 
     /* Name: loginUser()
