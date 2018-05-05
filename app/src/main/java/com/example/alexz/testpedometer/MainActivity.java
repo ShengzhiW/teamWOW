@@ -31,17 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
-    // variables for sensor manager and sensor, used to implement step detector
-    private SensorManager mSensorManager;
-    private Sensor mSensor;
-
-    // variable for the default text currently on screen ("Hello World")
-    private TextView mStepDetector;
-
-    // step count
-    private int count = 0;
-
+public class MainActivity extends AppCompatActivity{
     // Firebase authentication
     private FirebaseAuth auth; // Firebase authentication for log in
     private static final int RC_SIGN_IN = 123; // Some number needed for authentication
@@ -72,56 +62,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
                 .build(), RC_SIGN_IN);
-
-        // gets the text with id "test", centered on screen
-        mStepDetector = (TextView)findViewById(R.id.test);
-
-        // set up step detector using a manager
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-
-        // begin listening for steps, set the delay time to fastest speed
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-
         setupNavigationView();
-    }
-
-    /**
-     * @author Alex Zhu
-     *
-     * Event listener that fires when the step detector is triggered, i.e. a step
-     * is taken.
-     *
-     * @param event - holds information about the fired event, irrelevant
-     * for this function for now
-     */
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        // increment count and store value in database
-        count++;
-        myDBRef.setValue(count); // Write the count value to the database
-        if(userStepCount != null) userStepCount.setValue(count); // Write the count value to the database under the user
-        // set text to current step count
-        mStepDetector.setText(String.valueOf(count));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    /**
-     * @author Alex Zhu
-     *
-     * Placeholder function to satisfy interface, fires when accuracy of
-     * the sensor changes.
-     */
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
 
     /*
      * Name: onActivityResult()
@@ -152,6 +96,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 userStepCount = db.getReference("Users").child(uid).child("Steps");
 
                 //loginUser();
+                //Test making an intent
+                Intent intent = new Intent(this, StepCounter.class);
+                startActivity(intent);
             }
             if(resultCode == RESULT_CANCELED){
                 displayMessage(getString(R.string.signin_failed));
