@@ -1,5 +1,8 @@
 package com.example.alexz.testpedometer;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -7,6 +10,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private DatabaseReference myDBRef;
     private DatabaseReference userStepCount; // Step count for the current user
 
+    private TextView mTextMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +82,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // begin listening for steps, set the delay time to fastest speed
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
+
+        setupNavigationView();
     }
 
     /**
@@ -101,21 +110,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -205,6 +199,84 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
      */
     private void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+
+    /* Name: setupNavigationView
+     * Description: Creates the bottom navigation bar
+     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
+     * Author: Jungyong Yi
+     */
+    private void setupNavigationView() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+
+            // Select first menu item by default and show Fragment accordingly.
+            Menu menu = bottomNavigationView.getMenu();
+            selectFragment(menu.getItem(2));
+
+            // Set action to perform when any menu-item is selected.
+            bottomNavigationView.setOnNavigationItemSelectedListener(
+                    new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            selectFragment(item);
+                            return false;
+                        }
+                    });
+        }
+    }
+
+    /* Name: selectFragment
+     * Description: Calls pushFragment to bring up appropriate screen
+     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
+     * Author: Jungyong Yi
+     */
+    protected void selectFragment(MenuItem item) {
+
+        item.setChecked(true);
+
+        switch (item.getItemId()) {
+            case R.id.navigation_challenge:
+                // Action to perform when challenge Menu item is selected.
+                pushFragment(new ChallengeFragment());
+                break;
+            case R.id.navigation_shop:
+                // Action to perform when shop Menu item is selected.
+                pushFragment(new ShopFragment());
+                break;
+            case R.id.navigation_home:
+                // Action to perform when home Menu item is selected.
+                pushFragment(new HomeFragment());
+                break;
+            case R.id.navigation_leader_board:
+                // Action to perform when leaderboard Menu item is selected.
+                pushFragment(new LeaderboardFragment());
+                break;
+            case R.id.navigation_settings:
+                // Action to perform when settings Menu item is selected.
+                pushFragment(new SettingsFragment());
+                break;
+        }
+    }
+
+    /* Name: pushFragment
+     * Description: Changes the screen to be the selected screen from navigation bar
+     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
+     * Author: Jungyong Yi
+     */
+    protected void pushFragment(Fragment fragment) {
+        if (fragment == null)
+            return;
+
+        FragmentManager fragmentManager = getFragmentManager();
+        if (fragmentManager != null) {
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            if (ft != null) {
+                ft.replace(R.id.rootLayout, fragment);
+                ft.commit();
+            }
+        }
     }
 }
 

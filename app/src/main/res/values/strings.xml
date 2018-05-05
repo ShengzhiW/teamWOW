@@ -1,6 +1,12 @@
 <resources>
-    <string name="app_name">TestPedometer</string>
+    <string name="app_name">OneWalk</string>
     <string name="action_settings">Settings</string>
     <string name="signin_failed">Failed sign in</string>
     <string name="unknown_response">Error!! ): </string>
+
+    <string name="title_challenge">Challenge</string>
+    <string name="title_shop">Shop</string>
+    <string name="title_home">Today</string>
+    <string name="title_leaderboard">Leaderboard</string>
+    <string name="title_settings">Settings</string>
 </resources>
