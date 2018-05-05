@@ -28,10 +28,13 @@
   - 7. Note - If you have merge errors, git will tell you you have merge conflicts
     in which files. Open those files and you will see where the merge conflicts
     are. It will look something like this:
+    
     <<<<<<<<<HEAD
      SOME CODE HERE
     ===============
+    
      SOME MORE CODE HERE
+    
     >>>>>>>>>>>>> SOME RANDOM STRING OF NUMBERS AND LETTERS
     
     One of them is your changes and one is what is in the github currently
