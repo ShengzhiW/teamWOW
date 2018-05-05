@@ -18,6 +18,7 @@
   - 3. git status (Check what files you have modified)
   - 4. git add [fileName]
     	- do this for all files you have changed
+	- Be careful with git add . since this will add all files, even untracked ones! 
   - 5. git commit -m "some commit message"
     - Your changes are ready to be pushed!
       Make your commit messages meaningful. If we need to revert changes it will be
