@@ -18,6 +18,7 @@
   - 3. git status (Check what files you have modified)
   - 4. git add [fileName]
     	- do this for all files you have changed
+	- Be careful with git add . since this will add all files, even untracked ones! 
   - 5. git commit -m "some commit message"
     - Your changes are ready to be pushed!
       Make your commit messages meaningful. If we need to revert changes it will be
@@ -27,13 +28,7 @@
     - ALWAYS PULL BEFORE YOU PUSH
   - 7. Note - If you have merge errors, git will tell you you have merge conflicts
     in which files. Open those files and you will see where the merge conflicts
-    are. It will look something like this:
-    <<<<<<<<<HEAD
-     SOME CODE HERE
-    ===============
-     SOME MORE CODE HERE
-    >>>>>>>>>>>>> SOME RANDOM STRING OF NUMBERS AND LETTERS
-    
+    are. It will be wrapped in <<<HEAD ==== >>>>some numbers and letters
     One of them is your changes and one is what is in the github currently
     Fix the merge conflict
     MAKE SURE TO DELETE THE CONFLICT MARKERS (ie the <<< ==== and >>> stuff)
