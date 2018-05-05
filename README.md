@@ -9,7 +9,7 @@
   - When in doubt use git status! It will probably tell you what's going on
 
 ### BASIC GIT WORK FLOW
-- When you start working on the project, before you do anything
+- When you start working on the project, before you do anything.
   - 1. git status (Check to make sure you don't have any uncommited changes)
     	- If you do make sure to add, and commit them (if you follow this guide
 	  you should not have any though)
