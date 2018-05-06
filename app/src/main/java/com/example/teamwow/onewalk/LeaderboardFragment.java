@@ -4,7 +4,7 @@
  * Author: Jungyong Yi
  */
 
-package com.example.alexz.testpedometer;
+package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
 import android.os.Bundle;

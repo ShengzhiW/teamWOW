@@ -1,4 +1,4 @@
-package com.example.alexz.testpedometer;
+package com.example.teamwow.onewalk;
 
 import org.junit.Test;
 

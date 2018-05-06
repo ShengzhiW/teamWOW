@@ -1,4 +1,4 @@
-package com.example.alexz.testpedometer;
+package com.example.teamwow.onewalk;
 
 import android.content.Context;
 import android.content.Intent;
