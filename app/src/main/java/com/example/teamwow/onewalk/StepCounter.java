@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -98,20 +99,20 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
         // Get the text with id "test"
         mStepDetector = findViewById(R.id.stepCount);
-
         // Get a reference to the step count, and read the data and attach it to the screen
         userStepCount = db.getReference("Users").child(uid).child("Steps");
+
         ValueEventListener stepListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                count = dataSnapshot.getValue(Integer.class);
+                if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
                 mStepDetector.setText(String.valueOf(count));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
-        db.getReference("Users").child(uid).child("Steps").addListenerForSingleValueEvent(stepListener);
+        userStepCount.addListenerForSingleValueEvent(stepListener);
     }
 
 }
