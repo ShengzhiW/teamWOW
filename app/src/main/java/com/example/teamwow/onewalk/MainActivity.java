@@ -50,10 +50,7 @@ public class MainActivity extends AppCompatActivity{
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
                 .build(), RC_SIGN_IN);
-        setupNavigationView();
-
     }
-
 
     /*
      * Name: onActivityResult()
@@ -75,14 +72,7 @@ public class MainActivity extends AppCompatActivity{
 
             // If successfully signed in
             if(resultCode == RESULT_OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                // Look up / add the specific user in/to the database and keep a reference while app is open
-                String email = user.getEmail();
-                String name = user.getDisplayName();
-                String uid = user.getUid();
-                db.getReference("Users").child(uid).child("Email").setValue(email);
-                db.getReference("Users").child(uid).child("Name").setValue(name);
+                updateDatabase();
 
                 //loginUser();
                 //Test making an intent
@@ -95,6 +85,18 @@ public class MainActivity extends AppCompatActivity{
             return;
         }
         displayMessage(getString(R.string.unknown_response));
+    }
+
+    private void updateDatabase() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Look up / add the specific user in/to the database and keep a reference while app is open
+        final String email = user.getEmail();
+        final String name = user.getDisplayName();
+        final String uid = user.getUid();
+        db.getReference("Users").child(uid).child("Email").setValue(email);
+        db.getReference("Users").child(uid).child("Name").setValue(name);
+        db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
     }
 
     /* Name: isUserLogin()
@@ -132,84 +134,6 @@ public class MainActivity extends AppCompatActivity{
      */
     private void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-
-    /* Name: setupNavigationView
-     * Description: Creates the bottom navigation bar
-     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
-     * Author: Jungyong Yi
-     */
-    private void setupNavigationView() {
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        if (bottomNavigationView != null) {
-
-            // Select first menu item by default and show Fragment accordingly.
-            Menu menu = bottomNavigationView.getMenu();
-            selectFragment(menu.getItem(2));
-
-            // Set action to perform when any menu-item is selected.
-            bottomNavigationView.setOnNavigationItemSelectedListener(
-                    new BottomNavigationView.OnNavigationItemSelectedListener() {
-                        @Override
-                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            selectFragment(item);
-                            return false;
-                        }
-                    });
-        }
-    }
-
-    /* Name: selectFragment
-     * Description: Calls pushFragment to bring up appropriate screen
-     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
-     * Author: Jungyong Yi
-     */
-    protected void selectFragment(MenuItem item) {
-
-        item.setChecked(true);
-
-        switch (item.getItemId()) {
-            case R.id.navigation_challenge:
-                // Action to perform when challenge Menu item is selected.
-                pushFragment(new ChallengeFragment());
-                break;
-            case R.id.navigation_shop:
-                // Action to perform when shop Menu item is selected.
-                pushFragment(new ShopFragment());
-                break;
-            case R.id.navigation_home:
-                // Action to perform when home Menu item is selected.
-                pushFragment(new HomeFragment());
-                break;
-            case R.id.navigation_leader_board:
-                // Action to perform when leaderboard Menu item is selected.
-                pushFragment(new LeaderboardFragment());
-                break;
-            case R.id.navigation_settings:
-                // Action to perform when settings Menu item is selected.
-                pushFragment(new SettingsFragment());
-                break;
-        }
-    }
-
-    /* Name: pushFragment
-     * Description: Changes the screen to be the selected screen from navigation bar
-     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
-     * Author: Jungyong Yi
-     */
-    protected void pushFragment(Fragment fragment) {
-        if (fragment == null)
-            return;
-
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager != null) {
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            if (ft != null) {
-                ft.replace(R.id.rootLayout, fragment);
-                ft.commit();
-            }
-        }
     }
 }
 
