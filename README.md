@@ -56,19 +56,18 @@ Add your code changes until you are ready to send your code to the Github
     - Now your changes are pushed to the Github!!!
 
 ### Things recently added:
-- Working pedometer
-- Log in system
 - Each user account has individual step count
 - Navigation bar
 - Multiple activity pages
 
 ### Things to implement/work on:
 - Cleaning code (split into smaller functions and stuff)
-- Creating activities/pages/layouts for each page we need
+- Avatar stuff
 - Leaderboards
-- Custom login
+- Custom login (difficult if using Firebaseauth)
 - ((Artifacts))
 - Rename the package name lmao
+- Rename MainActivity to Login ?
 
 #### Links?? (Add anything here):
 - [Group Trello](https://trello.com/cs110teamwow/home)
