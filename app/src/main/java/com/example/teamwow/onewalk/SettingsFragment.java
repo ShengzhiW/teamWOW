@@ -21,8 +21,14 @@ import android.widget.Toast;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SettingsFragment extends Fragment {
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
 
     @Nullable
     @Override
@@ -62,6 +68,9 @@ public class SettingsFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
+                                    db.getReference("Users").child(uid).removeValue();
+                                    db.getReference("Leaderboard").child(uid).removeValue();
+
                                     displayMessage(getString(R.string.delete_account_success));
                                     LogIn();
                                 }

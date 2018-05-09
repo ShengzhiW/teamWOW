@@ -42,9 +42,10 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
     // step count
     private int count = 0;
-    private FirebaseDatabase db;
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();;
     private DatabaseReference userStepCount;
-    private String uid = "";
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String uid = user.getUid();;
 
     // for leaderboard
     private RecyclerView leaderboardView;
@@ -110,15 +111,8 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
      * Grabs the existing step count if there is one
      */
     public void initialStepCount() {
-        // Get the database instance
-        db = FirebaseDatabase.getInstance();
-
-        // Get the current user
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         // Look up specific user in database and keep a reference while app is open
         final String email = user.getEmail();
-        uid = user.getUid();
         db.getReference("Users").child(uid).child("Email").setValue(email);
 
         // Get the text with id "test"
