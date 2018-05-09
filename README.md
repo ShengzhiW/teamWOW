@@ -1,5 +1,8 @@
 # teamWOW - While One Walk
 
+##### Note: press sync project with graydle files when you pull 
+#####       (fixes some problems)
+
 ## QUICK GIT WORKFLOW VERSION
 1. git pull
 2. make code changes
@@ -11,7 +14,7 @@
 	- git add filename
 	- git commit -m "insert message"
 	- git pull
-7. git push
+6. git push
 
 ### Good git commands to know
 - git reset --hard origin/master:
@@ -59,18 +62,19 @@ Add your code changes until you are ready to send your code to the Github
 - Each user account has individual step count
 - Navigation bar
 - Multiple activity pages
+- Basic leaderboard functionality
 
 ### Things to implement/work on:
-- Cleaning code (split into smaller functions and stuff)
+- Cleaning code (split into smaller functions and stuff, move stuff)
+- I feel like we should use separate pages as opposed to fragments (??)
 - Avatar stuff
 - Leaderboards
 - Custom login (difficult if using Firebaseauth)
 - ((Artifacts))
 - Rename the package name lmao
-- Rename MainActivity to Login ?
 
 #### Links?? (Add anything here):
 - [Group Trello](https://trello.com/cs110teamwow/home)
 - [Figma (Screen Mock-ups)](https://www.figma.com/file/Wj2YNnMflZunVORhykRdZ9EE/OneWalk)
 - [Firebase Login System](https://firebase.google.com/docs/auth/android/firebaseui)
-- [Google Drive](https://drive.google.com/drive/u/2/folders/0AG7pKDOP246NUk9PVA)
+- [Google Drive](https://drive.google.com/drive/u/0/folders/0AG7pKDOP246NUk9PVA) (May ask you to switch accounts)

@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity{
+public class Login extends AppCompatActivity{
     // Firebase authentication
     private FirebaseAuth auth; // Firebase authentication for log in
     private static final int RC_SIGN_IN = 123; // Some number needed for authentication
@@ -30,12 +30,9 @@ public class MainActivity extends AppCompatActivity{
     // Reference to the firebase database
     private FirebaseDatabase db;
 
-    private TextView mTextMessage;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,11 +22,16 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class StepCounter extends AppCompatActivity implements SensorEventListener {
     // variables for sensor manager and sensor, used to implement step detector
@@ -32,11 +39,18 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     private Sensor mSensor;
     // variable for the default text currently on screen ("Hello World")
     private TextView mStepDetector;
+
     // step count
     private int count = 0;
     private FirebaseDatabase db;
     private DatabaseReference userStepCount;
     private String uid = "";
+
+    // for leaderboard
+    private RecyclerView leaderboardView;
+    private RecyclerView.Adapter leaderboardAdapter;
+    private RecyclerView.LayoutManager leaderboardLayoutManager;
+    private ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +64,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
         // Pull current step count from database
         initialStepCount();
+        buildLeaderboard();
 
         // set up step detector using a manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -89,8 +104,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
     }
 
-    /*
-     * @author Alex Lo
+    /* Author: Alex Lo
      *
      * Looks up the user in the database and keeps a reference
      * Grabs the existing step count if there is one
@@ -123,6 +137,40 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
             public void onCancelled(DatabaseError databaseError) {}
         };
         userStepCount.addListenerForSingleValueEvent(stepListener);
+    }
+
+    /* Author: Alex Lo
+     *
+     * TODO Move this to the leaderboard page
+     * Pulls and displays the top 10 users on the leaderboard from the database
+     */
+    public void buildLeaderboard() {
+        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(10);
+        leaderQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                list.clear();
+                for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
+                    if(leaderSnapshot.child("Steps").exists())
+                    list.add(leaderSnapshot.child("Name").getValue(String.class)
+                    + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
+                }
+                Collections.reverse(list);
+                leaderboardAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+        leaderboardView = (RecyclerView) findViewById(R.id.leaderboardView);
+
+        leaderboardView.setHasFixedSize(true);
+
+        leaderboardLayoutManager = new LinearLayoutManager(this);
+        leaderboardView.setLayoutManager(leaderboardLayoutManager);
+
+        leaderboardAdapter = new LeaderboardAdapter(list);
+        leaderboardView.setAdapter(leaderboardAdapter);
     }
 
     /* Name: setupNavigationView
