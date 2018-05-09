@@ -51,11 +51,6 @@ public class Login extends AppCompatActivity{
 
     /*
      * Name: onActivityResult()
-     * Parameters: int requestCode - Number that identifies the request
-     *             int resultCode - The result of the method that called this
-     *                              RESULT_OK for success RESULT_CANCELED for fail
-     *             Intent data - data returned from the method that called this
-     * Return: void
      * Description:  If user signed in correctly then, user logs in
      *  Otherwise displays an error message
      *
@@ -96,35 +91,7 @@ public class Login extends AppCompatActivity{
         db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
     }
 
-    /* Name: isUserLogin()
-     * Parameters: None
-     * Return: boolean - whether or  not the user is logged in
-     * Description: Checks whether or not the user is signed in or not
-     * .getCurrentUser will return null is the user is not signed in
-     *
-     * Author: Connie Guan
-     */
-    private boolean isUserLogin(){
-        // If the current user is signed in
-        return (auth.getCurrentUser() != null);
-    }
-
-    /* Name: loginUser()
-     * Parameters: None
-     * Return: void
-     * Description: Starts logging in the user if they are already "signed" in
-     *
-     * Author: Connie Guan
-     */
-    /*private void loginUser(){
-        Intent loginIntent = new Intent(MainActivity.this, SigninActivity.class);
-        startActivity(loginIntent);
-        finish();
-    }*/
-
     /* Name: displayMessage()
-     * Parameters: String message - message to be displayed
-     * Return: void
      * Description: Displays a pop up message to user
      *
      * Author: Connie Guan

@@ -13,4 +13,10 @@
         android:gravity="center"
         android:text="@string/title_settings"/>
 
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/logout_text" />
+
 </LinearLayout>

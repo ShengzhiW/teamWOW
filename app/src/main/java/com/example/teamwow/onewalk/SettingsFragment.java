@@ -8,16 +8,73 @@ package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import android.content.Intent;
+import android.widget.Toast;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class SettingsFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.settings_main, container, false);
+        final View rootView = inflater.inflate(R.layout.settings_main, container, false);
+
+        Button logOutButton = rootView.findViewById(R.id.Logout); // get the log out button
+
+        // Add a listener to the logout button that logs the user out
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthUI.getInstance()
+                        .signOut(getActivity())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    signOut();
+                                } else {
+                                    displayMessage(getString(R.string.signout_failed));
+                                }
+                            }
+                        });
+
+            }
+        });
+
+        return rootView;
+
+    }
+
+    /* Name: Signout
+     * This method displays sign out message and returns user to log in screen
+     *
+     * Author: Connie
+     */
+
+    private void signOut(){
+        displayMessage(getString(R.string.signout));
+        Intent logInIntent = new Intent(getActivity(), Login.class);
+
+        startActivity(logInIntent);
+
+    }
+
+    /*
+     * Name: displayMessage
+     * Displays a message
+     * Author: Connie
+     */
+    private void displayMessage(String message){
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 }
