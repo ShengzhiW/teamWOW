@@ -30,6 +30,7 @@ public class SettingsFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.settings_main, container, false);
 
         Button logOutButton = rootView.findViewById(R.id.Logout); // get the log out button
+        Button deleteButton = rootView.findViewById(R.id.deleteBtn); //get the delete account btn
 
         // Add a listener to the logout button that logs the user out
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +42,8 @@ public class SettingsFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    signOut();
+                                    displayMessage(getString(R.string.signout));
+                                    LogIn();
                                 } else {
                                     displayMessage(getString(R.string.signout_failed));
                                 }
@@ -51,18 +53,38 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AuthUI.getInstance()
+                        .delete(getActivity())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    displayMessage(getString(R.string.delete_account_success));
+                                    LogIn();
+                                }
+                                else {
+                                    displayMessage(getString(R.string.delete_account_failed));
+                                }
+                            }
+                        });
+            }
+        });
+
         return rootView;
 
     }
 
-    /* Name: Signout
-     * This method displays sign out message and returns user to log in screen
+    /* Name: LogIn
+     * Returns user to log in screen
      *
      * Author: Connie
      */
 
-    private void signOut(){
-        displayMessage(getString(R.string.signout));
+    private void LogIn(){
+
         Intent logInIntent = new Intent(getActivity(), Login.class);
 
         startActivity(logInIntent);
