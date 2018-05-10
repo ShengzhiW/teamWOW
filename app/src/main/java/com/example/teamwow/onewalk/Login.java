@@ -33,9 +33,6 @@ public class Login extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
 
         /* Firebase Database */
         db = FirebaseDatabase.getInstance(); // Get the firebase database

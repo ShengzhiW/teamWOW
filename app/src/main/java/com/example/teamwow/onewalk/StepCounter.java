@@ -15,14 +15,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,21 +40,15 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
     // step count
     private int count = 0;
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();;
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference userStepCount;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
 
-    // for leaderboard
-    private RecyclerView leaderboardView;
-    private RecyclerView.Adapter leaderboardAdapter;
-    private RecyclerView.LayoutManager leaderboardLayoutManager;
-    private ArrayList<String> list = new ArrayList<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step_counter);
+        setContentView(R.layout.step_counter);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
         setupNavigationView();
@@ -65,7 +57,6 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
         // Pull current step count from database
         initialStepCount();
-        buildLeaderboard();
 
         // set up step detector using a manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -133,45 +124,6 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         userStepCount.addListenerForSingleValueEvent(stepListener);
     }
 
-    /* Author: Alex Lo
-     *
-     * TODO Move this to the leaderboard page
-     * Pulls and displays the top 10 users on the leaderboard from the database
-     */
-    public void buildLeaderboard() {
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(10);
-        leaderQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                list.clear();
-                for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
-                    if(leaderSnapshot.child("Steps").exists())
-                    list.add(leaderSnapshot.child("Name").getValue(String.class)
-                    + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
-                }
-                Collections.reverse(list);
-                leaderboardAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-        leaderboardView = (RecyclerView) findViewById(R.id.leaderboardView);
-
-        leaderboardView.setHasFixedSize(true);
-
-        leaderboardLayoutManager = new LinearLayoutManager(this);
-        leaderboardView.setLayoutManager(leaderboardLayoutManager);
-
-        leaderboardAdapter = new LeaderboardAdapter(list);
-        leaderboardView.setAdapter(leaderboardAdapter);
-    }
-
-    /* Name: setupNavigationView
-     * Description: Creates the bottom navigation bar
-     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
-     * Author: Jungyong Yi
-     */
     private void setupNavigationView() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
@@ -192,56 +144,36 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         }
     }
 
-    /* Name: selectFragment
-     * Description: Calls pushFragment to bring up appropriate screen
-     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
-     * Author: Jungyong Yi
-     */
     protected void selectFragment(MenuItem item) {
 
         item.setChecked(true);
+        Intent intent;
 
         switch (item.getItemId()) {
             case R.id.navigation_challenge:
                 // Action to perform when challenge Menu item is selected.
-                pushFragment(new ChallengeFragment());
+                intent = new Intent(this, ChallengePage.class);
+                startActivity(intent);
                 break;
             case R.id.navigation_shop:
                 // Action to perform when shop Menu item is selected.
-                pushFragment(new ShopFragment());
+                intent = new Intent(this, ShopPage.class);
+                startActivity(intent);
                 break;
             case R.id.navigation_home:
                 // Action to perform when home Menu item is selected.
-                pushFragment(new HomeFragment());
+
                 break;
             case R.id.navigation_leader_board:
                 // Action to perform when leaderboard Menu item is selected.
-                pushFragment(new LeaderboardFragment());
+                intent = new Intent(this, LeaderboardPage.class);
+                startActivity(intent);
                 break;
             case R.id.navigation_settings:
                 // Action to perform when settings Menu item is selected.
-                pushFragment(new SettingsFragment());
+                intent = new Intent(this, SettingsPage.class);
+                startActivity(intent);
                 break;
         }
     }
-
-    /* Name: pushFragment
-     * Description: Changes the screen to be the selected screen from navigation bar
-     * Source: https://tutorialwing.com/android-bottom-navigation-view-tutorial-with-example/
-     * Author: Jungyong Yi
-     */
-    protected void pushFragment(Fragment fragment) {
-        if (fragment == null)
-            return;
-
-        FragmentManager fragmentManager = getFragmentManager();
-        if (fragmentManager != null) {
-            FragmentTransaction ft = fragmentManager.beginTransaction();
-            if (ft != null) {
-                ft.replace(R.id.rootLayout, fragment);
-                ft.commit();
-            }
-        }
-    }
-
 }

@@ -58,14 +58,14 @@ Add your code changes until you are ready to send your code to the Github
     - Now your changes are pushed to the Github!!!
 
 ### Things recently added:
-- Navigation bar
 - Logout, delete account
 - Multiple activity pages
 - Basic leaderboard functionality
 
 ### Things to implement/work on:
 - Cleaning code (split into smaller functions and stuff, move stuff)
-- I feel like we should use separate pages as opposed to fragments (??)
+  - Some stuff can be rewritten into separate classes (remove redundant code)
+- Comment code
 - Avatar stuff
 - Leaderboards
 - Custom login (difficult if using Firebaseauth)

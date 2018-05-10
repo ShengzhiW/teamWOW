@@ -1,0 +1,149 @@
+package com.example.teamwow.onewalk;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
+public class SettingsPage extends AppCompatActivity {
+
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
+    Context context = this;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_page);
+        setupNavigationView();
+
+        Button logOutButton = findViewById(R.id.Logout); // get the log out button
+        Button deleteButton = findViewById(R.id.deleteBtn); //get the delete account btn
+
+        // Add a listener to the logout button that logs the user out
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AuthUI.getInstance()
+                        .signOut(context)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    displayMessage(getString(R.string.signout));
+                                    LogIn();
+                                } else {
+                                    displayMessage(getString(R.string.signout_failed));
+                                }
+                            }
+                        });
+
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                AuthUI.getInstance()
+                        .delete(context)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    db.getReference("Users").child(uid).removeValue();
+                                    db.getReference("Leaderboard").child(uid).removeValue();
+
+                                    displayMessage(getString(R.string.delete_account_success));
+                                    LogIn();
+                                }
+                                else {
+                                    displayMessage(getString(R.string.delete_account_failed));
+                                }
+                            }
+                        });
+            }
+        });
+    }
+
+    private void LogIn(){
+        Intent logInIntent = new Intent(this, Login.class);
+        startActivity(logInIntent);
+    }
+
+    /*
+     * Name: displayMessage
+     * Displays a message
+     * Author: Connie
+     */
+    private void displayMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void setupNavigationView() {
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+
+            // Select first menu item by default and show Fragment accordingly.
+            Menu menu = bottomNavigationView.getMenu();
+            selectFragment(menu.getItem(4));
+
+            // Set action to perform when any menu-item is selected.
+            bottomNavigationView.setOnNavigationItemSelectedListener(
+                    new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                            selectFragment(item);
+                            return false;
+                        }
+                    });
+        }
+    }
+
+    protected void selectFragment(MenuItem item) {
+
+        item.setChecked(true);
+        Intent intent;
+
+        switch (item.getItemId()) {
+            case R.id.navigation_challenge:
+                // Action to perform when challenge Menu item is selected.
+                intent = new Intent(this, ChallengePage.class);
+                startActivity(intent);
+                break;
+            case R.id.navigation_shop:
+                // Action to perform when shop Menu item is selected.
+                intent = new Intent(this, ShopPage.class);
+                startActivity(intent);
+                break;
+            case R.id.navigation_home:
+                // Action to perform when home Menu item is selected.
+                intent = new Intent(this, StepCounter.class);
+                startActivity(intent);
+                break;
+            case R.id.navigation_leader_board:
+                // Action to perform when leaderboard Menu item is selected.
+                intent = new Intent(this, LeaderboardPage.class);
+                startActivity(intent);
+                break;
+            case R.id.navigation_settings:
+                // Action to perform when settings Menu item is selected.
+
+                break;
+        }
+    }
+}
