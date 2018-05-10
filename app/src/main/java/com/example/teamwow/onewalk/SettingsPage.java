@@ -1,9 +1,11 @@
 package com.example.teamwow.onewalk;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +26,7 @@ public class SettingsPage extends AppCompatActivity {
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String uid = user.getUid();
+    AuthUI auth = AuthUI.getInstance();
     Context context = this;
 
     @Override
@@ -32,6 +35,7 @@ public class SettingsPage extends AppCompatActivity {
         setContentView(R.layout.settings_page);
         setupNavigationView();
 
+
         Button logOutButton = findViewById(R.id.Logout); // get the log out button
         Button deleteButton = findViewById(R.id.deleteBtn); //get the delete account btn
 
@@ -39,9 +43,7 @@ public class SettingsPage extends AppCompatActivity {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AuthUI.getInstance()
-                        .signOut(context)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                auth.signOut(context).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
@@ -60,24 +62,7 @@ public class SettingsPage extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                AuthUI.getInstance()
-                        .delete(context)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    // remove the account information from the database
-                                    db.getReference("Users").child(uid).removeValue();
-                                    db.getReference("Leaderboard").child(uid).removeValue();
-
-                                    displayMessage(getString(R.string.delete_account_success));
-                                    LogIn();
-                                }
-                                else {
-                                    displayMessage(getString(R.string.delete_account_failed));
-                                }
-                            }
-                        });
+                createAlertDialoge();
             }
         });
     }
@@ -95,6 +80,56 @@ public class SettingsPage extends AppCompatActivity {
      */
     private void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    /*
+     * Creates a confifmation dialogue for account deletion
+     * If user confirms then account is deleted and they are returned to sign in page
+     *
+     * Author: Connie
+     */
+    private void createAlertDialoge()
+    {
+        // Alert Builder
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+
+        alertBuilder.setMessage("Are you sure you want to delete your account? This will erase all data" +
+                "linked to your account.");
+        alertBuilder.setCancelable(true);
+
+        // Action for positive button
+        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                auth.delete(context).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    // remove the account information from the database
+                                    db.getReference("Users").child(uid).removeValue();
+                                    db.getReference("Leaderboard").child(uid).removeValue();
+
+                                    displayMessage(getString(R.string.delete_account_success));
+                                    LogIn();
+                                }
+                                else {
+                                    displayMessage(getString(R.string.delete_account_failed));
+                                }
+                            }
+                        });
+            }
+        });
+
+        // Action for negative option
+        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        // Create the dialoge and show it
+        alertBuilder.create().show();
     }
 
     /* Creates the bottom navigation bar */

@@ -1,7 +1,9 @@
 package com.example.teamwow.onewalk;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -20,6 +22,9 @@ public class Login extends AppCompatActivity{
 
     // Reference to the firebase database
     private FirebaseDatabase db;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,5 +97,7 @@ public class Login extends AppCompatActivity{
     private void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
+
+
 }
 
