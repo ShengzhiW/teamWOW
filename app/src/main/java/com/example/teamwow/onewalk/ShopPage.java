@@ -1,8 +1,5 @@
 package com.example.teamwow.onewalk;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,28 +18,29 @@ public class ShopPage extends AppCompatActivity {
         setupNavigationView();
     }
 
+    /* Creates the bottom navigation bar */
     private void setupNavigationView() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
 
             // Select first menu item by default and show Fragment accordingly.
             Menu menu = bottomNavigationView.getMenu();
-            selectFragment(menu.getItem(1));
+            selectPage(menu.getItem(1));
 
             // Set action to perform when any menu-item is selected.
             bottomNavigationView.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            selectFragment(item);
+                            selectPage(item);
                             return false;
                         }
                     });
         }
     }
 
-    protected void selectFragment(MenuItem item) {
-
+    /* Starts the activity corresponding to the selected nav-bar button */
+    protected void selectPage(MenuItem item) {
         item.setChecked(true);
         Intent intent;
 

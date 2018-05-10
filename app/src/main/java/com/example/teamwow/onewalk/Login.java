@@ -1,17 +1,8 @@
 package com.example.teamwow.onewalk;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -76,6 +67,11 @@ public class Login extends AppCompatActivity{
         displayMessage(getString(R.string.unknown_response));
     }
 
+    /* Name: updateDatabase()
+     * Description: When user is logged in, load their uid/name/email into the database
+     *
+     * Author: Alex Lo
+     */
     private void updateDatabase() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 

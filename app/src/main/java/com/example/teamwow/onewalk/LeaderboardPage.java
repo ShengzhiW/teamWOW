@@ -1,8 +1,5 @@
 package com.example.teamwow.onewalk;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -41,12 +38,10 @@ public class LeaderboardPage extends AppCompatActivity {
         buildLeaderboard();
     }
 
-    /* Author: Alex Lo
-     *
-     * Pulls and displays the top 10 users on the leaderboard from the database
-     */
+    /* Pulls and displays the top 10 users on the leaderboard from the database */
     public void buildLeaderboard() {
         Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(10);
+        // attaches a listener to check when a user's step count is updated
         leaderQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -63,39 +58,39 @@ public class LeaderboardPage extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+
+        // sets up the leaderboard using a recycler view and adapter
         leaderboardView = (RecyclerView) findViewById(R.id.leaderboardView);
-
         leaderboardView.setHasFixedSize(true);
-
         leaderboardLayoutManager = new LinearLayoutManager(this);
         leaderboardView.setLayoutManager(leaderboardLayoutManager);
-
         leaderboardAdapter = new LeaderboardAdapter(list);
         leaderboardView.setAdapter(leaderboardAdapter);
     }
 
+    /* Creates the bottom navigation bar */
     private void setupNavigationView() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
 
             // Select first menu item by default and show Fragment accordingly.
             Menu menu = bottomNavigationView.getMenu();
-            selectFragment(menu.getItem(3));
+            selectPage(menu.getItem(3));
 
             // Set action to perform when any menu-item is selected.
             bottomNavigationView.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            selectFragment(item);
+                            selectPage(item);
                             return false;
                         }
                     });
         }
     }
 
-    protected void selectFragment(MenuItem item) {
-
+    /* Starts the activity corresponding to the selected nav-bar button */
+    protected void selectPage(MenuItem item) {
         item.setChecked(true);
         Intent intent;
 

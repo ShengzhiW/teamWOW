@@ -1,8 +1,5 @@
 package com.example.teamwow.onewalk;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -13,8 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,11 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class StepCounter extends AppCompatActivity implements SensorEventListener {
     // variables for sensor manager and sensor, used to implement step detector
@@ -49,11 +40,9 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.step_counter);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        setupNavigationView();
 
-        Intent intent = getIntent();
+        // Set up navigation bar
+        setupNavigationView();
 
         // Pull current step count from database
         initialStepCount();
@@ -65,14 +54,8 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
 
-    /**
-     * @author Alex Zhu
-     *
-     * Event listener that fires when the step detector is triggered, i.e. a step
-     * is taken. Updates database.
-     *
-     * @param event - holds information about the fired event, irrelevant
-     * for this function for now
+    /* Event listener that fires when the step detector is triggered, i.e. a step is taken
+     * Updates database under leaderboard and user
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -85,20 +68,13 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         mStepDetector.setText(String.valueOf(count));
     }
 
-    /**
-     * @author Alex Zhu
-     *
-     * Placeholder function to satisfy interface, fires when accuracy of
-     * the sensor changes.
-     */
+    /* Placeholder function to satisfy interface, fires when accuracy of the sensor changes. */
     @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
-    }
 
-    /* Author: Alex Lo
-     *
-     * Looks up the user in the database and keeps a reference
+
+    /* Looks up the user in the database and keeps a reference
      * Grabs the existing step count if there is one
      */
     public void initialStepCount() {
@@ -124,28 +100,29 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         userStepCount.addListenerForSingleValueEvent(stepListener);
     }
 
+    /* Creates the bottom navigation bar */
     private void setupNavigationView() {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         if (bottomNavigationView != null) {
 
             // Select first menu item by default and show Fragment accordingly.
             Menu menu = bottomNavigationView.getMenu();
-            selectFragment(menu.getItem(2));
+            selectPage(menu.getItem(2));
 
             // Set action to perform when any menu-item is selected.
             bottomNavigationView.setOnNavigationItemSelectedListener(
                     new BottomNavigationView.OnNavigationItemSelectedListener() {
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                            selectFragment(item);
+                            selectPage(item);
                             return false;
                         }
                     });
         }
     }
 
-    protected void selectFragment(MenuItem item) {
-
+    /* Starts the activity corresponding to the selected nav-bar button */
+    protected void selectPage(MenuItem item) {
         item.setChecked(true);
         Intent intent;
 
