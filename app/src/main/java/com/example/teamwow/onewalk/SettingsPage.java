@@ -8,10 +8,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -23,11 +25,11 @@ import com.google.android.gms.tasks.Task;
 
 public class SettingsPage extends AppCompatActivity {
 
-    FirebaseDatabase db = FirebaseDatabase.getInstance();
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String uid = user.getUid();
-    AuthUI auth = AuthUI.getInstance();
-    Context context = this;
+    final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String uid = user.getUid();
+    final AuthUI auth = AuthUI.getInstance();
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +41,44 @@ public class SettingsPage extends AppCompatActivity {
         Button logOutButton = findViewById(R.id.Logout); // get the log out button
         Button deleteButton = findViewById(R.id.deleteBtn); //get the delete account btn
 
-        // Does nothing so far
+        // Add a listener to the change nickname button that prompts the user for input and then updates the database
         nicknameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //db.getReference("Users").child(uid).child("Name").setValue("");
+                // get prompts.xml view
+                LayoutInflater li = LayoutInflater.from(context);
+                View promptsView = li.inflate(R.layout.change_nickname, null);
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        context);
+
+                // set prompts.xml to alert dialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                final EditText userInput = (EditText) promptsView.findViewById(R.id.newNickname);
+
+                // set dialog message
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // get user input and update database
+                                        String input = userInput.getText().toString();
+                                        db.getReference("Users").child(uid).child("Name").setValue(input);
+                                        db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
+                                        displayMessage(getString(R.string.changed_nickname)+" "+input);
+                                    }
+                                })
+                        .setNegativeButton("Cancel",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog, show it
+                alertDialogBuilder.create().show();
             }
         });
 
