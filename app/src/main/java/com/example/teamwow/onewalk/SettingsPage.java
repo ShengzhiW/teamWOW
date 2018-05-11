@@ -35,9 +35,17 @@ public class SettingsPage extends AppCompatActivity {
         setContentView(R.layout.settings_page);
         setupNavigationView();
 
-
+        Button nicknameButton = findViewById(R.id.Nickname);
         Button logOutButton = findViewById(R.id.Logout); // get the log out button
         Button deleteButton = findViewById(R.id.deleteBtn); //get the delete account btn
+
+        // Does nothing so far
+        nicknameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //db.getReference("Users").child(uid).child("Name").setValue("");
+            }
+        });
 
         // Add a listener to the logout button that logs the user out
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +70,7 @@ public class SettingsPage extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                createAlertDialoge();
+                createAlertDialogue();
             }
         });
     }
@@ -83,12 +91,12 @@ public class SettingsPage extends AppCompatActivity {
     }
 
     /*
-     * Creates a confifmation dialogue for account deletion
+     * Creates a confirmation dialogue for account deletion
      * If user confirms then account is deleted and they are returned to sign in page
      *
      * Author: Connie
      */
-    private void createAlertDialoge()
+    private void createAlertDialogue()
     {
         // Alert Builder
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -128,7 +136,7 @@ public class SettingsPage extends AppCompatActivity {
             }
         });
 
-        // Create the dialoge and show it
+        // Create the dialog and show it
         alertBuilder.create().show();
     }
 
