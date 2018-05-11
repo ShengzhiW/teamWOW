@@ -31,6 +31,14 @@
             android:layout_height="wrap_content"
             android:text="@string/delete_account_text" />
 
+        <Button
+            android:id="@+id/priBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_privacy"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="308dp" />
+
     </LinearLayout>
 
     <include layout="@layout/nav_bar" />

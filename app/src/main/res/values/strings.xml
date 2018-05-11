@@ -4,6 +4,7 @@
     <string name="signin_failed">Failed sign in</string>
     <string name="signout_failed">Failed sign out</string>
     <string name="unknown_response">Error!! ): </string>
+    <string name="passed">Success!!</string>
 
     <string name="title_challenge">Challenge</string>
     <string name="title_shop">Shop</string>
@@ -16,4 +17,12 @@
     <string name="signout">Logged Out</string>
     <string name="delete_account_success">Account Deleted</string>
     <string name="delete_account_failed">Delete Account Failed</string>
+
+    <!-- Privacy strings -->
+    <string name="edit_privacy">Edit Privacy Settings</string>
+    <string name="privacy_leader_board">Appear on leader board</string>
+    <string name=""
+
+    <!-- Help string -->
+    <string name="OwO">What\'s this?</string>
 </resources>

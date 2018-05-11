@@ -38,6 +38,7 @@ public class SettingsPage extends AppCompatActivity {
 
         Button logOutButton = findViewById(R.id.Logout); // get the log out button
         Button deleteButton = findViewById(R.id.deleteBtn); //get the delete account btn
+        Button privacyButton = findViewById(R.id.priBtn); // get the privacy buttoon
 
         // Add a listener to the logout button that logs the user out
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +63,18 @@ public class SettingsPage extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                createAlertDialoge();
+                createAlertDialogue();
             }
         });
+
+        // Adds a listener to the privacy button, provides options
+        privacyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(SettingsPage.this,PrivacyPage.class));
+            }
+        });
+
     }
 
     /* Starts the login activity and brings the user back to the login page */
@@ -88,7 +98,7 @@ public class SettingsPage extends AppCompatActivity {
      *
      * Author: Connie
      */
-    private void createAlertDialoge()
+    private void createAlertDialogue()
     {
         // Alert Builder
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
