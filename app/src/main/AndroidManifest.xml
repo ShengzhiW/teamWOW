@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChallengePage" />
+        <activity
+            android:name=".ChallengePage"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity android:name=".ShopPage" />
         <activity android:name=".StepCounter" />
         <activity android:name=".LeaderboardPage" />

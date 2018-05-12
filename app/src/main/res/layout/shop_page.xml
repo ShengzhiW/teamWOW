@@ -21,6 +21,9 @@
 
     </LinearLayout>
 
-    <include layout="@layout/nav_bar" />
+    <include
+        layout="@layout/nav_bar"
+        android:layout_height="55dp"
+        tools:layout_editor_absoluteY="456dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -16,8 +16,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_leaderboard"/>
+            android:text="@string/title_leaderboard" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/leaderboardView"
@@ -27,6 +26,9 @@
 
     </LinearLayout>
 
-    <include layout="@layout/nav_bar" />
+    <include
+        layout="@layout/nav_bar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </android.support.constraint.ConstraintLayout>

@@ -47,15 +47,16 @@ public class PrivacyPage extends AppCompatActivity{
 
 
         Log.d(TAG,"Logging stuff");
+
         // Access current data, and update switches as necessary
-        ValueEventListener switchListener = new ValueEventListener() {
+        ValueEventListener primaryListener = new ValueEventListener() {
 
             boolean value;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
                 Log.d(TAG,"The Reference: " + dataSnapshot.getRef() + " Value: " + value );
-                dataSnapshot.getRef().setValue(value);
+                primarySwitch.setChecked(value);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -63,8 +64,24 @@ public class PrivacyPage extends AppCompatActivity{
             }
         };
 
-        privacy_leaderboard.addListenerForSingleValueEvent(switchListener);
-        privacy_email.addValueEventListener(switchListener);
+        privacy_leaderboard.addValueEventListener(primaryListener);
+
+        ValueEventListener emailListener = new ValueEventListener() {
+
+            boolean value;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
+                Log.d(TAG,"The Reference: " + dataSnapshot.getRef() + " Value: " + value );
+                emailSwitch.setChecked(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "Database error");
+            }
+        };
+
+        privacy_email.addValueEventListener(emailListener);
 
         // Set up primary switch functionality
         primarySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -78,18 +95,19 @@ public class PrivacyPage extends AppCompatActivity{
                     emailSwitch.setChecked(false);
                     privacyDB.child("Show Email").setValue(false);
                 }
+                emailSwitch.setEnabled(isChecked);
             }
         });
 
-        if(primarySwitch.isChecked()){
-            // Set up email switch functionality
-            emailSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                    privacyDB.child("Show Email").setValue(isChecked);
-                }
-            });
-        }
+
+        // Set up email switch functionality
+        emailSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                privacyDB.child("Show Email").setValue(isChecked);
+            }
+        });
+
 
 
         // Finish activity, should return to Settings Page activity
