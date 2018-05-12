@@ -22,8 +22,10 @@
 
     <!-- Privacy strings -->
     <string name="edit_privacy">Edit Privacy Settings</string>
+    <string name="privacy_title">Privacy</string>
     <string name="privacy_leader_board">Appear on leader board</string>
-    <string name=""
+    <string name="privacy_email">Display email</string>
+
 
     <!-- Help string -->
     <string name="OwO">What\'s this?</string>

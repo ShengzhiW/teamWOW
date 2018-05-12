@@ -114,7 +114,9 @@ public class SettingsPage extends AppCompatActivity {
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                // Create a popup screen
                 startActivity(new Intent(SettingsPage.this,PrivacyPage.class));
+
             }
         });
 
