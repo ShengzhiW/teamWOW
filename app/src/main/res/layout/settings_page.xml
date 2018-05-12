@@ -6,39 +6,83 @@
     android:layout_height="match_parent"
     tools:context=".SettingsPage">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="44dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:text="@string/title_settings"
+        android:textColor="@color/Figma"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="311dp"
+        android:layout_height="406dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/layout_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/priBtn"
+            style="@style/FirebaseUI.Button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_settings"/>
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="39dp"
+            android:text="@string/edit_privacy"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="308dp" />
 
         <Button
             android:id="@+id/Nickname"
-            android:layout_width="match_parent"
+            style="@style/FirebaseUI.Button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="95dp"
             android:text="@string/nickname_text" />
 
         <Button
             android:id="@+id/Logout"
-            android:layout_width="match_parent"
+            style="@style/FirebaseUI.Button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="151dp"
             android:text="@string/logout_text" />
 
         <Button
             android:id="@+id/deleteBtn"
-            android:layout_width="match_parent"
+            style="@style/FirebaseUI.Button.AccountChooser"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="25dp"
             android:text="@string/delete_account_text" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <include layout="@layout/nav_bar" />
+    <include
+        layout="@layout/nav_bar"
+        android:layout_width="394dp"
+        android:layout_height="56dp"
+        tools:layout_editor_absoluteX="-10dp"
+        tools:layout_editor_absoluteY="455dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -6,21 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".ChallengePage">
 
-    <LinearLayout
+    <include
+        layout="@layout/nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/title_challenge"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="305dp"
+        android:layout_height="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/title_challenge"
+        android:textAlignment="center"
+        android:textColor="@color/Figma"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="16dp" />
 
-    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="333dp"
+        android:layout_height="383dp"
+        android:background="@drawable/layout_bg"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="77dp">
 
-    <include layout="@layout/nav_bar" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

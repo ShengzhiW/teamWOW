@@ -40,6 +40,7 @@ public class SettingsPage extends AppCompatActivity {
         Button nicknameButton = findViewById(R.id.Nickname);
         Button logOutButton = findViewById(R.id.Logout); // get the log out button
         Button deleteButton = findViewById(R.id.deleteBtn); //get the delete account btn
+        Button privacyButton = findViewById(R.id.priBtn); // get the privacy buttoon
 
         // Add a listener to the change nickname button that prompts the user for input and then updates the database
         nicknameButton.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +113,17 @@ public class SettingsPage extends AppCompatActivity {
                 createAlertDialogue();
             }
         });
+
+        // Adds a listener to the privacy button, provides options
+        privacyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                // Create a popup screen
+                startActivity(new Intent(SettingsPage.this,PrivacyPage.class));
+
+            }
+        });
+
     }
 
     /* Starts the login activity and brings the user back to the login page */

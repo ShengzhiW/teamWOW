@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,9 +85,12 @@ public class Login extends AppCompatActivity{
         final String email = user.getEmail();
         final String name = user.getDisplayName();
         final String uid = user.getUid();
+        final String default_privacy = "Friends only";
         db.getReference("Users").child(uid).child("Email").setValue(email);
         db.getReference("Users").child(uid).child("Name").setValue(name);
+
         db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
+
     }
 
     /* Name: displayMessage()
