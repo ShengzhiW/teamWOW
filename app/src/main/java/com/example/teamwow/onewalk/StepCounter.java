@@ -1,11 +1,9 @@
 package com.example.teamwow.onewalk;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,27 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+public class StepCounter extends AppCompatActivity {
+    // variable to listen when a step a taken
+    private StepCounterReceiver mStepCounterReceiver;
 
-public class StepCounter extends AppCompatActivity implements SensorEventListener {
-    // variables for sensor manager and sensor, used to implement step detector
-    private SensorManager mSensorManager;
-    private Sensor mSensor;
-    // variable for the default text currently on screen ("Hello World")
+    // variable for the default text currently on screen
     private TextView mStepDetector;
-
-    // step count
-    private int count = 0;
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference userStepCount;
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private String uid = user.getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,60 +27,31 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         // Set up navigation bar
         setupNavigationView();
 
-        // Pull current step count from database
-        initialStepCount();
-
-        // set up step detector using a manager
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
-        // begin listening for steps, set the delay time to fastest speed
-        mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-    }
-
-    /* Event listener that fires when the step detector is triggered, i.e. a step is taken
-     * Updates database under leaderboard and user
-     */
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        // increment count and store value in database
-        count++;
-        // Write the count value to the database under the user
-        userStepCount.setValue(count);
-        db.getReference("Leaderboard").child(uid).child("Steps").setValue(count);
-        // set text to current step count
-        mStepDetector.setText(String.valueOf(count));
-    }
-
-    /* Placeholder function to satisfy interface, fires when accuracy of the sensor changes. */
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
-
-
-
-    /* Looks up the user in the database and keeps a reference
-     * Grabs the existing step count if there is one
-     */
-    public void initialStepCount() {
-        // Look up specific user in database and keep a reference while app is open
-        final String email = user.getEmail();
-        db.getReference("Users").child(uid).child("Email").setValue(email);
-
-        // Get the text with id "test"
+        // get the text by id
         mStepDetector = findViewById(R.id.stepCount);
-        // Get a reference to the step count, and read the data and attach it to the screen
-        userStepCount = db.getReference("Users").child(uid).child("Steps");
 
-        ValueEventListener stepListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
-                mStepDetector.setText(String.valueOf(count));
-            }
+        // begin step counting service
+        startService(new Intent(this, StepCounterService.class));
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        userStepCount.addListenerForSingleValueEvent(stepListener);
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // create a BroadcastReceiver to listen for steps from step counting service
+        if(mStepCounterReceiver == null) mStepCounterReceiver = new StepCounterReceiver();
+
+        // receiver listens for intens with the action "update_count"
+        IntentFilter intentFilter = new IntentFilter("update_count");
+        registerReceiver(mStepCounterReceiver, intentFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // unregister BroadcastReceiver, no longer need to listen for steps
+        if(mStepCounterReceiver != null) unregisterReceiver(mStepCounterReceiver);
     }
 
     /* Creates the bottom navigation bar */
@@ -151,6 +105,29 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
                 intent = new Intent(this, SettingsPage.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        // if app is killed, stop service here
+        stopService(new Intent(this, StepCounterService.class));
+    }
+
+    /*
+     * Class that runs the function onReceive every time a step is detected in StepCounterService
+     * Receives information from service via the sendBroadcast function (see StepCounterService)
+     */
+    private class StepCounterReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // get the current count from the intent's extras defined in StepCounterService
+            int currentCount = intent.getExtras().getInt("count");
+
+            // update the text on screen
+            mStepDetector.setText(String.valueOf(currentCount));
         }
     }
 }

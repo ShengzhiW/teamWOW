@@ -91,6 +91,10 @@ public class SettingsPage extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     displayMessage(getString(R.string.signout));
+
+                                    // if logged out, service is stopped so steps aren't detected
+                                    stopService(new Intent(SettingsPage.this, StepCounterService.class));
+
                                     LogIn();
                                 } else {
                                     displayMessage(getString(R.string.signout_failed));
@@ -136,7 +140,7 @@ public class SettingsPage extends AppCompatActivity {
         // Alert Builder
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 
-        alertBuilder.setMessage("Are you sure you want to delete your account? This will erase all data" +
+        alertBuilder.setMessage("Are you sure you want to delete your account? This will erase all data " +
                 "linked to your account.");
         alertBuilder.setCancelable(true);
 
@@ -151,6 +155,9 @@ public class SettingsPage extends AppCompatActivity {
                                     // remove the account information from the database
                                     db.getReference("Users").child(uid).removeValue();
                                     db.getReference("Leaderboard").child(uid).removeValue();
+
+                                    // delete account will stop step counter service
+                                    stopService(new Intent(SettingsPage.this, StepCounterService.class));
 
                                     displayMessage(getString(R.string.delete_account_success));
                                     LogIn();
