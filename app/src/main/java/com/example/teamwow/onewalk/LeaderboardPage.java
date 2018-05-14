@@ -98,17 +98,23 @@ public class LeaderboardPage extends AppCompatActivity {
             case R.id.navigation_challenge:
                 // Action to perform when challenge Menu item is selected.
                 intent = new Intent(this, ChallengePage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 break;
             case R.id.navigation_shop:
                 // Action to perform when shop Menu item is selected.
                 intent = new Intent(this, ShopPage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 break;
             case R.id.navigation_home:
                 // Action to perform when home Menu item is selected.
                 intent = new Intent(this, StepCounter.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 break;
             case R.id.navigation_leader_board:
                 // Action to perform when leaderboard Menu item is selected.
@@ -117,7 +123,9 @@ public class LeaderboardPage extends AppCompatActivity {
             case R.id.navigation_settings:
                 // Action to perform when settings Menu item is selected.
                 intent = new Intent(this, SettingsPage.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                overridePendingTransition(0,0);
                 break;
         }
     }

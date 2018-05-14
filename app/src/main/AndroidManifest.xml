@@ -24,14 +24,22 @@
         </activity>
         <activity
             android:name=".ChallengePage"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".ShopPage" />
-        <activity android:name=".StepCounter" />
-        <activity android:name=".LeaderboardPage" />
-        <activity android:name=".SettingsPage" />
-        <activity android:name=".PrivacyPage" />
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ShopPage"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".StepCounter"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".LeaderboardPage"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".SettingsPage"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".PrivacyPage"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

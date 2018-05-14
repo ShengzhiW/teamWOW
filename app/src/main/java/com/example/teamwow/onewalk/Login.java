@@ -87,8 +87,9 @@ public class Login extends AppCompatActivity{
         final String uid = user.getUid();
         final String default_privacy = "Friends only";
         db.getReference("Users").child(uid).child("Email").setValue(email);
+        if(db.getReference("Users").child(uid).child("Name") == null)
         db.getReference("Users").child(uid).child("Name").setValue(name);
-
+        if(db.getReference("Leaderboard").child(uid).child("Name") == null)
         db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
 
     }
