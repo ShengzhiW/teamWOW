@@ -130,4 +130,9 @@ public class StepCounter extends AppCompatActivity {
             mStepDetector.setText(String.valueOf(currentCount));
         }
     }
+
+    /** have the back button redirect to this page, empty because already on this page */
+    @Override
+    public void onBackPressed(){}
+
 }
