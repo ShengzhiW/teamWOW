@@ -4,16 +4,29 @@
     <string name="signin_failed">Failed sign in</string>
     <string name="signout_failed">Failed sign out</string>
     <string name="unknown_response">Error!! ): </string>
+    <string name="passed">Success!!</string>
 
-    <string name="title_challenge">Challenge</string>
+    <string name="title_challenge">Quests</string>
     <string name="title_shop">Shop</string>
     <string name="title_home">Today</string>
     <string name="title_leaderboard">Leaderboard</string>
     <string name="title_settings">Settings</string>
     <string name="title_activity_step_counter">StepCounter</string>
+    <string name="nickname_text">Change NickName</string>
+    <string name="changed_nickname">Name changed to:</string>
     <string name="logout_text">Logout</string>
     <string name="delete_account_text">Delete Account</string>
     <string name="signout">Logged Out</string>
     <string name="delete_account_success">Account Deleted</string>
     <string name="delete_account_failed">Delete Account Failed</string>
+
+    <!-- Privacy strings -->
+    <string name="edit_privacy">Privacy</string>
+    <string name="privacy_title">Privacy</string>
+    <string name="privacy_leader_board">Appear on leader board</string>
+    <string name="privacy_email">Display email</string>
+
+
+    <!-- Help string -->
+    <string name="OwO">What\'s this?</string>
 </resources>

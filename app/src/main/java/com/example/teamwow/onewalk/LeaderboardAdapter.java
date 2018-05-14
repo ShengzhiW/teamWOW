@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/* Adapter class allowing the leaderboard to get data from an ArrayList */
 public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.ViewHolder> {
     private ArrayList<String> mDataset;
 
