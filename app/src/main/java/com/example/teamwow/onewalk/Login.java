@@ -102,7 +102,10 @@ public class Login extends AppCompatActivity{
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    /** have the back button redirect to this page, empty because already on this page */
+    /** have the back button redirect to the phone's home screen
+     * WARNING: WHEN YOU REOPEN THE APP IT GOES BACK TO THE WHITE FAILED SIGN IN SCREEN
+     * NEED TO FIX THIS FUNCTIONALITY
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent();
