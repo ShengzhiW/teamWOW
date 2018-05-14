@@ -129,4 +129,12 @@ public class LeaderboardPage extends AppCompatActivity {
                 break;
         }
     }
+
+    /** have the back button redirect to the home page*/
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, StepCounter.class);
+        startActivity(intent);
+    }
+
 }
