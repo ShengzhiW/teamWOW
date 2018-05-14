@@ -26,6 +26,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int count = 0;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference userStepCount;
+    private DatabaseReference lbStepCount;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
 
@@ -44,7 +45,8 @@ public class StepCounterService extends Service implements SensorEventListener {
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
         // Get a reference to the step count, and read the data and attach it to the screen
-        userStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
+        userStepCount = db.getReference("Users").child(uid).child("Steps");
+        lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
 
         // set a listener every time a user's steps change
         ValueEventListener stepListener = new ValueEventListener() {
@@ -87,6 +89,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         // increment count and set database's Step count to variable
         count++;
         userStepCount.setValue(count);
+        lbStepCount.setValue(count);
 
         // create an Intent with the action "update_count"
         Intent updateCount = new Intent("update_count");
