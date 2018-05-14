@@ -102,6 +102,15 @@ public class Login extends AppCompatActivity{
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+    /** have the back button redirect to this page, empty because already on this page */
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
 
 }
 

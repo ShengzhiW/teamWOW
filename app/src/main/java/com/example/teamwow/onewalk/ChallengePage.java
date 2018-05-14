@@ -160,7 +160,7 @@ public class ChallengePage extends AppCompatActivity {
         }
     }
 
-    /** have the back button redirect to the home page*/
+    /**    have the back button redirect to the home page */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(this, StepCounter.class);
