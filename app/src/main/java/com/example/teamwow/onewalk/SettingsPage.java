@@ -137,7 +137,7 @@ public class SettingsPage extends AppCompatActivity {
      * Displays a message
      * Author: Connie
      */
-    private void displayMessage(String message){
+    public void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
