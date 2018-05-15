@@ -65,12 +65,17 @@ public class Login extends AppCompatActivity{
                 Intent intent = new Intent(this, StepCounter.class);
                 startActivity(intent);
             }
+
+            //means you cancelled sign in, just return to home page
             if(resultCode == RESULT_CANCELED){
-                displayMessage(getString(R.string.signin_failed));
+
+                //exits the current activity
+                finish();
             }
             return;
         }
         displayMessage(getString(R.string.unknown_response));
+
     }
 
     /* Name: updateDatabase()
@@ -103,10 +108,7 @@ public class Login extends AppCompatActivity{
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    /** have the back button redirect to the phone's home screen
-     * WARNING: WHEN YOU REOPEN THE APP IT GOES BACK TO THE WHITE FAILED SIGN IN SCREEN
-     * NEED TO FIX THIS FUNCTIONALITY
-     */
+    /** have the back button redirect to the phone's home screen */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent();
@@ -114,7 +116,6 @@ public class Login extends AppCompatActivity{
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
     }
-
 
 }
 

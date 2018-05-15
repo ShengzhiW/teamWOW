@@ -128,8 +128,13 @@ public class SettingsPage extends AppCompatActivity {
 
     /* Starts the login activity and brings the user back to the login page */
     private void LogIn(){
+
         Intent logInIntent = new Intent(this, Login.class);
+
+        //clears the activity stack
+        logInIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(logInIntent);
+
     }
 
     /*
