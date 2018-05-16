@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_challenge"
+        android:id="@+id/navigation_quest"
         android:icon="@drawable/ic_challenge_24dp"
-        android:title="@string/title_challenge" />
+        android:title="@string/title_quest" />
 
     <item
         android:id="@+id/navigation_shop"
@@ -12,9 +12,9 @@
         android:title="@string/title_shop" />
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_today"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_today" />
 
     <item
         android:id="@+id/navigation_leader_board"

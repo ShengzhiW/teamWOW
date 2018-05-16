@@ -6,10 +6,10 @@
     <string name="unknown_response">Error!! ): </string>
     <string name="passed">Success!!</string>
 
-    <string name="title_challenge">Quests</string>
+    <string name="title_quest">Quests</string>
     <string name="title_shop">Shop</string>
-    <string name="title_home">Today</string>
-    <string name="title_leaderboard">Leaderboard</string>
+    <string name="title_today">Today</string>
+    <string name="title_leaderboard">Weekly Leaderboard</string>
     <string name="title_settings">Settings</string>
     <string name="title_activity_step_counter">StepCounter</string>
     <string name="nickname_text">Change NickName</string>
@@ -29,4 +29,7 @@
 
     <!-- Help string -->
     <string name="OwO">What\'s this?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

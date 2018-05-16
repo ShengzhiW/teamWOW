@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="516dp"
-        android:text="@string/title_challenge"
+        android:text="@string/title_quest"
         android:textAlignment="center"
         android:textColor="@color/Figma"
         android:textSize="24sp"

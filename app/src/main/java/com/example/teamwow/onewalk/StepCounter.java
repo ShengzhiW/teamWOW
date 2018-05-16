@@ -41,7 +41,7 @@ public class StepCounter extends AppCompatActivity {
         // create a BroadcastReceiver to listen for steps from step counting service
         if(mStepCounterReceiver == null) mStepCounterReceiver = new StepCounterReceiver();
 
-        // receiver listens for intens with the action "update_count"
+        // receiver listens for intent with the action "update_count"
         IntentFilter intentFilter = new IntentFilter("update_count");
         registerReceiver(mStepCounterReceiver, intentFilter);
     }
@@ -81,7 +81,7 @@ public class StepCounter extends AppCompatActivity {
         Intent intent;
 
         switch (item.getItemId()) {
-            case R.id.navigation_challenge:
+            case R.id.navigation_quest:
                 // Action to perform when challenge Menu item is selected.
                 intent = new Intent(this, ChallengePage.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -95,7 +95,7 @@ public class StepCounter extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 break;
-            case R.id.navigation_home:
+            case R.id.navigation_today:
                 // Action to perform when home Menu item is selected.
 
                 break;

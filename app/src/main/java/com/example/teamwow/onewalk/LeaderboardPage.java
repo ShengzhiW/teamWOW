@@ -95,7 +95,7 @@ public class LeaderboardPage extends AppCompatActivity {
         Intent intent;
 
         switch (item.getItemId()) {
-            case R.id.navigation_challenge:
+            case R.id.navigation_quest:
                 // Action to perform when challenge Menu item is selected.
                 intent = new Intent(this, ChallengePage.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -109,7 +109,7 @@ public class LeaderboardPage extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(0,0);
                 break;
-            case R.id.navigation_home:
+            case R.id.navigation_today:
                 // Action to perform when home Menu item is selected.
                 intent = new Intent(this, StepCounter.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
