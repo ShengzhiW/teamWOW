@@ -25,21 +25,6 @@
             android:name=".ContainerPage"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ChallengePage"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ShopPage"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".StepCounter"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LeaderboardPage"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SettingsPage"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".PrivacyPage"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

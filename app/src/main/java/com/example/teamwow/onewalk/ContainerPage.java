@@ -24,6 +24,7 @@ public class ContainerPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container_page);
 
+        // prevents the expanding of the menu icons
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
@@ -59,16 +60,14 @@ public class ContainerPage extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-
         // unregister BroadcastReceiver, no longer need to listen for steps
         if(mStepCounterReceiver != null) unregisterReceiver(mStepCounterReceiver);
     }
 
+    /* if app is killed, stop service here */
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        // if app is killed, stop service here
         stopService(new Intent(this, StepCounterService.class));
     }
 
@@ -93,6 +92,9 @@ public class ContainerPage extends AppCompatActivity {
         }
     }
 
+    /* Chooses the fragment to display on the screen
+     * Calls pushFragment
+     */
     protected void selectFragment(MenuItem item) {
         item.setChecked(true);
 
@@ -115,6 +117,7 @@ public class ContainerPage extends AppCompatActivity {
         }
     }
 
+    /* Replaces the currently displayed fragment with the specified fragment */
     protected void pushFragment(Fragment fragment) {
         if (fragment == null)
             return;

@@ -38,6 +38,7 @@ public class TodayFragment extends Fragment {
 
         DatabaseReference userStepCount = db.getReference("Users").child(uid).child("Steps");
 
+        // allow the step counter text to be updated
         ValueEventListener stepListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

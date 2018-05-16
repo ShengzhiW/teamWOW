@@ -1,6 +1,9 @@
 # teamWOW - While One Walk
 
-##### Note: press sync project with graydle files when you pull (fixes some problems)
+#### Notes: 
+- press sync project with graydle files when you pull (fixes some problems)
+- to play with previous code, click on commits and click the < > at the time version you want
+  - also use git log and/or git checkout 
 
 ## QUICK GIT WORKFLOW VERSION
 1. git pull
@@ -58,17 +61,16 @@ Add your code changes until you are ready to send your code to the Github
     - Now your changes are pushed to the Github!!!
 
 ### Things recently added:
-- Logout, delete account
-- Multiple activity pages
-- Basic leaderboard functionality
+- Back to fragments > <
+- Daily quests?
+- UI elements and layout
 
 ### Things to implement/work on:
 - Cleaning code (split into smaller functions and stuff, move stuff)
-  - Some stuff can be rewritten into separate classes (remove redundant code)
 - Comment code
+- UI/layout stuff
 - Avatar stuff
 - Leaderboards
-- Custom login (difficult if using Firebaseauth)
 - ((Artifacts))
 - Rename the package name lmao
 
