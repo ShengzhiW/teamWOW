@@ -16,9 +16,6 @@ import android.view.MenuItem;
 
 public class ContainerPage extends AppCompatActivity {
 
-    // variable to listen when a step a taken
-    private StepCounterReceiver mStepCounterReceiver;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,37 +28,6 @@ public class ContainerPage extends AppCompatActivity {
         setupNavigationView();
 
         startService(new Intent(this, StepCounterService.class));
-    }
-
-    /*
-     * Class that runs the function onReceive every time a step is detected in StepCounterService
-     * Receives information from service via the sendBroadcast function (see StepCounterService)
-     */
-    private class StepCounterReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // get the current count from the intent's extras defined in StepCounterService
-            int currentCount = intent.getExtras().getInt("count");
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // create a BroadcastReceiver to listen for steps from step counting service
-        if(mStepCounterReceiver == null) mStepCounterReceiver = new StepCounterReceiver();
-
-        // receiver listens for intent with the action "update_count"
-        IntentFilter intentFilter = new IntentFilter("update_count");
-        registerReceiver(mStepCounterReceiver, intentFilter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // unregister BroadcastReceiver, no longer need to listen for steps
-        if(mStepCounterReceiver != null) unregisterReceiver(mStepCounterReceiver);
     }
 
     /* if app is killed, stop service here */

@@ -53,15 +53,6 @@ public class StepCounterService extends Service implements SensorEventListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
-
-                // create an Intent with the action "update_count"
-                Intent setCount = new Intent("update_count");
-
-                // add an extra key-value pair relating the step count
-                setCount.putExtra("count", count);
-
-                // send a broadcast back to home page, received in BroadcastReceiver
-                sendBroadcast(setCount);
             }
 
             @Override
@@ -90,15 +81,6 @@ public class StepCounterService extends Service implements SensorEventListener {
         count++;
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
-
-        // create an Intent with the action "update_count"
-        Intent updateCount = new Intent("update_count");
-
-        // add an extra key-value pair relating current step count
-        updateCount.putExtra("count", count);
-
-        // send a message back to home page
-        sendBroadcast(updateCount);
     }
 
     /*
