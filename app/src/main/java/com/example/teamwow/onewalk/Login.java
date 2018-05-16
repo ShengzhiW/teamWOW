@@ -1,15 +1,12 @@
 package com.example.teamwow.onewalk;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,15 +59,20 @@ public class Login extends AppCompatActivity{
 
                 //loginUser();
                 //Test making an intent
-                Intent intent = new Intent(this, StepCounter.class);
+                Intent intent = new Intent(this, ContainerPage.class);
                 startActivity(intent);
             }
+
+            //means you cancelled sign in, just return to home page
             if(resultCode == RESULT_CANCELED){
-                displayMessage(getString(R.string.signin_failed));
+
+                //exits the current activity
+                finish();
             }
             return;
         }
         displayMessage(getString(R.string.unknown_response));
+
     }
 
     /* Name: updateDatabase()
@@ -87,8 +89,9 @@ public class Login extends AppCompatActivity{
         final String uid = user.getUid();
         final String default_privacy = "Friends only";
         db.getReference("Users").child(uid).child("Email").setValue(email);
+        if(db.getReference("Users").child(uid).child("Name") == null)
         db.getReference("Users").child(uid).child("Name").setValue(name);
-
+        if(db.getReference("Leaderboard").child(uid).child("Name") == null)
         db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
 
     }
@@ -102,6 +105,14 @@ public class Login extends AppCompatActivity{
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+    /** have the back button redirect to the phone's home screen */
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
 
 }
 

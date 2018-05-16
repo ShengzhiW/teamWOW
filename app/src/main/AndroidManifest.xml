@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service android:name=".StepCounterService" />
 
         <activity
@@ -23,15 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChallengePage"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name=".ShopPage" />
-        <activity android:name=".StepCounter" />
-        <activity android:name=".LeaderboardPage" />
-        <activity android:name=".SettingsPage" />
-        <activity android:name=".PrivacyPage" />
+            android:name=".ContainerPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PrivacyPage"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
