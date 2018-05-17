@@ -27,6 +27,7 @@
         <activity
             android:name=".PrivacyPage"
             android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

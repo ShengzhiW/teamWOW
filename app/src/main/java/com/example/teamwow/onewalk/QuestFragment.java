@@ -1,6 +1,10 @@
 package com.example.teamwow.onewalk;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +28,11 @@ public class QuestFragment extends Fragment {
     private TextView rewardText;
     private int questNum;
 
+    //private static final String ACTION_EDIT =
+            //"com.example.android.updateQuest.ACTION_EDIT";
+
+    //private static final int UPDATE_QUEST_ID = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +40,58 @@ public class QuestFragment extends Fragment {
         questText = rootView.findViewById(R.id.quest_text);
         rewardText = rootView.findViewById(R.id.reward_text);
 
-        buildChallenges();
+        //buildChallenges();
+
+        /* WHAT AM I DOING???????? */
+
+        // Get the current date and time
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int dailyQuestNum = day%3;
+
+        Context context = this.getActivity();
+
+        /* ALL OF THIS IS POINTLES????? */
+        // Shared preferences
+        /* SharedPreferences sharedQuestNum = context.getSharedPreferences("dailyQuest", 0);
+        SharedPreferences.Editor questNumEditor = sharedQuestNum.edit();
+        int dailyQuestNum = sharedQuestNum.getInt("dailyQuest", 0);
+
+        long afterOneDay = calendar.getTimeInMillis();
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+
+        // Making an intent??????
+        Intent updateQuestIntent = new Intent();
+
+        // Create a pending intent
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, UPDATE_QUEST_ID
+                , updateQuestIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Set the alarm???
+        alarmManager.setRepeating(AlarmManager.RTC, afterOneDay, AlarmManager.INTERVAL_DAY,
+                alarmPendingIntent);*/
+
+
+        DatabaseReference questTextRef = db.getReference("Quests").child("" + dailyQuestNum);
+        questTextRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String quest = dataSnapshot.child("text").getValue(String.class);
+                int reward = dataSnapshot.child("reward").getValue(int.class);
+
+                questText.setText(quest);
+                rewardText.setText("" + reward);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Do nothing
+            }
+        });
+
+
         return rootView;
     }
 
@@ -39,25 +99,31 @@ public class QuestFragment extends Fragment {
      *  Author: Connie
      */
     private void buildChallenges() {
-        // Get the current date and time
-        Calendar now = Calendar.getInstance();
-        long time = now.getTimeInMillis();
+
+        //int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        //long time = calendar.getTimeInMillis();
 
         // Create object of SharedPreferences.
-        SharedPreferences sharedPref = getActivity().getSharedPreferences("updateTime", 0);
+        //SharedPreferences sharedPref = getActivity().getSharedPreferences("updateTime", 0);
         //now get Editor
-        SharedPreferences.Editor editor = sharedPref.edit();
+        //SharedPreferences.Editor editor = sharedPref.edit();
 
         SharedPreferences sharedQuestNum = getActivity().getSharedPreferences("dailyQuest", 0);
         SharedPreferences.Editor questNumEditor = sharedQuestNum.edit();
 
-        // Retrieved stored time.
-        long storedTime = sharedPref.getLong("updateTime", 0);
-        long diff = time - storedTime;
+        int dailyQuestNum = sharedQuestNum.getInt("dailyQuest", 1);
 
+        // Retrieved stored time.
+        //long storedTime = sharedPref.getLong("updateTime", 0);
+        //long diff = time - storedTime;
+
+
+
+
+        /* SEND HELPPPPP */
 
         // If stored time doesn't exist yet then create it
-        if(storedTime == 0 || diff > 3600000  * 24)
+        /*if(storedTime == 0 || hours == 7)
         {
             // Random number generator
             Random rand = new Random();
@@ -73,9 +139,8 @@ public class QuestFragment extends Fragment {
         else
         {
             // Do nothing
-        }
+        }*/
 
-        int dailyQuestNum = sharedQuestNum.getInt("dailyQuest", 0);
 
         DatabaseReference questTextRef = db.getReference("Quests").child("" + dailyQuestNum);
         questTextRef.addValueEventListener(new ValueEventListener() {

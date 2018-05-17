@@ -160,7 +160,8 @@ public class SettingsFragment extends Fragment {
                         if(task.isSuccessful()){
                             // remove the account information from the database
                             db.getReference("Users").child(uid).removeValue();
-                            db.getReference("Leaderboard").child(uid).removeValue();
+                            db
+                                    .getReference("Leaderboard").child(uid).removeValue();
 
                             // delete account will stop step counter service
                             getActivity().stopService(new Intent(getActivity(), StepCounterService.class));
