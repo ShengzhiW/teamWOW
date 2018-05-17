@@ -27,6 +27,12 @@
         <activity
             android:name=".PrivacyPage"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HatPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BodyPage"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 
