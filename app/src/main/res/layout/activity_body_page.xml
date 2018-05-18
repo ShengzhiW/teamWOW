@@ -25,6 +25,20 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
             android:layout_height="0dp"
             android:layout_weight="1">
 
+            <Button
+                android:id="@+id/closeBodyShop"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_button"
+                android:text="X"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textGrid"
                 android:layout_width="wrap_content"

@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
 public class HatPage extends AppCompatActivity {
     //add click function
+    Button closeButton;
     GridLayout mainGrid;
 
 
@@ -25,8 +27,19 @@ public class HatPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hat_page);
         Bundle bundle = getIntent().getExtras();
+        closeButton = (Button)findViewById(R.id.closeHatShop);
         mainGrid = (GridLayout)findViewById(R.id.mainGrid);
         setSingleEvent(mainGrid);
+        closeHatShop(closeButton);
+    }
+
+    private void closeHatShop(Button closeButton) {
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void setSingleEvent(GridLayout singleEvent) {
