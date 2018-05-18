@@ -1,3 +1,10 @@
+/*
+ * Sources:
+ * https://www.youtube.com/watch?v=VUPM387qyrw&t=1s
+ * https://www.youtube.com/watch?v=K2V6Y7zQ8NU
+ * https://www.youtube.com/watch?v=go9q4O44b4E
+ */
+
 package com.example.teamwow.onewalk;
 
 import android.support.v7.app.AppCompatActivity;
