@@ -1,6 +1,8 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -84,7 +86,6 @@ public class SettingsFragment extends Fragment {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("HELP", "help");
                 auth.signOut(getActivity()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -116,8 +117,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v){
                 // Create a popup screen
-                startActivity(new Intent(getActivity(),PrivacyPage.class));
-
+                ((ContainerPage)getActivity()).pushFragment(new PrivacyFragment());
             }
         });
         return rootView;

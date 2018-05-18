@@ -61,7 +61,7 @@ public class ContainerPage extends AppCompatActivity {
     /* Chooses the fragment to display on the screen
      * Calls pushFragment
      */
-    protected void selectFragment(MenuItem item) {
+    public void selectFragment(MenuItem item) {
         item.setChecked(true);
 
         switch (item.getItemId()) {
