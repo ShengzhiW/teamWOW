@@ -47,7 +47,8 @@ public class QuestFragment extends Fragment {
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int dailyQuestNum = day%3;
+        int month = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+        int dailyQuestNum = (day+month)%3;
 
         Context context = this.getActivity();
 
