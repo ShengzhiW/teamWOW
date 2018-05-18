@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!-- Sources:
 https://www.youtube.com/watch?v=VUPM387qyrw&t=1s
 https://www.youtube.com/watch?v=K2V6Y7zQ8NU
 https://www.youtube.com/watch?v=go9q4O44b4E -->
 
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
