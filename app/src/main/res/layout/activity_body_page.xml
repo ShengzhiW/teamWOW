@@ -206,8 +206,8 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="test1"
-                        android:textAlignment="Earth Body"
+                        android:text="Earth Body"
+                        android:textAlignment="center"
                         android:textColor="@color/Figma"
 
                         android:textSize="18sp"
@@ -353,7 +353,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/yellowRobe_body" />
+                        android:src="@drawable/yellow_body" />
 
                     <TextView
                         android:layout_width="wrap_content"
