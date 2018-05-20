@@ -21,15 +21,11 @@
     <string name="delete_account_failed">Delete Account Failed</string>
 
     <!-- Privacy strings -->
-    <string name="edit_privacy">Privacy</string>
-    <string name="privacy_title">Privacy</string>
-    <string name="privacy_leader_board">Appear on leader board</string>
+    <string name="edit_privacy">Edit Privacy Settings</string>
+    <string name="title_privacy">Privacy</string>
+    <string name="privacy_leaderboard">Appear on leaderboard</string>
     <string name="privacy_email">Display email</string>
-
 
     <!-- Help string -->
     <string name="OwO">What\'s this?</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

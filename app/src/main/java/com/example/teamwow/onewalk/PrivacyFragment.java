@@ -1,10 +1,15 @@
 package com.example.teamwow.onewalk;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
@@ -17,15 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/**
- * New Activity for privacy options
- */
-public class PrivacyPage extends AppCompatActivity{
+public class PrivacyFragment extends Fragment {
 
-    // Set up buttons
-    Button retBtn;
-    Switch primarySwitch, emailSwitch;
-    private static final String TAG = "Privacy Page";
+    Button closeButton;
+    Switch leaderboardSwitch, emailSwitch;
 
     // Set up database references
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -35,63 +35,49 @@ public class PrivacyPage extends AppCompatActivity{
     private DatabaseReference privacy_leaderboard = privacyDB.child("Appear on Leaderboard");
     private DatabaseReference privacy_email = privacyDB.child("Show Email");
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.privacy_prompts);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final View rootView = inflater.inflate(R.layout.fragment_privacy, container, false);
 
-        // Set up buttons on page
-        retBtn = findViewById(R.id.returnBtn);
-        primarySwitch = findViewById(R.id.priLead);
-        emailSwitch = findViewById(R.id.eSwitch);
-
-
-        Log.d(TAG,"Logging stuff");
+        closeButton = rootView.findViewById(R.id.closePrivacy);
+        leaderboardSwitch = rootView.findViewById(R.id.leaderboardSwitch);
+        emailSwitch = rootView.findViewById(R.id.emailSwitch);
 
         // Access current data, and update switches as necessary
-        ValueEventListener primaryListener = new ValueEventListener() {
-
+        ValueEventListener leaderboardListener = new ValueEventListener() {
             boolean value;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
-                Log.d(TAG,"The Reference: " + dataSnapshot.getRef() + " Value: " + value );
-                primarySwitch.setChecked(value);
+                leaderboardSwitch.setChecked(value);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "Database error");
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
-
-        privacy_leaderboard.addValueEventListener(primaryListener);
+        privacy_leaderboard.addValueEventListener(leaderboardListener);
 
         ValueEventListener emailListener = new ValueEventListener() {
-
             boolean value;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
-                Log.d(TAG,"The Reference: " + dataSnapshot.getRef() + " Value: " + value );
                 emailSwitch.setChecked(value);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "Database error");
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
-
         privacy_email.addValueEventListener(emailListener);
 
-        // Set up primary switch functionality
-        primarySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        // Set up leaderboard switch functionality
+        leaderboardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 privacyDB.child("Appear on Leaderboard").setValue(isChecked);
 
-                // Turn off all other switches if the primary button is turned off
-                if(!primarySwitch.isChecked()) {
+                // Turn off all other switches if the leaderboard switch is turned off
+                if(!leaderboardSwitch.isChecked()) {
                     emailSwitch.setChecked(false);
                     privacyDB.child("Show Email").setValue(false);
                 }
@@ -108,14 +94,14 @@ public class PrivacyPage extends AppCompatActivity{
             }
         });
 
-
-
         // Finish activity, should return to Settings Page activity
-        retBtn.setOnClickListener(new View.OnClickListener() {
+        closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                ((ContainerPage)getActivity()).pushFragment(new SettingsFragment());
             }
         });
+
+        return rootView;
     }
 }

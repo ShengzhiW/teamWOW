@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
+        android:layout_marginTop="10dp"
         android:text="@string/title_today"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
