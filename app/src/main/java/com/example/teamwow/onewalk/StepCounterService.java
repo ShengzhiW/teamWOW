@@ -17,6 +17,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class StepCounterService extends Service implements SensorEventListener {
     // variables for sensor manager and sensor, used to implement step detector
     private SensorManager mSensorManager;
@@ -24,9 +28,11 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     // database elements
     private int count = 0;
+    private int dailyCount = 0;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference userStepCount;
     private DatabaseReference lbStepCount;
+    private DatabaseReference todayStepCount;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
 
@@ -36,6 +42,12 @@ public class StepCounterService extends Service implements SensorEventListener {
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         count = 0;
+        dailyCount = 0;
+
+        // Get the current time
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        String todayDate = df.format(today);
 
         // declare step detector using sensor and sensor manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -47,6 +59,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         // Get a reference to the step count, and read the data and attach it to the screen
         userStepCount = db.getReference("Users").child(uid).child("Steps");
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
+        todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
 
         // set a listener every time a user's steps change
         ValueEventListener stepListener = new ValueEventListener() {
@@ -58,7 +71,21 @@ public class StepCounterService extends Service implements SensorEventListener {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
+
+        // Set a listener for a daily step count
+        ValueEventListener dailyStepListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) dailyCount = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
         userStepCount.addListenerForSingleValueEvent(stepListener);
+        todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
 
         // if service killed, recreate service (may change to different value found on android service guide)
         return START_STICKY;
@@ -79,8 +106,11 @@ public class StepCounterService extends Service implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         // increment count and set database's Step count to variable
         count++;
+        dailyCount++;
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
+        todayStepCount.setValue(dailyCount);
+
     }
 
     /*

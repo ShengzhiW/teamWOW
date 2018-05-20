@@ -67,7 +67,7 @@ public class TodayFragment extends Fragment {
                     UpdateTimedb.setValue(currentTime);
 
                     // Update the step count in the database
-                    userStepCount.setValue(0);
+                    //userStepCount.setValue(0);
                 }
             }
 
