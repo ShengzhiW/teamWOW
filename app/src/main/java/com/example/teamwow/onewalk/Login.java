@@ -96,7 +96,6 @@ public class Login extends AppCompatActivity{
         initializeReference(userdb.child("Name"), name);
         initializeReference(userdb.child("Email"), email);
         initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
-        initializeReference(userdb.child("UpdateTime"), String.valueOf(0));
     }
 
     public void initializeReference(final DatabaseReference dr, final String value) {

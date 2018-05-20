@@ -29,10 +29,15 @@ public class StepCounterService extends Service implements SensorEventListener {
     // database elements
     private int count = 0;
     private int dailyCount = 0;
+    private int currencyCount = 0;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
+
     private DatabaseReference userStepCount;
     private DatabaseReference lbStepCount;
     private DatabaseReference todayStepCount;
+    private DatabaseReference currencyCountDb;
+
+
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
 
@@ -43,6 +48,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         uid = user.getUid();
         count = 0;
         dailyCount = 0;
+        currencyCount = 0;
 
         // Get the current time
         Date today = Calendar.getInstance().getTime();
@@ -60,6 +66,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         userStepCount = db.getReference("Users").child(uid).child("Steps");
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
+        currencyCountDb = db.getReference("Users").child(uid).child("Currency");
 
         // set a listener every time a user's steps change
         ValueEventListener stepListener = new ValueEventListener() {
@@ -84,6 +91,20 @@ public class StepCounterService extends Service implements SensorEventListener {
 
             }
         };
+
+        // Set a listener for the currency
+        ValueEventListener currencyListner = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
         userStepCount.addListenerForSingleValueEvent(stepListener);
         todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
 
@@ -107,9 +128,11 @@ public class StepCounterService extends Service implements SensorEventListener {
         // increment count and set database's Step count to variable
         count++;
         dailyCount++;
+        currencyCount++;
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
         todayStepCount.setValue(dailyCount);
+        currencyCountDb.setValue(currencyCount);
 
     }
 
