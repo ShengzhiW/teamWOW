@@ -15,6 +15,8 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class BodyPage extends AppCompatActivity {
@@ -45,7 +47,7 @@ public class BodyPage extends AppCompatActivity {
 
     public void setSingleEvent(GridLayout singleEvent) {
         for(int i = 0; i < mainGrid.getChildCount();i++){
-            CardView cardView = (CardView)mainGrid.getChildAt(i);
+            final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -53,13 +55,18 @@ public class BodyPage extends AppCompatActivity {
                     //TODO: replace toast with start new Activity
                     Toast.makeText(BodyPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
 
+                    ImageView image = new ImageView(BodyPage.this);
+                    ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
+                    image.setImageDrawable(getter.getDrawable());
+
                     // Dialog Box to buy body
                     AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                     builder
                             .setTitle("Buy Body?")
-                            .setMessage("Are you sure?")
+                            //.setMessage("Are you sure?")
+                            .setView(image)
                             // Line below creates icon for dialog box in upper left corner
-                            //.setIcon(android.R.drawable.ic_dialog_alert)
+                            .setIcon(image.getDrawable())
                             .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //Yes button clicked, do something
