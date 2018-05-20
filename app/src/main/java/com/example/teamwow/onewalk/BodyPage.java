@@ -15,11 +15,21 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class BodyPage extends AppCompatActivity {
     //add click function
     Button closeButton;
     GridLayout mainGrid;
 
+    /* Initialize firebase db */
+    final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String uid = user.getUid();
+    private DatabaseReference privacyDB = db.getReference("Users").child(uid).child("Privacy")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,7 @@ public class BodyPage extends AppCompatActivity {
                     Toast.makeText(BodyPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
                 }
             });
+
         }
     }
 }
