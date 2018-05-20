@@ -94,6 +94,9 @@ public class Login extends AppCompatActivity{
         if(db.getReference("Leaderboard").child(uid).child("Name") == null)
         db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
 
+        // Set up shop database if not already set up
+        if(db.getReference("Users").child(uid).child("Inventory").child("Hats") == null)
+            db.getReference("Users").child(uid).child("Inventory").child("Hats").setValue();
     }
 
     /* Name: displayMessage()

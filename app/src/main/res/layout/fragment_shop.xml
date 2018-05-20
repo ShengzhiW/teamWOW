@@ -28,18 +28,18 @@
     <Button
         android:id="@+id/hatOpen"
         style="@style/FirebaseUI.Button"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/bodyOpen"
-        android:layout_marginStart="47dp"
+        android:layout_marginBottom="49dp"
+        android:layout_marginStart="43dp"
         android:text="Hats" />
 
     <Button
         android:id="@+id/bodyOpen"
         style="@style/FirebaseUI.Button"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="42dp"
-        android:layout_marginEnd="40dp"
+        android:layout_alignTop="@+id/hatOpen"
+        android:layout_marginEnd="63dp"
         android:text="body" />
 
 </RelativeLayout>
