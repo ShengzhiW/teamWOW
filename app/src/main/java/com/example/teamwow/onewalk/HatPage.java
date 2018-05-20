@@ -7,6 +7,8 @@
 
 package com.example.teamwow.onewalk;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -16,10 +18,22 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class HatPage extends AppCompatActivity {
     //add click function
     Button closeButton;
     GridLayout mainGrid;
+
+    /* Initialize firebase db */
+    final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String uid = user.getUid();
+    private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
+            .child("Hat");
 
 
     @Override
@@ -51,6 +65,23 @@ public class HatPage extends AppCompatActivity {
                 public void onClick(View view) {
                     //TODO: replace toast with start new Activity
                     Toast.makeText(HatPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
+
+                    // Dialog Box to buy hat
+                    AlertDialog.Builder builder = new AlertDialog.Builder(HatPage.this);
+                    builder
+                            .setTitle("Buy Hat?")
+                            .setMessage("Are you sure?")
+                            // Line below creates icon for dialog box in upper left corner
+                            //.setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Yes button clicked, do something
+                                    Toast.makeText(HatPage.this, "Bought hat at index" + finalI, Toast.LENGTH_SHORT).show();
+                                    hatDB.child(new Integer(finalI).toString()).setValue(1);
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
                 }
             });
         }
