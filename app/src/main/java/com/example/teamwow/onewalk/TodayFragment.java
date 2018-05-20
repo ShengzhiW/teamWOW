@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class TodayFragment extends Fragment {
     // variable for the default text currently on screen
     private TextView mStepDetector;
@@ -27,6 +30,11 @@ public class TodayFragment extends Fragment {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
     private int count = 0;
+    private long currentTime;
+    private long currentTimeMinusOne;
+
+    private DatabaseReference UpdateTimedb;
+    private DatabaseReference userStepCount;
 
     @Nullable
     @Override
@@ -36,10 +44,38 @@ public class TodayFragment extends Fragment {
         // get the text by id
         mStepDetector = rootView.findViewById(R.id.stepCount);
 
-        DatabaseReference userStepCount = db.getReference("Users").child(uid).child("Steps");
+        // Get the current time
+        Calendar calendar = Calendar.getInstance();
+        currentTime = calendar.getTimeInMillis();
 
-        // allow the step counter text to be updated
-        ValueEventListener stepListener = new ValueEventListener() {
+        // Get the current date minus one
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
+        currentTimeMinusOne = calendar.getTimeInMillis();
+
+        userStepCount = db.getReference("Users").child(uid).child("Steps");
+
+        // Get the last updated time from the database
+        UpdateTimedb = db.getReference("Users").child(uid).child("UpdateTime");
+        UpdateTimedb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long lastUpdateTime = 0;
+                if(dataSnapshot.exists()) lastUpdateTime = dataSnapshot.getValue(Long.class);
+                if(currentTimeMinusOne >= lastUpdateTime) {
+                    displayMessage("Updating");
+                    // Update the updatetime in database
+                    UpdateTimedb.setValue(currentTime);
+
+                    // Update the step count in the database
+                    //userStepCount.setValue(0);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        userStepCount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
@@ -48,9 +84,14 @@ public class TodayFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
-        };
-        userStepCount.addValueEventListener(stepListener);
+        });
 
         return rootView;
     }
-}
+
+
+        public void displayMessage(String message){
+            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        }
+
+    }
