@@ -59,20 +59,17 @@ public class TodayFragment extends Fragment {
         UpdateTimedb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                long lastUpdateTime = dataSnapshot.getValue(Long.class);
+                long lastUpdateTime = 0;
+                if(dataSnapshot.exists()) lastUpdateTime = dataSnapshot.getValue(Long.class);
                 if(currentTimeMinusOne >= lastUpdateTime) {
                     displayMessage("Updating");
-
                     // Update the updatetime in database
                     UpdateTimedb.setValue(currentTime);
-
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Do nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         userStepCount.addValueEventListener(new ValueEventListener() {

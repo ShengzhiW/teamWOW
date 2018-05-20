@@ -90,31 +90,24 @@ public class Login extends AppCompatActivity{
         final String name = user.getDisplayName();
         final String uid = user.getUid();
         final String default_privacy = "Friends only";
-        db.getReference("Users").child(uid).child("Email").setValue(email);
-        if(db.getReference("Users").child(uid).child("Name") == null)
-        db.getReference("Users").child(uid).child("Name").setValue(name);
-        if(db.getReference("Leaderboard").child(uid).child("Name") == null)
-        db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
 
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
+        initializeReference(userdb.child("Name"), name);
+        initializeReference(userdb.child("Email"), email);
+        initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
+        initializeReference(userdb.child("UpdateTime"), String.valueOf(0));
+    }
 
-        // Add a listener to check if user's db has a "UpdateTime" value yet
-        // if it does not then add an UpdateTime value and set to 0
-        userdb.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void initializeReference(final DatabaseReference dr, final String value) {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChild("UpdateTime"))
-                {
-                    userdb.child("UpdateTime").setValue(0);
-                }
+                if(!dataSnapshot.exists()) dr.setValue(value);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
-
     }
 
     /* Name: displayMessage()
