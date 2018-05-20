@@ -49,7 +49,7 @@ public class TodayFragment extends Fragment {
         currentTime = calendar.getTimeInMillis();
 
         // Get the current date minus one
-        calendar.add(Calendar.MINUTE, -1);
+        calendar.add(Calendar.DAY_OF_MONTH, -1);
         currentTimeMinusOne = calendar.getTimeInMillis();
 
         userStepCount = db.getReference("Users").child(uid).child("Steps");
@@ -65,6 +65,9 @@ public class TodayFragment extends Fragment {
                     displayMessage("Updating");
                     // Update the updatetime in database
                     UpdateTimedb.setValue(currentTime);
+
+                    // Update the step count in the database
+                    userStepCount.setValue(0);
                 }
             }
 
