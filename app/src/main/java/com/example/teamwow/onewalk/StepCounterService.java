@@ -128,11 +128,17 @@ public class StepCounterService extends Service implements SensorEventListener {
         // increment count and set database's Step count to variable
         count++;
         dailyCount++;
-        currencyCount++;
+
+        // If you've walked 100 steps then increment the currency count
+        if(dailyCount%100 == 0)
+        {
+            currencyCount++;
+            currencyCountDb.setValue(currencyCount);
+
+        }
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
         todayStepCount.setValue(dailyCount);
-        currencyCountDb.setValue(currencyCount);
 
     }
 
