@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,11 +72,12 @@ public class BodyPage extends AppCompatActivity {
                     ImageView image = new ImageView(BodyPage.this);
                     ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
                     image.setImageDrawable(getter.getDrawable());
+                    TextView getterName = (TextView)((LinearLayout)cardView.getChildAt(0)).getChildAt(1);
 
                     // Dialog Box to buy body
                     AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                     builder
-                            .setTitle("Buy Body?")
+                            .setTitle("Buy " + getterName.getText().toString() + "?")
                             //.setMessage("Are you sure?")
                             .setView(image)
                             // Line below creates icon for dialog box in upper left corner

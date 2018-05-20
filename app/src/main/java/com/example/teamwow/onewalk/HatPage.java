@@ -74,11 +74,12 @@ public class HatPage extends AppCompatActivity {
                     ImageView image = new ImageView(HatPage.this);
                     ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
                     image.setImageDrawable(getter.getDrawable());
+                    TextView getterName = (TextView)((LinearLayout)cardView.getChildAt(0)).getChildAt(1);
 
                     // Dialog Box to buy hat
                     AlertDialog.Builder builder = new AlertDialog.Builder(HatPage.this);
                     builder
-                            .setTitle("Buy Hat?")
+                            .setTitle("Buy " + getterName.getText().toString() + "?")
                             //.setMessage("Are you sure?")
                             .setView(image)
                             // Line below creates icon for dialog box in upper left corner
