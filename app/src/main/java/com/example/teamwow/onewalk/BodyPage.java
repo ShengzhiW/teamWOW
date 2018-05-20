@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class BodyPage extends AppCompatActivity {
     //add click function
     Button closeButton;
@@ -31,7 +33,8 @@ public class BodyPage extends AppCompatActivity {
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
-    private DatabaseReference privacyDB = db.getReference("Users").child(uid).child("Privacy")
+    private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
+            .child("Body");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class BodyPage extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //Yes button clicked, do something
                                     Toast.makeText(BodyPage.this, "Bought body at index" + finalI, Toast.LENGTH_SHORT).show();
+                                    bodyDB.child(new Integer(finalI).toString()).setValue(1);
                                 }
                             })
                             .setNegativeButton("No", null)

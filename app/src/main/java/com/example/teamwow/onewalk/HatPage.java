@@ -18,10 +18,22 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class HatPage extends AppCompatActivity {
     //add click function
     Button closeButton;
     GridLayout mainGrid;
+
+    /* Initialize firebase db */
+    final FirebaseDatabase db = FirebaseDatabase.getInstance();
+    final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    final String uid = user.getUid();
+    private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
+            .child("Hat");
 
 
     @Override
@@ -65,6 +77,7 @@ public class HatPage extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     //Yes button clicked, do something
                                     Toast.makeText(HatPage.this, "Bought hat at index" + finalI, Toast.LENGTH_SHORT).show();
+                                    hatDB.child(new Integer(finalI).toString()).setValue(1);
                                 }
                             })
                             .setNegativeButton("No", null)
