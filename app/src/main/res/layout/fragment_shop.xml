@@ -28,7 +28,6 @@
     <Button
         android:id="@+id/hatOpen"
         style="@style/FirebaseUI.Button"
-        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/bodyOpen"
         android:layout_marginStart="25dp"
@@ -58,6 +57,22 @@
         android:text="Body"
         android:textAllCaps="false"
         android:textSize="25sp" />
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="199dp"
+        android:layout_height="187dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp" />
+
+    <ImageView
+        android:id="@+id/imgViewHat"
+        android:layout_width="119dp"
+        android:layout_height="78dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp" />
 
 
 </RelativeLayout>
