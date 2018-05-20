@@ -40,11 +40,11 @@ public class ShopFragment extends Fragment {
         });
 
         ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
-        Drawable drawable = getResources().getDrawable(R.drawable.yellow_body);
+        Drawable drawable = getResources().getDrawable(R.drawable.magician_body);
         imgView.setImageDrawable(drawable);
 
         ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
-        Drawable drawableHat = getResources().getDrawable(R.drawable.duck_hat);
+        Drawable drawableHat = getResources().getDrawable(R.drawable.magician);
         imgViewHat.setImageDrawable(drawableHat);
 
         return view;
