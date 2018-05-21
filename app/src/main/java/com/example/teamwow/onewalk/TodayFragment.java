@@ -27,6 +27,7 @@ import java.util.Date;
 
 public class TodayFragment extends Fragment {
     // variable for the default text currently on screen
+    private TextView username;
     private TextView mStepDetector;
     private TextView todaysSteps;
     private TextView currencyText;
@@ -35,10 +36,12 @@ public class TodayFragment extends Fragment {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
 
+    private String name = "";
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
 
+    private DatabaseReference userName;
     private DatabaseReference userStepCount;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
@@ -49,6 +52,7 @@ public class TodayFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_today, container, false);
 
         // get the text by id
+        username = rootView.findViewById(R.id.name);
         mStepDetector = rootView.findViewById(R.id.total_steps);
         todaysSteps = rootView.findViewById(R.id.stepCount);
         currencyText = rootView.findViewById(R.id.currency_count);
@@ -58,9 +62,25 @@ public class TodayFragment extends Fragment {
         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String todayDate = df.format(today);
 
+        userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
+
+
+
+        //Add listener to get the username
+        userName.addValueEventListener(new ValueEventListener(){
+           @Override
+           public void onDataChange(DataSnapshot dataSnapshot){
+               if(dataSnapshot.exists()) name = dataSnapshot.getValue(String.class);
+               username.setText(String.valueOf(name));
+           }
+
+           @Override
+            public void onCancelled(DatabaseError databaseError){}
+
+        });
 
         // Add listener to get the total step count
         userStepCount.addValueEventListener(new ValueEventListener() {
@@ -95,7 +115,6 @@ public class TodayFragment extends Fragment {
                 if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
                 currencyText.setText(String.valueOf(currencyCount));
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

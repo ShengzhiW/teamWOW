@@ -1,6 +1,7 @@
 package com.example.teamwow.onewalk;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Intent;
@@ -90,16 +91,12 @@ public class Login extends AppCompatActivity{
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         /* Initialize empty list for inventory */
-        List<Integer> t = new ArrayList<Integer>();
-        for(int i = 0; i < 11; i++){
-            t.add(0);
-        }
+        List<Integer> t = new ArrayList<Integer>(Collections.nCopies(20, 0));
 
         // Look up / add the specific user in/to the database and keep a reference while app is open
         final String email = user.getEmail();
         final String name = user.getDisplayName();
         final String uid = user.getUid();
-        final String default_privacy = "Friends only";
 
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
@@ -130,7 +127,11 @@ public class Login extends AppCompatActivity{
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) dr.setValue(list);
+                if(!dataSnapshot.exists()) {
+                    dr.setValue(list);
+                }else{
+                    Toast.makeText(Login.this, "Inventory exists", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

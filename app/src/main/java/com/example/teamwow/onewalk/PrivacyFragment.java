@@ -51,6 +51,10 @@ public class PrivacyFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
                 leaderboardSwitch.setChecked(value);
+                if(!leaderboardSwitch.isChecked()) {
+                    emailSwitch.setChecked(false);
+                    privacyDB.child("Show Email").setValue(false);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
