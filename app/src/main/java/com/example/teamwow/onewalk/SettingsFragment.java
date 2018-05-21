@@ -65,9 +65,11 @@ public class SettingsFragment extends Fragment {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and update database
                                         String input = userInput.getText().toString();
-                                        db.getReference("Users").child(uid).child("Name").setValue(input);
-                                        db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
-                                        displayMessage(getString(R.string.changed_nickname)+" "+input);
+                                        if(!(input.equals(""))) {
+                                            db.getReference("Users").child(uid).child("Name").setValue(input);
+                                            db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
+                                            displayMessage(getString(R.string.changed_nickname) + " " + input);
+                                        }
                                     }
                                 })
                         .setNegativeButton("Cancel",
