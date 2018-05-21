@@ -19,6 +19,7 @@
     <string name="signout">Logged Out</string>
     <string name="delete_account_success">Account Deleted</string>
     <string name="delete_account_failed">Delete Account Failed</string>
+    <string name="Username">Username</string>
 
     <!-- Privacy strings -->
     <string name="edit_privacy">Edit Privacy Settings</string>
