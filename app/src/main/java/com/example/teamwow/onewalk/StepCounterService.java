@@ -107,6 +107,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
         userStepCount.addListenerForSingleValueEvent(stepListener);
         todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
+        currencyCountDb.addListenerForSingleValueEvent(currencyListner);
 
         // if service killed, recreate service (may change to different value found on android service guide)
         return START_STICKY;
