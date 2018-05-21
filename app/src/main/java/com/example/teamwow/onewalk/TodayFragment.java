@@ -21,20 +21,27 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class TodayFragment extends Fragment {
     // variable for the default text currently on screen
     private TextView mStepDetector;
+    private TextView todaysSteps;
+    private TextView currencyText;
+
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
-    private int count = 0;
-    private long currentTime;
-    private long currentTimeMinusOne;
 
-    private DatabaseReference UpdateTimedb;
+    private int count = 0;
+    private int dailyCount = 0;
+    private int currencyCount = 0;
+
     private DatabaseReference userStepCount;
+    private DatabaseReference todayStepCount;
+    private DatabaseReference currencyCountDb;
 
     @Nullable
     @Override
@@ -42,39 +49,20 @@ public class TodayFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_today, container, false);
 
         // get the text by id
-        mStepDetector = rootView.findViewById(R.id.stepCount);
+        mStepDetector = rootView.findViewById(R.id.total_steps);
+        todaysSteps = rootView.findViewById(R.id.stepCount);
+        currencyText = rootView.findViewById(R.id.currency_count);
 
         // Get the current time
-        Calendar calendar = Calendar.getInstance();
-        currentTime = calendar.getTimeInMillis();
-
-        // Get the current date minus one
-        calendar.add(Calendar.MINUTE, -1);
-        currentTimeMinusOne = calendar.getTimeInMillis();
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        String todayDate = df.format(today);
 
         userStepCount = db.getReference("Users").child(uid).child("Steps");
+        todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
+        currencyCountDb = db.getReference("Users").child(uid).child("Currency");
 
-        // Get the last updated time from the database
-        UpdateTimedb = db.getReference("Users").child(uid).child("UpdateTime");
-        UpdateTimedb.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long lastUpdateTime = dataSnapshot.getValue(Long.class);
-                if(currentTimeMinusOne >= lastUpdateTime) {
-                    displayMessage("Updating");
-
-                    // Update the updatetime in database
-                    UpdateTimedb.setValue(currentTime);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Do nothing
-            }
-        });
-
+        // Add listener to get the total step count
         userStepCount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -84,6 +72,34 @@ public class TodayFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        // Add listener to get today's step count
+        todayStepCount.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) dailyCount = dataSnapshot.getValue(Integer.class);
+                todaysSteps.setText(String.valueOf(dailyCount));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        // Add listener to get currency count
+        currencyCountDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
+                currencyText.setText(String.valueOf(currencyCount));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
 
         return rootView;

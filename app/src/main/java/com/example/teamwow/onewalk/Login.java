@@ -1,5 +1,8 @@
 package com.example.teamwow.onewalk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.Arrays;
 
@@ -85,36 +89,53 @@ public class Login extends AppCompatActivity{
     private void updateDatabase() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        /* Initialize empty list for inventory */
+        List<Integer> t = new ArrayList<Integer>();
+        for(int i = 0; i < 11; i++){
+            t.add(0);
+        }
+
         // Look up / add the specific user in/to the database and keep a reference while app is open
         final String email = user.getEmail();
         final String name = user.getDisplayName();
         final String uid = user.getUid();
         final String default_privacy = "Friends only";
-        db.getReference("Users").child(uid).child("Email").setValue(email);
-        if(db.getReference("Users").child(uid).child("Name") == null)
-        db.getReference("Users").child(uid).child("Name").setValue(name);
-        if(db.getReference("Leaderboard").child(uid).child("Name") == null)
-        db.getReference("Leaderboard").child(uid).child("Name").setValue(name);
 
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
+        initializeReference(userdb.child("Name"), name);
+        initializeReference(userdb.child("Email"), email);
+        initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
+        initializeReference(userdb.child("UpdateTime"), String.valueOf(0));
 
-        // Add a listener to check if user's db has a "UpdateTime" value yet
-        // if it does not then add an UpdateTime value and set to 0
-        userdb.addListenerForSingleValueEvent(new ValueEventListener() {
+        // Update shop database if not already
+        initializeInventory(userdb.child("Inventory").child("Hat"),t);
+        initializeInventory(userdb.child("Inventory").child("Body"),t);
+
+    }
+
+    public void initializeReference(final DatabaseReference dr, final String value) {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChild("UpdateTime"))
-                {
-                    userdb.child("UpdateTime").setValue(0);
-                }
+                if(!dataSnapshot.exists()) dr.setValue(value);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
+    }
 
+    /* Had to be a different function due to it not being a String */
+    public void initializeInventory(final  DatabaseReference dr, final List<Integer> list){
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) dr.setValue(list);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     /* Name: displayMessage()
@@ -136,4 +157,3 @@ public class Login extends AppCompatActivity{
     }
 
 }
-
