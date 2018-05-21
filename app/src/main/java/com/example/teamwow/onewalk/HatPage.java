@@ -69,6 +69,7 @@ public class HatPage extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //TODO: replace toast with start new Activity
+                    // TODO delete this line later?
                     Toast.makeText(HatPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
 
                     ImageView image = new ImageView(HatPage.this);
