@@ -61,6 +61,7 @@ public class BodyPage extends AppCompatActivity {
                 List array = (List) snapshot.getValue();
 
                 // we then transform those objects into integers for our hat array
+
                 for(int i = 0; i < array.size(); i++){
                     //Toast.makeText(HatPage.this, "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
                     bodyArray.add(Integer.valueOf(array.get(i).toString()));
@@ -103,7 +104,7 @@ public class BodyPage extends AppCompatActivity {
                     image.setImageDrawable(getter.getDrawable());
                     TextView getterName = (TextView)((LinearLayout)cardView.getChildAt(0)).getChildAt(1);
 
-                    if(bodyArray.get(finalI) == 0){
+                    if(Integer.valueOf(bodyArray.get(finalI)) == 0){
                         // Dialog Box to buy hat
                         AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                         builder
