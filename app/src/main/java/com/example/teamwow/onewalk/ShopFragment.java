@@ -39,12 +39,41 @@ public class ShopFragment extends Fragment {
             }
         });
 
+        int [] bodiesDrawables = {
+                R.drawable.cowboy_body,
+                R.drawable.magician_body,
+                R.drawable.jojo_body,
+                R.drawable.earth_body,
+                R.drawable.chef_body,
+                R.drawable.viking_body,
+                R.drawable.striped_body,
+                R.drawable.yellow_body,
+                R.drawable.lee,
+                R.drawable.gary_body
+        };
+
+        int [] hatDrawables = {
+                R.drawable.baseball,
+                R.drawable.magician,
+                R.drawable.pirate,
+                R.drawable.tree,
+                R.drawable.poop,
+                R.drawable.cowboyhat,
+                R.drawable.chef,
+                R.drawable.konoha,
+                R.drawable.viking,
+                R.drawable.leprechaun_hat,
+                R.drawable.sun_hat,
+                R.drawable.jojo_hat,
+                R.drawable.duck_hat
+        };
+
         ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
-        Drawable drawable = getResources().getDrawable(R.drawable.gary_body);
+        Drawable drawable = getResources().getDrawable(bodiesDrawables[9]);
         imgView.setImageDrawable(drawable);
 
         ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
-        Drawable drawableHat = getResources().getDrawable(R.drawable.viking);
+        Drawable drawableHat = getResources().getDrawable(hatDrawables[4]);
         imgViewHat.setImageDrawable(drawableHat);
 
         return view;
