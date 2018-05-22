@@ -146,6 +146,7 @@ public class HatPage extends AppCompatActivity {
                                                     break;
                                                 }
                                             }
+                                            currencyDB.setValue(garyBucks - price);
                                             hatDB.child(Integer.valueOf(finalI).toString()).setValue(2);
                                             hatArray.set(finalI, 2);
                                         }else{

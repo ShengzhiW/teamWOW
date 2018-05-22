@@ -141,6 +141,7 @@ public class BodyPage extends AppCompatActivity {
                                                     break;
                                                 }
                                             }
+                                            currencyDB.setValue(garyBucks - price);
                                             bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
                                             bodyArray.set(finalI, 2);
                                         }else{
