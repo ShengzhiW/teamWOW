@@ -109,7 +109,6 @@ public class BodyPage extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                //.setMessage("Are you sure?")
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
@@ -117,8 +116,16 @@ public class BodyPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
                                         Toast.makeText(BodyPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
-                                        bodyDB.child(Integer.valueOf(finalI).toString()).setValue(1);
-                                        bodyArray.set(finalI,1);
+                                        // Unequips currently equipped item
+                                        for(int i = 0; i < bodyArray.size(); i++){
+                                            if(bodyArray.get(i) == 2){
+                                                bodyDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                bodyArray.set(i,1);
+                                                break;
+                                            }
+                                        }
+                                        bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                        bodyArray.set(finalI,2);
                                     }
                                 })
                                 .setNegativeButton("No", null)
@@ -134,6 +141,7 @@ public class BodyPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
                                         Toast.makeText(BodyPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
+                                        // Unequips currently equipped item
                                         for(int i = 0; i < bodyArray.size(); i++){
                                             if(bodyArray.get(i) == 2){
                                                 bodyDB.child(Integer.valueOf(i).toString()).setValue(1);

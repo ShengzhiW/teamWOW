@@ -124,8 +124,16 @@ public class HatPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
                                         Toast.makeText(HatPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
-                                        hatDB.child(Integer.valueOf(finalI).toString()).setValue(1);
-                                        hatArray.set(finalI,1);
+                                        // Unequips currently equipped item
+                                        for(int i = 0; i < hatArray.size(); i++){
+                                            if(hatArray.get(i) == 2){
+                                                hatDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                hatArray.set(i,1);
+                                                break;
+                                            }
+                                        }
+                                        hatDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                        hatArray.set(finalI,2);
                                     }
                                 })
                                 .setNegativeButton("No", null)
@@ -141,6 +149,7 @@ public class HatPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
                                         Toast.makeText(HatPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
+                                        // Unequips currently equipped item
                                         for(int i = 0; i < hatArray.size(); i++){
                                             if(hatArray.get(i) == 2){
                                                 hatDB.child(Integer.valueOf(i).toString()).setValue(1);
