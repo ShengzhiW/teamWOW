@@ -99,6 +99,7 @@ public class HatPage extends AppCompatActivity {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;
+            final int price = 100 * i;
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -116,7 +117,7 @@ public class HatPage extends AppCompatActivity {
                         Builder builder = new Builder(HatPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                //.setMessage("Are you sure?")
+                                .setMessage("Price:" + price)
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
