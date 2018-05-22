@@ -42,8 +42,10 @@ public class BodyPage extends AppCompatActivity {
     final String uid = user.getUid();
     private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Body");
-
+    private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
     ArrayList<Integer> bodyArray = new ArrayList<>();
+    private int garyBucks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,6 @@ public class BodyPage extends AppCompatActivity {
                 List array = (List) snapshot.getValue();
 
                 // we then transform those objects into integers for our hat array
-
                 for(int i = 0; i < array.size(); i++){
                     //Toast.makeText(HatPage.this, "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
                     bodyArray.add(Integer.valueOf(array.get(i).toString()));
@@ -76,6 +77,20 @@ public class BodyPage extends AppCompatActivity {
                 // DO nothing
             }
         });
+        ValueEventListener currencyListner = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) garyBucks = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        currencyDB.addListenerForSingleValueEvent(currencyListner);
+
+        /* Begin process */
         setSingleEvent(mainGrid);
         closeBodyShop(closeButton);
     }
@@ -94,11 +109,10 @@ public class BodyPage extends AppCompatActivity {
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;
             final int price = 100*i;
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: replace toast with start new Activity
-                    //Toast.makeText(BodyPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
 
                     ImageView image = new ImageView(BodyPage.this);
                     ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
@@ -110,24 +124,28 @@ public class BodyPage extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                .setMessage("Price: " + price)
+                                .setMessage("Price:" + price + "\n" + "Currency: " + garyBucks)
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
-                                        Toast.makeText(BodyPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
-                                        // Unequips currently equipped item
-                                        for(int i = 0; i < bodyArray.size(); i++){
-                                            if(bodyArray.get(i) == 2){
-                                                bodyDB.child(Integer.valueOf(i).toString()).setValue(1);
-                                                bodyArray.set(i,1);
-                                                break;
+                                        if (garyBucks >= price) {
+                                            Toast.makeText(BodyPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
+                                            // Unequips currently equipped item
+                                            for (int i = 0; i < bodyArray.size(); i++) {
+                                                if (bodyArray.get(i) == 2) {
+                                                    bodyDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                    bodyArray.set(i, 1);
+                                                    break;
+                                                }
                                             }
+                                            bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                            bodyArray.set(finalI, 2);
+                                        }else{
+                                            Toast.makeText(BodyPage.this, "Go walk more you potato", Toast.LENGTH_SHORT).show();
                                         }
-                                        bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
-                                        bodyArray.set(finalI,2);
                                     }
                                 })
                                 .setNegativeButton("No", null)
