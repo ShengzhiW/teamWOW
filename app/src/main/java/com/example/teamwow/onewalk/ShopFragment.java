@@ -32,6 +32,8 @@ public class ShopFragment extends Fragment {
 
     private DatabaseReference dbRef = db.getReference("Users").child(uid);
     private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
+    private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
+
 
     private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Hat");
@@ -41,11 +43,8 @@ public class ShopFragment extends Fragment {
             .child("Body");
     ArrayList<Integer> bodyArray = new ArrayList<>();
 
-
-
-  // private int bodyIndex = 1;
     private int bodyIndex;
-    private int hatIndex = 4;
+    private int hatIndex;
 
     @Nullable
     @Override
@@ -68,7 +67,7 @@ public class ShopFragment extends Fragment {
                 R.drawable.gary_body
         };
 
-        int [] hatDrawables = {
+        final int [] hatDrawables = {
                 R.drawable.baseball,
                 R.drawable.magician,
                 R.drawable.pirate,
@@ -123,37 +122,42 @@ public class ShopFragment extends Fragment {
 
                     }
                 }
-
-                //Toast.makeText(HatPage.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-                // the snapshot provides a generic list holding Objects
-             //   List array = (List) snapshot.getValue();
-
-                // we then transform those objects into integers for our hat array
-                //for(int i = 0; i < array.size(); i++){
-                  //  Toast.makeText(getActivity(), "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
-                 //   bodyArray.add(Integer.valueOf(array.get(i).toString()));
-               // }
-
             }
-
             // onCancelled...
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // DO nothing
             }
         });
 
+        hatDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
 
-      //  ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
-        //Toast.makeText(getActivity(),"current idx is  " + currIdx,Toast.LENGTH_SHORT).show();
-      //  Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
-      //  Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
-      //  imgView.setImageDrawable(drawable);
+                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
+                    if( item.getValue(Integer.class)  == 2){
+                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"set hat index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
+                        hatIndex = Integer.parseInt(item.getKey());
+                        dbHatIdx.setValue(item.getKey());
 
-        ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
-        Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
-        imgViewHat.setImageDrawable(drawableHat);
+                        Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
+                        ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
+                        Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
+                        imgViewHat.setImageDrawable(drawableHat);
+
+
+                    }
+                }
+            }
+            // onCancelled...
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // DO nothing
+            }
+        });
 
         return view;
     }
