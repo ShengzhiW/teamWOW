@@ -68,19 +68,19 @@ public class ShopFragment extends Fragment {
         };
 
         final int [] hatDrawables = {
-                R.drawable.baseball,
-                R.drawable.magician,
-                R.drawable.pirate,
-                R.drawable.tree,
-                R.drawable.poop,
-                R.drawable.cowboyhat,
-                R.drawable.chef,
-                R.drawable.konoha,
-                R.drawable.viking,
-                R.drawable.leprechaun_hat,
-                R.drawable.sun_hat,
-                R.drawable.jojo_hat,
-                R.drawable.duck_hat
+                R.drawable.baseball_scale,
+                R.drawable.magician_scale,
+                R.drawable.pirate_scale,
+                R.drawable.tree_scale,
+                R.drawable.poop_scale,
+                R.drawable.cowboyhat_scale,
+                R.drawable.chef_scale,
+                R.drawable.konoha_scale,
+                R.drawable.viking_scale,
+                R.drawable.leprechaun_hat_scale,
+                R.drawable.sun_hat_scale,
+                R.drawable.jojo_hat_scale,
+                R.drawable.duck_hat_scale
         };
 
         hatButton.setOnClickListener(new View.OnClickListener(){
