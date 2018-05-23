@@ -101,6 +101,7 @@ public class Login extends AppCompatActivity{
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
         initializeReference(userdb.child("Name"), name);
+        initializeReference(userdb.child("BodyIdx"), "1");
         initializeReference(userdb.child("Email"), email);
         initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
         initializeReference(userdb.child("UpdateTime"), String.valueOf(0));
