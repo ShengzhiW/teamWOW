@@ -27,6 +27,12 @@
     <string name="privacy_leaderboard">Appear on leaderboard</string>
     <string name="privacy_email">Display email</string>
 
+    <!-- Profile strings -->
+    <string name="view_profile">View Profile</string>
+    <string name="total_curr">Total Gary Points</string>
+    <string name="total_hats">Hats Owned</string>
+    <string name="total_bodies">Bodies Owned</string>
+
     <!-- Help string -->
     <string name="OwO">What\'s this?</string>
     <string name="total_steps">Total Steps Walked</string>
