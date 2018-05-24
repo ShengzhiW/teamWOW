@@ -41,14 +41,15 @@ public class HatPage extends AppCompatActivity {
     Button closeButton;
     GridLayout mainGrid;
 
-
     /* Initialize firebase db */
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
     private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Hat");
+    private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
     ArrayList<Integer> hatArray = new ArrayList<Integer>();
+    private int garyBucks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,19 @@ public class HatPage extends AppCompatActivity {
                 // DO nothing
             }
         });
+        ValueEventListener currencyListner = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) garyBucks = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        currencyDB.addListenerForSingleValueEvent(currencyListner);
+
         /* Begin process */
         setSingleEvent(mainGrid);
         closeHatShop(closeButton);
@@ -99,11 +113,11 @@ public class HatPage extends AppCompatActivity {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;
+            final int price = 100 * i;
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO: replace toast with start new Activity
-                    Toast.makeText(HatPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
 
                     ImageView image = new ImageView(HatPage.this);
                     ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
@@ -115,7 +129,37 @@ public class HatPage extends AppCompatActivity {
                         Builder builder = new Builder(HatPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                //.setMessage("Are you sure?")
+                                .setMessage("Price:" + price + "\n" + "Currency: " + garyBucks)
+                                .setView(image)
+                                // Line below creates icon for dialog box in upper left corner
+                                .setIcon(image.getDrawable())
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Yes button clicked, do something
+                                        if (garyBucks >= price) {
+                                            Toast.makeText(HatPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
+                                            // Unequips currently equipped item
+                                            for (int i = 0; i < hatArray.size(); i++) {
+                                                if (hatArray.get(i) == 2) {
+                                                    hatDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                    hatArray.set(i, 1);
+                                                    break;
+                                                }
+                                            }
+                                            currencyDB.setValue(garyBucks - price);
+                                            hatDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                            hatArray.set(finalI, 2);
+                                        }else{
+                                            Toast.makeText(HatPage.this, "Go walk more you potato", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
+                    }else if(hatArray.get(finalI) == 1){
+                        Builder builder = new Builder(HatPage.this);
+                        builder
+                                .setTitle("Equip " + getterName.getText().toString() + "?")
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
@@ -123,14 +167,22 @@ public class HatPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
                                         Toast.makeText(HatPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
-                                        hatDB.child(Integer.valueOf(finalI).toString()).setValue(1);
-                                        hatArray.set(finalI,1);
+                                        // Unequips currently equipped item
+                                        for(int i = 0; i < hatArray.size(); i++){
+                                            if(hatArray.get(i) == 2){
+                                                hatDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                hatArray.set(i,1);
+                                                break;
+                                            }
+                                        }
+                                        hatDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                        hatArray.set(finalI,2);
                                     }
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
                     }else{
-                        Toast.makeText(HatPage.this, "Already purchased this item", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HatPage.this, "Already equipped", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
