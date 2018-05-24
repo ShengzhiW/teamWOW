@@ -134,4 +134,54 @@
         android:gravity="center_horizontal"
         android:text="0"
         android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/questsDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/centerShim"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/total_hats"
+        android:gravity="center"
+        android:text="@string/total_quests"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/total_quests"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/questsDone"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/centerShim"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="40sp"/>
+
+    <TextView
+        android:id="@+id/loginDays"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/total_bodies"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/centerShim"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/total_days"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/total_days"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/centerShim"
+        android:layout_below="@+id/loginDays"
+        android:gravity="center_horizontal"
+        android:text="0"
+        android:textSize="40sp" />
 </RelativeLayout>
