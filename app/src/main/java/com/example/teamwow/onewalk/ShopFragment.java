@@ -111,14 +111,18 @@ public class ShopFragment extends Fragment {
              //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
                     if( item.getValue(Integer.class)  == 2){
                         // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getActivity(),"set body index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"set body index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
                         bodyIndex = Integer.parseInt(item.getKey());
                         dbBodyIdx.setValue(item.getKey());
 
-                        ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
-                        Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
-                        Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
-                        imgView.setImageDrawable(drawable);
+                        if(isAdded())
+                        {
+                            ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
+                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
+                            Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
+                            imgView.setImageDrawable(drawable);
+                        }
+
 
                     }
                 }
@@ -139,14 +143,18 @@ public class ShopFragment extends Fragment {
                     //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
                     if( item.getValue(Integer.class)  == 2){
                         // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getActivity(),"set hat index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"set hat index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
                         hatIndex = Integer.parseInt(item.getKey());
                         dbHatIdx.setValue(item.getKey());
 
-                        Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
-                        ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
-                        Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
-                        imgViewHat.setImageDrawable(drawableHat);
+                        if(isAdded())
+                        {
+                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
+                            ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
+                            Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
+                            imgViewHat.setImageDrawable(drawableHat);
+                        }
+
 
 
                     }
