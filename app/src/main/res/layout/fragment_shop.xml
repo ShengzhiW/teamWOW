@@ -71,11 +71,10 @@
 
     <ImageView
         android:id="@+id/imgViewHat"
-        android:layout_width="119dp"
-        android:layout_height="78dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp" />
+        android:layout_width="199dp"
+        android:layout_height="187dp"
+        android:layout_alignStart="@+id/imgView"
+        android:layout_alignTop="@+id/imgView" />
 
 
 </RelativeLayout>

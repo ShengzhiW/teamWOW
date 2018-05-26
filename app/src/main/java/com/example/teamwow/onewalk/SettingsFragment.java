@@ -41,6 +41,7 @@ public class SettingsFragment extends Fragment {
         Button logOutButton = rootView.findViewById(R.id.logout_button);
         Button deleteButton = rootView.findViewById(R.id.delete_button);
         Button privacyButton = rootView.findViewById(R.id.privacy_button);
+        Button profileButton = rootView.findViewById(R.id.profile_button);
 
         // Add a listener to the change nickname button that prompts the user for input and then updates the database
         nicknameButton.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +121,15 @@ public class SettingsFragment extends Fragment {
             public void onClick(View v){
                 // Create a popup screen
                 ((ContainerPage)getActivity()).pushFragment(new PrivacyFragment());
+            }
+        });
+
+        // Adds a listener to the profile button that brings the user to their profile page
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                // Create pop-up screen, similar to privacy
+                ((ContainerPage) getActivity()).pushFragment(new ProfileFragment());
             }
         });
         return rootView;

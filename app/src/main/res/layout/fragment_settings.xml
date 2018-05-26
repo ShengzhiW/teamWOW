@@ -47,13 +47,23 @@
         android:text="@string/nickname_text" />
 
     <Button
-        android:id="@+id/logout_button"
+        android:id="@+id/profile_button"
         style="@style/FirebaseUI.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
+        android:text="@string/view_profile" />
+
+    <Button
+        android:id="@+id/logout_button"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:text="@string/logout_text" />
 
     <Button

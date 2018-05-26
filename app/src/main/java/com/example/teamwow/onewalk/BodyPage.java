@@ -42,8 +42,10 @@ public class BodyPage extends AppCompatActivity {
     final String uid = user.getUid();
     private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Body");
-
+    private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
     ArrayList<Integer> bodyArray = new ArrayList<>();
+    private int garyBucks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,6 @@ public class BodyPage extends AppCompatActivity {
                 List array = (List) snapshot.getValue();
 
                 // we then transform those objects into integers for our hat array
-
                 for(int i = 0; i < array.size(); i++){
                     //Toast.makeText(HatPage.this, "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
                     bodyArray.add(Integer.valueOf(array.get(i).toString()));
@@ -76,6 +77,20 @@ public class BodyPage extends AppCompatActivity {
                 // DO nothing
             }
         });
+        ValueEventListener currencyListner = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) garyBucks = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        currencyDB.addListenerForSingleValueEvent(currencyListner);
+
+        /* Begin process */
         setSingleEvent(mainGrid);
         closeBodyShop(closeButton);
     }
@@ -93,6 +108,8 @@ public class BodyPage extends AppCompatActivity {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;
+            final int price = 100*i;
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -104,12 +121,42 @@ public class BodyPage extends AppCompatActivity {
                     image.setImageDrawable(getter.getDrawable());
                     TextView getterName = (TextView)((LinearLayout)cardView.getChildAt(0)).getChildAt(1);
 
-                    if(Integer.valueOf(bodyArray.get(finalI)) == 0){
+                    if(bodyArray.get(finalI) == 0){
                         // Dialog Box to buy hat
                         AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                //.setMessage("Are you sure?")
+                                .setMessage("Price:" + price + "\n" + "Currency: " + garyBucks)
+                                .setView(image)
+                                // Line below creates icon for dialog box in upper left corner
+                                .setIcon(image.getDrawable())
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //Yes button clicked, do something
+                                        if (garyBucks >= price) {
+                                            Toast.makeText(BodyPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
+                                            // Unequips currently equipped item
+                                            for (int i = 0; i < bodyArray.size(); i++) {
+                                                if (bodyArray.get(i) == 2) {
+                                                    bodyDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                    bodyArray.set(i, 1);
+                                                    break;
+                                                }
+                                            }
+                                            currencyDB.setValue(garyBucks - price);
+                                            bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                            bodyArray.set(finalI, 2);
+                                        }else{
+                                            Toast.makeText(BodyPage.this, "Go walk more you potato", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("No", null)
+                                .show();
+                    }else if(bodyArray.get(finalI) == 1){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
+                        builder
+                                .setTitle("Equip " + getterName.getText().toString() + "?")
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
@@ -117,14 +164,22 @@ public class BodyPage extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Yes button clicked, do something
                                         Toast.makeText(BodyPage.this, "Looking good!", Toast.LENGTH_SHORT).show();
-                                        bodyDB.child(Integer.valueOf(finalI).toString()).setValue(1);
-                                        bodyArray.set(finalI,1);
+                                        // Unequips currently equipped item
+                                        for(int i = 0; i < bodyArray.size(); i++){
+                                            if(bodyArray.get(i) == 2){
+                                                bodyDB.child(Integer.valueOf(i).toString()).setValue(1);
+                                                bodyArray.set(i,1);
+                                                break;
+                                            }
+                                        }
+                                        bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
+                                        bodyArray.set(finalI,2);
                                     }
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
                     }else{
-                        Toast.makeText(BodyPage.this, "Already purchased this item", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BodyPage.this, "Already equipped", Toast.LENGTH_SHORT).show();
                     }
 
                 }
