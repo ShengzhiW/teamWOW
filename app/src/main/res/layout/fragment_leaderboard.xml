@@ -20,18 +20,23 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
         android:gravity="center"
         android:text="@string/title_leaderboard"
+        android:textAlignment="center"
         android:textColor="@color/Figma"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/leaderboardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_width="334dp"
+        android:layout_height="458dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/layout_bg"
         android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:scrollbars="vertical" />
 
 </RelativeLayout>

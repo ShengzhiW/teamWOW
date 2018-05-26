@@ -103,7 +103,7 @@ public class HatPage extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //TODO: replace toast with start new Activity
-                    Toast.makeText(HatPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(HatPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
 
                     ImageView image = new ImageView(HatPage.this);
                     ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);

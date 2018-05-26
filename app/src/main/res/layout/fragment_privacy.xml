@@ -34,6 +34,7 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/round_button"
 
+        android:text="X"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />

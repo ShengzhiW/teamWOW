@@ -129,8 +129,6 @@ public class Login extends AppCompatActivity{
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.exists()) {
                     dr.setValue(list);
-                }else{
-                    Toast.makeText(Login.this, "Inventory exists", Toast.LENGTH_SHORT).show();
                 }
             }
 
