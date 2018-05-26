@@ -30,6 +30,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
+
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
 
     private DatabaseReference userStepCount;
@@ -135,7 +136,6 @@ public class StepCounterService extends Service implements SensorEventListener {
         {
             currencyCount++;
             currencyCountDb.setValue(currencyCount);
-
         }
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
