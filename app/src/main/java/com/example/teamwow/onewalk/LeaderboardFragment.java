@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,6 +42,9 @@ public class LeaderboardFragment extends Fragment {
     /* Pulls and displays the top 10 users on the leaderboard from the database */
     public void buildLeaderboard() {
         Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(10);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String uid = user.getUid();
+
         // attaches a listener to check when a user's step count is updated
         leaderQuery.addValueEventListener(new ValueEventListener() {
             @Override

@@ -33,6 +33,15 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/instructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/instructions"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <TextView
             android:id="@+id/challenge_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

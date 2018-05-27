@@ -20,9 +20,10 @@
     <string name="delete_account_success">Account Deleted</string>
     <string name="delete_account_failed">Delete Account Failed</string>
     <string name="Username">Username</string>
+    <string name="aboutWalk">About One Walk</string>
 
     <!-- Privacy strings -->
-    <string name="edit_privacy">Edit Privacy Settings</string>
+    <string name="edit_privacy">Privacy</string>
     <string name="title_privacy">Privacy</string>
     <string name="privacy_leaderboard">Appear on leaderboard</string>
     <string name="privacy_email">Display email</string>
@@ -39,4 +40,5 @@
     <string name="OwO">What\'s this?</string>
     <string name="total_steps">Total Steps Walked</string>
     <string name="currency_title">Gary Points</string>
+    <string name="instructions">Walk around in your daily life and everytime you meet the step requirement you\'ll gain Gary Bucks! \n\n Happy walking!</string>
 </resources>

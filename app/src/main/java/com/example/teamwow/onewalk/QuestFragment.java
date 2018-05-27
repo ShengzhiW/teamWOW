@@ -28,21 +28,12 @@ public class QuestFragment extends Fragment {
     private TextView rewardText;
     private int questNum;
 
-    //private static final String ACTION_EDIT =
-            //"com.example.android.updateQuest.ACTION_EDIT";
-
-    //private static final int UPDATE_QUEST_ID = 0;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_quest, container, false);
         questText = rootView.findViewById(R.id.quest_text);
         rewardText = rootView.findViewById(R.id.reward_text);
-
-        //buildChallenges();
-
-        /* WHAT AM I DOING???????? */
 
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();
@@ -51,28 +42,6 @@ public class QuestFragment extends Fragment {
         int dailyQuestNum = (day+month)%3;
 
         Context context = this.getActivity();
-
-        /* ALL OF THIS IS POINTLES????? */
-        // Shared preferences
-        /* SharedPreferences sharedQuestNum = context.getSharedPreferences("dailyQuest", 0);
-        SharedPreferences.Editor questNumEditor = sharedQuestNum.edit();
-        int dailyQuestNum = sharedQuestNum.getInt("dailyQuest", 0);
-
-        long afterOneDay = calendar.getTimeInMillis();
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-
-        // Making an intent??????
-        Intent updateQuestIntent = new Intent();
-
-        // Create a pending intent
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, UPDATE_QUEST_ID
-                , updateQuestIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Set the alarm???
-        alarmManager.setRepeating(AlarmManager.RTC, afterOneDay, AlarmManager.INTERVAL_DAY,
-                alarmPendingIntent);*/
-
 
         DatabaseReference questTextRef = db.getReference("Quests").child("" + dailyQuestNum);
         questTextRef.addValueEventListener(new ValueEventListener() {

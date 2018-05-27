@@ -62,11 +62,15 @@ public class BodyPage extends AppCompatActivity {
                 // the snapshot provides a generic list holding Objects
                 List array = (List) snapshot.getValue();
 
-                // we then transform those objects into integers for our hat array
-                for(int i = 0; i < array.size(); i++){
-                    //Toast.makeText(HatPage.this, "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
-                    bodyArray.add(Integer.valueOf(array.get(i).toString()));
+                if(array != null)
+                {
+                    // we then transform those objects into integers for our hat array
+                    for(int i = 0; i < array.size(); i++){
+                        //Toast.makeText(HatPage.this, "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
+                        bodyArray.add(Integer.valueOf(array.get(i).toString()));
+                    }
                 }
+
 
             }
 

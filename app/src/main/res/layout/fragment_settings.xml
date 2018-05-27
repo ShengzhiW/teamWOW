@@ -26,54 +26,79 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/privacy_button"
-        style="@style/FirebaseUI.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/edit_privacy"/>
 
-    <Button
-        android:id="@+id/nickname_button"
-        style="@style/FirebaseUI.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:text="@string/nickname_text" />
 
     <Button
         android:id="@+id/profile_button"
-        style="@style/FirebaseUI.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:text="@string/view_profile" />
+        android:layout_marginTop="75dp"
+        android:background="@drawable/button_round"
+        android:text="@string/view_profile"
+        style="?android:attr/borderlessButtonStyle"/>
+
+
+    <Button
+        android:id="@+id/nickname_button"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="125dp"
+        android:background="@drawable/button_round"
+        android:text="@string/nickname_text"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/privacy_button"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp"
+        android:background="@drawable/button_round"
+        android:text="@string/edit_privacy"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/about_walk"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="225dp"
+        android:background="@drawable/button_round"
+        android:text="@string/aboutWalk"
+        style="?android:attr/borderlessButtonStyle"/>
+
 
     <Button
         android:id="@+id/logout_button"
-        style="@style/FirebaseUI.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
-        android:text="@string/logout_text" />
+        android:layout_marginTop="275dp"
+        android:background="@drawable/button_round"
+        android:text="@string/logout_text"
+        style="?android:attr/borderlessButtonStyle"/>
+
+
+
+
 
     <Button
         android:id="@+id/delete_button"
-        style="@style/FirebaseUI.Button.AccountChooser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="25dp"
-        android:text="@string/delete_account_text" />
+        android:background="#FFFFFF"
+        android:text="@string/delete_account_text"
+        android:textColor="#f00"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>
