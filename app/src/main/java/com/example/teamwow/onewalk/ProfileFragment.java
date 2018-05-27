@@ -109,12 +109,16 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List array = (List) dataSnapshot.getValue();
-                for(int i = 0; i < array.size(); i++){
-                    if(Integer.valueOf(array.get(i).toString()) == 1){
-                        hats++;
+                if(array != null)
+                {
+                    for(int i = 0; i < array.size(); i++){
+                        if(Integer.valueOf(array.get(i).toString()) == 1){
+                            hats++;
+                        }
                     }
+                    totalHats.setText(String.valueOf(hats));
                 }
-                totalHats.setText(String.valueOf(hats));
+
             }
 
             @Override
@@ -126,12 +130,16 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List array = (List) dataSnapshot.getValue();
-                for(int i = 0; i < array.size(); i++){
-                    if(Integer.valueOf(array.get(i).toString()) == 1){
-                        bodies++;
+                if(array != null)
+                {
+                    for(int i = 0; i < array.size(); i++){
+                        if(Integer.valueOf(array.get(i).toString()) == 1){
+                            bodies++;
+                        }
                     }
+                    totalBodies.setText(String.valueOf(bodies));
                 }
-                totalBodies.setText(String.valueOf(bodies));
+
             }
 
             @Override

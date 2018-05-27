@@ -52,28 +52,6 @@ public class QuestFragment extends Fragment {
 
         Context context = this.getActivity();
 
-        /* ALL OF THIS IS POINTLES????? */
-        // Shared preferences
-        /* SharedPreferences sharedQuestNum = context.getSharedPreferences("dailyQuest", 0);
-        SharedPreferences.Editor questNumEditor = sharedQuestNum.edit();
-        int dailyQuestNum = sharedQuestNum.getInt("dailyQuest", 0);
-
-        long afterOneDay = calendar.getTimeInMillis();
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-
-        // Making an intent??????
-        Intent updateQuestIntent = new Intent();
-
-        // Create a pending intent
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, UPDATE_QUEST_ID
-                , updateQuestIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Set the alarm???
-        alarmManager.setRepeating(AlarmManager.RTC, afterOneDay, AlarmManager.INTERVAL_DAY,
-                alarmPendingIntent);*/
-
-
         DatabaseReference questTextRef = db.getReference("Quests").child("" + dailyQuestNum);
         questTextRef.addValueEventListener(new ValueEventListener() {
             @Override
