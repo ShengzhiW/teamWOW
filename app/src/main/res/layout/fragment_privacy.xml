@@ -45,9 +45,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="@string/privacy_leaderboard"
-        android:textColor="@color/Figma"
-        android:textSize="20sp" />
+        android:background="@drawable/button_round"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/privacy_leaderboard" />
 
     <Switch
         android:id="@+id/emailSwitch"
@@ -56,9 +56,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/leaderboardSwitch"
         android:layout_marginTop="150dp"
+        android:background="@drawable/button_round"
+        style="?android:attr/borderlessButtonStyle"
         android:checked="false"
         android:splitTrack="false"
-        android:text="@string/privacy_email"
-        android:textColor="@color/Figma"
-        android:textSize="20sp" />
+        android:text="@string/privacy_email" />
 </RelativeLayout>
