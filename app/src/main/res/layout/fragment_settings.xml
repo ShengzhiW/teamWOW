@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="75dp"
         android:background="@drawable/button_round"
         android:text="@string/view_profile"
         style="?android:attr/borderlessButtonStyle"/>
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="175dp"
         android:background="@drawable/button_round"
         android:text="@string/edit_privacy"
         style="?android:attr/borderlessButtonStyle"/>
@@ -68,10 +68,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="275dp"
+        android:layout_marginTop="225dp"
         android:background="@drawable/button_round"
         android:text="@string/aboutWalk"
         style="?android:attr/borderlessButtonStyle"/>
+
 
     <Button
         android:id="@+id/logout_button"
@@ -79,10 +80,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="225dp"
+        android:layout_marginTop="275dp"
         android:background="@drawable/button_round"
         android:text="@string/logout_text"
         style="?android:attr/borderlessButtonStyle"/>
+
+
+
 
 
     <Button

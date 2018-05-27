@@ -12,7 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Display Name:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16sp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"/>
 
     <EditText
         android:id="@+id/newNickname"
