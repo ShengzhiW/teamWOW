@@ -50,6 +50,23 @@ public class SettingsFragment extends Fragment {
                 LayoutInflater li = LayoutInflater.from(getActivity());
                 View promptsView = li.inflate(R.layout.about_while_walk, null);
 
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+                // set prompts.xml to alert dialog builder
+                alertDialogBuilder.setView(promptsView);
+
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setNegativeButton("Close",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                // create alert dialog, show it
+                alertDialogBuilder.create().show();
+
 
             }});
 

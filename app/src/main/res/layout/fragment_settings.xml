@@ -26,16 +26,19 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
+
+
     <Button
-        android:id="@+id/privacy_button"
+        android:id="@+id/profile_button"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="175dp"
         android:background="@drawable/button_round"
-        android:text="@string/edit_privacy"
+        android:text="@string/view_profile"
         style="?android:attr/borderlessButtonStyle"/>
+
 
     <Button
         android:id="@+id/nickname_button"
@@ -49,14 +52,25 @@
         style="?android:attr/borderlessButtonStyle"/>
 
     <Button
-        android:id="@+id/profile_button"
+        android:id="@+id/privacy_button"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="75dp"
         android:background="@drawable/button_round"
-        android:text="@string/view_profile"
+        android:text="@string/edit_privacy"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/about_walk"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="275dp"
+        android:background="@drawable/button_round"
+        android:text="@string/aboutWalk"
         style="?android:attr/borderlessButtonStyle"/>
 
     <Button
@@ -70,16 +84,6 @@
         android:text="@string/logout_text"
         style="?android:attr/borderlessButtonStyle"/>
 
-    <Button
-        android:id="@+id/about_walk"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="275dp"
-        android:background="@drawable/button_round"
-        android:text="@string/aboutWalk"
-        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/delete_button"
