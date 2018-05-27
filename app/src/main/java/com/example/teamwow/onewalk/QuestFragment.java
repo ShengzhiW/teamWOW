@@ -28,21 +28,12 @@ public class QuestFragment extends Fragment {
     private TextView rewardText;
     private int questNum;
 
-    //private static final String ACTION_EDIT =
-            //"com.example.android.updateQuest.ACTION_EDIT";
-
-    //private static final int UPDATE_QUEST_ID = 0;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_quest, container, false);
         questText = rootView.findViewById(R.id.quest_text);
         rewardText = rootView.findViewById(R.id.reward_text);
-
-        //buildChallenges();
-
-        /* WHAT AM I DOING???????? */
 
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();

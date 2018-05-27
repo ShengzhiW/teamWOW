@@ -31,11 +31,14 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int dailyCount = 0;
     private int currencyCount = 0;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private int stepReq = 0;
+    private int reward = 0;
 
     private DatabaseReference userStepCount;
     private DatabaseReference lbStepCount;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
+    private DatabaseReference questDb;
 
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -55,6 +58,12 @@ public class StepCounterService extends Service implements SensorEventListener {
         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String todayDate = df.format(today);
 
+        // Get the current date for the quests
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+        final int dailyQuestNum = (day+month)%3;
+
         // declare step detector using sensor and sensor manager
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
@@ -67,6 +76,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
+        questDb = db.getReference("Users").child(uid).child("Quests").child("" + dailyQuestNum);
 
         // set a listener every time a user's steps change
         ValueEventListener stepListener = new ValueEventListener() {
@@ -105,9 +115,26 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
         };
 
+        // Set a listener for the quests
+        ValueEventListener questListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    stepReq = dataSnapshot.child("stepReq").getValue(int.class);
+                    reward = dataSnapshot.child("reward").getValue(int.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
         userStepCount.addListenerForSingleValueEvent(stepListener);
         todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
         currencyCountDb.addListenerForSingleValueEvent(currencyListner);
+        questDb.addListenerForSingleValueEvent(questListener);
 
         // if service killed, recreate service (may change to different value found on android service guide)
         return START_STICKY;
@@ -130,13 +157,29 @@ public class StepCounterService extends Service implements SensorEventListener {
         count++;
         dailyCount++;
 
-        // If you've walked 100 steps then increment the currency count
-        if(count%100 == 0)
+        // If you've walked 100 steps and fulfilled the daily step requirement
+        // then increment the currency count by the reward gained and the single currency gained
+        if(count%100 == 0 && dailyCount%stepReq == 0)
         {
-            currencyCount++;
+            currencyCount = currencyCount + reward + 1;
             currencyCountDb.setValue(currencyCount);
 
         }
+        // If you've walked 100 steps and have not fulfilled the daily step req
+        // increment currency by one
+        else if(count%100 == 0 && dailyCount%stepReq != 0)
+        {
+            currencyCount++;
+            currencyCountDb.setValue(currencyCount);
+        }
+        // If you've not walked 100 steps and have fulfilled the daily step req
+        // then only add the reward to currency count
+        else if(count%100 != 0 && dailyCount%stepReq == 0)
+        {
+            currencyCount = currencyCount + reward;
+            currencyCountDb.setValue(currencyCount);
+        }
+
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
         todayStepCount.setValue(dailyCount);
