@@ -131,7 +131,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         dailyCount++;
 
         // If you've walked 100 steps then increment the currency count
-        if(dailyCount%100 == 0)
+        if(count%100 == 0)
         {
             currencyCount++;
             currencyCountDb.setValue(currencyCount);
