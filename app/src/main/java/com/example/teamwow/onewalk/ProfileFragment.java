@@ -127,7 +127,7 @@ public class ProfileFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List array = (List) dataSnapshot.getValue();
                 for(int i = 0; i < array.size(); i++){
-                    if(Integer.valueOf(array.get(i).toString()) == 1){
+                    if(Integer.valueOf(array.get(i).toString()) >= 1){
                         bodies++;
                     }
                 }
