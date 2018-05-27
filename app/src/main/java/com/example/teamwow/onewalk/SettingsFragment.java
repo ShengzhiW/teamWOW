@@ -42,6 +42,16 @@ public class SettingsFragment extends Fragment {
         Button deleteButton = rootView.findViewById(R.id.delete_button);
         Button privacyButton = rootView.findViewById(R.id.privacy_button);
         Button profileButton = rootView.findViewById(R.id.profile_button);
+        Button aboutButton = rootView.findViewById(R.id.about_walk);
+
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater li = LayoutInflater.from(getActivity());
+                View promptsView = li.inflate(R.layout.about_while_walk, null);
+
+
+            }});
 
         // Add a listener to the change nickname button that prompts the user for input and then updates the database
         nicknameButton.setOnClickListener(new View.OnClickListener() {
