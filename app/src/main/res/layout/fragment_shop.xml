@@ -41,7 +41,7 @@
             android:height="150dp"
             android:background="@drawable/button_rounded"
             android:drawablePadding="10dp"
-            android:drawableTop="@drawable/ic_avatatop"
+            android:drawableTop="@drawable/ic_avatartop"
             android:padding="30dp"
             android:text="Hats"
             android:textAllCaps="false"
