@@ -34,7 +34,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         android:background="@drawable/button_round"
-        android:text="@string/edit_privacy" />
+        android:text="@string/edit_privacy"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/nickname_button"
@@ -44,7 +45,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="125dp"
         android:background="@drawable/button_round"
-        android:text="@string/nickname_text" />
+        android:text="@string/nickname_text"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/profile_button"
@@ -54,7 +56,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="175dp"
         android:background="@drawable/button_round"
-        android:text="@string/view_profile" />
+        android:text="@string/view_profile"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/logout_button"
@@ -64,7 +67,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="225dp"
         android:background="@drawable/button_round"
-        android:text="@string/logout_text" />
+        android:text="@string/logout_text"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/delete_button"
@@ -75,6 +79,7 @@
         android:layout_marginBottom="25dp"
         android:background="#FFFFFF"
         android:text="@string/delete_account_text"
-        android:textColor="@color/Figma"/>
+        android:textColor="@color/Figma"
+        style="?android:attr/borderlessButtonStyle"/>
 
 </RelativeLayout>
