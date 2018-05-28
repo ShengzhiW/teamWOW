@@ -1,6 +1,7 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,10 +33,14 @@ public class LeaderboardFragment extends Fragment {
     private RecyclerView leaderboardView;
     private RecyclerView.Adapter leaderboardAdapter;
     private RecyclerView.LayoutManager leaderboardLayoutManager;
+    private int[] nameIds = {R.id.rank1username, R.id.rank2username, R.id.rank3username,
+            R.id.rank4username, R.id.rank5username, R.id.rank6username, R.id.rank7username,
+            R.id.rank8username, R.id.rank9username, R.id.rank10username};
+    private int[] stepIds = {R.id.rank1steps, R.id.rank2steps, R.id.rank3steps,
+            R.id.rank4steps, R.id.rank5steps, R.id.rank6steps, R.id.rank7steps,
+            R.id.rank8steps, R.id.rank9steps, R.id.rank10steps};
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Integer> stepCounts = new ArrayList<>();
-
-    private TableLayout leaderboardTable;
 
 //    @Nullable
 //    @Override
@@ -87,13 +92,18 @@ public class LeaderboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.secretstuffsimtesting, container, false);
-        buildLeaderboard();
         return rootView;
     }
-    public void buildLeaderboard() {
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
 
-        leaderboardTable = (TableLayout) rootView.findViewById(R.id.leaderboard_table);
+    @Nullable
+    @Override
+    public void onViewCreated(View v, Bundle savedInstanceState) {
+        buildLeaderboard(v);
+    }
+
+    public void buildLeaderboard(final View v) {
+
+        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
 
         // attaches a listener to check when a user's step count is updated
         leaderQuery.addValueEventListener(new ValueEventListener() {
@@ -118,14 +128,10 @@ public class LeaderboardFragment extends Fragment {
                 TextView name;
                 TextView stepCount;
                 for(int i = 0; i < names.size(); i++) {
-                    String nameID = "rank" + (i+1) + "username";
-                    int resNameID = getResources().getIdentifier(nameID, "id", getActivity().getPackageName());
-                    name = (TextView) rootView.findViewById(resNameID);
+                    name = (TextView) v.findViewById(nameIds[i]);
                     name.setText(names.get(i));
 
-                    String stepsID = "rank" + (i+1) + "steps";
-                    int resStepsID = getResources().getIdentifier(stepsID, "id", getActivity().getPackageName());
-                    stepCount = (TextView) rootView.findViewById(resStepsID);
+                    stepCount = (TextView) v.findViewById(stepIds[i]);
                     stepCount.setText(String.valueOf(stepCounts.get(i)));
                 }
             }

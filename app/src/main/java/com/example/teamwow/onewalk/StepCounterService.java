@@ -30,6 +30,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
+    private int numquests = 0;
     private int lifetimeCurrencyCount = 0;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -38,6 +39,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     private DatabaseReference userStepCount;
     private DatabaseReference lbStepCount;
+    private DatabaseReference questsCompleted;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
     private DatabaseReference lifetimeCurrencyCountDb;
@@ -80,6 +82,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
+        questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
         lifetimeCurrencyCountDb = db.getReference("Users").child(uid).child("Lifetime Currency");
         questDb = db.getReference("Quests").child("" + dailyQuestNum);
 
@@ -120,11 +123,26 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
         };
 
+        // Set a listener for the number of quests completed
+        ValueEventListener questsCompletedListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) numquests = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        };
+
         // Set a listener for the lifetime currency
         ValueEventListener lifetimeCurrencyListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) lifetimeCurrencyCount = dataSnapshot.getValue(Integer.class);
+                if (dataSnapshot.exists())
+                    lifetimeCurrencyCount = dataSnapshot.getValue(Integer.class);
             }
 
             @Override
@@ -152,6 +170,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         userStepCount.addListenerForSingleValueEvent(stepListener);
         todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
         currencyCountDb.addListenerForSingleValueEvent(currencyListener);
+        questsCompleted.addListenerForSingleValueEvent(questsCompletedListener);
         lifetimeCurrencyCountDb.addListenerForSingleValueEvent(lifetimeCurrencyListener);
         questDb.addListenerForSingleValueEvent(questListener);
 
@@ -181,8 +200,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         if(count%100 == 0 && dailyCount%stepReq == 0)
         {
             currencyCount = currencyCount + reward + 1;
+            numquests++;
             currencyCountDb.setValue(currencyCount);
-
+            questsCompleted.setValue(numquests);
             lifetimeCurrencyCount = lifetimeCurrencyCount + reward + 1;
             lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
@@ -192,7 +212,6 @@ public class StepCounterService extends Service implements SensorEventListener {
         {
             currencyCount++;
             currencyCountDb.setValue(currencyCount);
-
             lifetimeCurrencyCount = lifetimeCurrencyCount + 1;
             lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
@@ -201,8 +220,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         else if(count%100 != 0 && dailyCount%stepReq == 0)
         {
             currencyCount = currencyCount + reward;
+            numquests++;
             currencyCountDb.setValue(currencyCount);
-
+            questsCompleted.setValue(numquests);
             lifetimeCurrencyCount = lifetimeCurrencyCount + reward;
             lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
