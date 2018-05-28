@@ -29,7 +29,7 @@
         <item name="colorPrimary">@color/Figma</item>
         <item name="colorPrimaryDark">@color/lightGrey</item>
         <item name="colorAccent">@color/Figma</item>
-        <!--<item name="android:windowBackground">@mipmap/bg_login</item>-->
+        <item name="android:windowBackground">@drawable/loginbg</item>
     </style>
 
     <style name="FirebaseAuthActionBarStyle" parent="Widget.AppCompat.ActionBar">
