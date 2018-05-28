@@ -92,6 +92,7 @@ public class Login extends AppCompatActivity{
 
         /* Initialize empty list for inventory */
         List<Integer> t = new ArrayList<Integer>(Collections.nCopies(20, 0));
+        t.set(0, 2);
 
         // Look up / add the specific user in/to the database and keep a reference while app is open
         final String email = user.getEmail();
@@ -101,11 +102,12 @@ public class Login extends AppCompatActivity{
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
         initializeReference(userdb.child("Name"), name);
-        initializeReference(userdb.child("BodyIdx"), "1");
-        initializeReference(userdb.child("HatIdx"), "1");
+        initializeReference(userdb.child("BodyIdx"), "0");
+        initializeReference(userdb.child("HatIdx"), "0");
         initializeReference(userdb.child("Email"), email);
+        initializeReference(userdb.child("Steps"), "0");
+        initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), "true");
         initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
-        initializeReference(userdb.child("UpdateTime"), String.valueOf(0));
 
         // Update shop database if not already
         initializeInventory(userdb.child("Inventory").child("Hat"),t);
@@ -129,11 +131,7 @@ public class Login extends AppCompatActivity{
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
-                    dr.setValue(list);
-                }else{
-                    Toast.makeText(Login.this, "Inventory exists", Toast.LENGTH_SHORT).show();
-                }
+                if(!dataSnapshot.exists()) dr.setValue(list);
             }
 
             @Override
