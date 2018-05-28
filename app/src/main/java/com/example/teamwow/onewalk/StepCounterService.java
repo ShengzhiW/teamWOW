@@ -77,7 +77,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
-        questDb = db.getReference("Users").child(uid).child("Quests").child("" + dailyQuestNum);
+        questDb = db.getReference("Quests").child("" + dailyQuestNum);
 
         // set a listener every time a user's steps change
         ValueEventListener stepListener = new ValueEventListener() {
