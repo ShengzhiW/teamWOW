@@ -42,8 +42,11 @@ public class Login extends AppCompatActivity{
         auth = FirebaseAuth.getInstance();
 
         /* Start log in. Email is available for log in */
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+        startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
+//                .setTheme(R.style.AppThemeFirebaseAuth)
+//                .setLogo(R.drawable.ic_appiconv4svg)
                 .build(), RC_SIGN_IN);
     }
 
