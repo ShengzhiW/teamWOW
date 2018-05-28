@@ -56,8 +56,8 @@ public class LeaderboardFragment extends Fragment {
                 list.clear();
                 for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
                     if(leaderSnapshot.child("Steps").exists()) {
-                       // DatabaseReference appleaderboard = db.getReference("Users").child(uid).child("Privacy").child("Appear on Leaderboard");
-                        if(leaderSnapshot.child("Appear on Leaderboard").getValue(boolean.class)){
+                        boolean showlb = leaderSnapshot.child("Privacy").child("Appear on Leaderboard").getValue(boolean.class);
+                        if(showlb){
                             list.add(leaderSnapshot.child("Name").getValue(String.class)
                                     + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
                             totalmembers++;
