@@ -185,8 +185,7 @@ public class SettingsFragment extends Fragment {
         // Alert Builder
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
 
-        alertBuilder.setMessage("Are you sure you want to delete your account? This will erase all data " +
-                "linked to your account.");
+        alertBuilder.setMessage(R.string.confirm_delete_account);
         alertBuilder.setCancelable(true);
 
         // Action for positive button

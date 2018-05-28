@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Daily Challenge"
+            android:text="@string/daily_challenge"
             android:textSize="24sp"
             android:textStyle="bold" />
         <TextView
@@ -61,7 +61,7 @@
             android:id="@+id/reward_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Reward"
+            android:text="@string/reward"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />

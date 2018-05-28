@@ -44,7 +44,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="BODY SHOP"
+                android:text="@string/body_title"
                 android:textColor="@color/Figma"
                 android:textSize="34sp" />
         </RelativeLayout>
@@ -89,7 +89,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="CowBoy Body"
+                        android:text="@string/body_0"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -127,7 +127,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Magician body"
+                        android:text="@string/body_1"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -138,9 +138,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
             </android.support.v7.widget.CardView>
 
 
-
-
-            <!-- Row 1 column 1-->
+            <!-- Row 2 column 1-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -168,7 +166,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jojo Body"
+                        android:text="@string/body_2"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -178,7 +176,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
 
             </android.support.v7.widget.CardView>
 
-            <!-- Row 1 column 1-->
+            <!-- Row 2 column 1-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -206,7 +204,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Earth Body"
+                        android:text="@string/body_3"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -216,7 +214,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
 
             </android.support.v7.widget.CardView>
 
-            <!-- Row 1 column 2-->
+            <!-- Row 3 column 2-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -244,7 +242,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chef Body"
+                        android:text="@string/body_4"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -254,7 +252,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
 
             </android.support.v7.widget.CardView>
 
-            <!-- Row 1 column 1-->
+            <!-- Row 3 column 1-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -282,7 +280,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Viking Body"
+                        android:text="@string/body_5"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -292,7 +290,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
 
             </android.support.v7.widget.CardView>
 
-            <!-- Row 1 column 1-->
+            <!-- Row 4 column 1-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -320,7 +318,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Striped Body"
+                        android:text="@string/body_6"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -330,7 +328,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
 
             </android.support.v7.widget.CardView>
 
-            <!-- Row 1 column 1-->
+            <!-- Row 4 column 1-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -358,7 +356,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Yellow Robe Body"
+                        android:text="@string/body_7"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -396,7 +394,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Lee Body"
+                        android:text="@string/body_8"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -434,7 +432,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gary Body"
+                        android:text="@string/body_9"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 

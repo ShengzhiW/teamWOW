@@ -63,7 +63,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:text="Hats"
+            android:text="@string/shop_hat"
             android:textAllCaps="false"
             android:textSize="25sp"
             android:stateListAnimator="@null"
@@ -81,7 +81,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:text="Body"
+            android:text="@string/shop_body"
             android:textAllCaps="false"
             android:textSize="25sp"
             android:stateListAnimator="@null"
@@ -105,35 +105,6 @@
         android:layout_height="240dp"
         android:layout_alignStart="@+id/imgView"
         android:layout_alignTop="@+id/imgView" />
-
-
-
-
-    <!--    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="false"
-                android:layout_weight="0.5"
-                android:text="Left Button"
-                />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Right Button"
-                />
-        </LinearLayout>-->
-
-
 
 </RelativeLayout>
 

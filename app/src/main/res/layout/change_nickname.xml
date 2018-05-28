@@ -11,7 +11,7 @@
         android:id="@+id/changeNicknamePrompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Display Name:"
+        android:text="@string/ask_new_nickname"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="16sp"
         android:paddingBottom="10dp"

@@ -44,7 +44,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="HAT SHOP"
+                android:text="@string/hat_title"
                 android:textColor="@color/Figma"
                 android:textSize="34sp" />
         </RelativeLayout>
@@ -89,7 +89,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Baseball Hat"
+                        android:text="@string/hat_0"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -127,7 +127,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Magician Hat"
+                        android:text="@string/hat_1"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -165,7 +165,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pirate Hat"
+                        android:text="@string/hat_2"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -203,7 +203,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tree Hat"
+                        android:text="@string/hat_3"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -241,7 +241,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Poop Hat"
+                        android:text="@string/hat_4"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -279,7 +279,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cowboy Hat"
+                        android:text="@string/hat_5"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -317,7 +317,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chef hat"
+                        android:text="@string/hat_6"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -355,7 +355,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Konoha Hat"
+                        android:text="@string/hat_7"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -393,7 +393,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Viking Hat"
+                        android:text="@string/hat_8"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -431,7 +431,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Leprechaun Hat"
+                        android:text="@string/hat_9"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -469,7 +469,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Earth hat"
+                        android:text="@string/hat_10"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -505,7 +505,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jojo Hat"
+                        android:text="@string/hat_11"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -541,7 +541,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Duck Hat"
+                        android:text="@string/hat_12"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
