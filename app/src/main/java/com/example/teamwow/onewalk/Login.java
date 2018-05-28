@@ -113,6 +113,7 @@ public class Login extends AppCompatActivity{
         initializeReference(userdb.child("Steps"), 0);
         initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), true);
         initializeReference(userdb.child("Quests Completed"), 0);
+        initializeReference(userdb.child("Lifetime Currency"), 0);
         initializeReference(lbdb.child("Private"), false);
         initializeReference(lbdb.child("Name"), name);
         initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
