@@ -33,7 +33,7 @@
 
     <!-- Body shop strings -->
     <string name="shop_body">Body</string>
-    <string name="body_title">BODY SHOP</string>
+    <string name="body_title">Body Shop</string>
     <string name="body_0">Cowboy Body</string>
     <string name="body_1">Magician Body</string>
     <string name="body_2">Jojo Body</string>
@@ -47,7 +47,7 @@
 
     <!-- Hat shop strings -->
     <string name="shop_hat">Hats</string>
-    <string name="hat_title">HAT SHOP</string>
+    <string name="hat_title">Hat Shop</string>
     <string name="hat_0">Baseball Hat</string>
     <string name="hat_1">Magician Hat</string>
     <string name="hat_2">Pirate Hat</string>

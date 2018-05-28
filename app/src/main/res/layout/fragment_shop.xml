@@ -94,7 +94,7 @@
         android:layout_height="240dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="110dp"
         android:scaleType="centerInside"
         android:adjustViewBounds="true"
         android:background="@drawable/avatar_image_rounded"/>
