@@ -32,6 +32,7 @@ public class ProfileFragment extends Fragment {
     private TextView totalCurrency;
     private TextView totalHats;
     private TextView totalBodies;
+    private TextView totalQuests;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -41,12 +42,15 @@ public class ProfileFragment extends Fragment {
     private int count = 0;
     private int hats = 0;
     private int bodies = 0;
+    private int numquests = 0;
 
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
     private DatabaseReference userCurrency;
     private DatabaseReference userHats;
     private DatabaseReference userBodies;
+    private DatabaseReference questsCompleted;
+
 
     @Nullable
     @Override
@@ -60,12 +64,16 @@ public class ProfileFragment extends Fragment {
         totalCurrency = rootView.findViewById(R.id.total_currency_count);
         totalHats = rootView.findViewById(R.id.total_hats);
         totalBodies = rootView.findViewById(R.id.total_bodies);
+        totalQuests = rootView.findViewById(R.id.total_quests);
+
 
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
         userCurrency = db.getReference("Users").child(uid).child("Steps");
         userHats = db.getReference("Users").child(uid).child("Inventory").child("Hat");
         userBodies = db.getReference("Users").child(uid).child("Inventory").child("Body");
+        questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
+
 
         //Add listener to get the username
         userName.addValueEventListener(new ValueEventListener(){
@@ -104,7 +112,7 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        // Add listener to get the total currency
+        // Add listener to get the total hats
         userHats.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,7 +133,7 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        // Add listener to get the total currency
+        // Add listener to get the total bodies
         userBodies.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -144,6 +152,20 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        //Add listener to get the total quests completed
+        questsCompleted.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()) numquests = dataSnapshot.getValue(Integer.class);
+                    totalQuests.setText(String.valueOf(numquests));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+
         });
 
         return rootView;

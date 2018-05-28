@@ -30,6 +30,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
+    private int numquests = 0;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private int stepReq = 0;
@@ -37,6 +38,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
     private DatabaseReference userStepCount;
     private DatabaseReference lbStepCount;
+    private DatabaseReference questsCompleted;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
     private DatabaseReference questDb;
@@ -77,6 +79,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
+        questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
         questDb = db.getReference("Quests").child("" + dailyQuestNum);
 
         // set a listener every time a user's steps change
@@ -104,7 +107,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         };
 
         // Set a listener for the currency
-        ValueEventListener currencyListner = new ValueEventListener() {
+        ValueEventListener currencyListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
@@ -115,6 +118,20 @@ public class StepCounterService extends Service implements SensorEventListener {
 
             }
         };
+
+        // Set a listener for the number of quests completed
+        ValueEventListener questsCompletedListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) numquests = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
 
         // Set a listener for the quests
         ValueEventListener questListener = new ValueEventListener() {
@@ -134,7 +151,8 @@ public class StepCounterService extends Service implements SensorEventListener {
 
         userStepCount.addListenerForSingleValueEvent(stepListener);
         todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
-        currencyCountDb.addListenerForSingleValueEvent(currencyListner);
+        currencyCountDb.addListenerForSingleValueEvent(currencyListener);
+        questsCompleted.addListenerForSingleValueEvent(questsCompletedListener);
         questDb.addListenerForSingleValueEvent(questListener);
 
         // if service killed, recreate service (may change to different value found on android service guide)
@@ -163,7 +181,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         if(count%100 == 0 && dailyCount%stepReq == 0)
         {
             currencyCount = currencyCount + reward + 1;
+            numquests++;
             currencyCountDb.setValue(currencyCount);
+            questsCompleted.setValue(numquests);
         }
         // If you've walked 100 steps and have not fulfilled the daily step req
         // increment currency by one
@@ -177,7 +197,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         else if(count%100 != 0 && dailyCount%stepReq == 0)
         {
             currencyCount = currencyCount + reward;
+            numquests++;
             currencyCountDb.setValue(currencyCount);
+            questsCompleted.setValue(numquests);
         }
 
         userStepCount.setValue(count);
