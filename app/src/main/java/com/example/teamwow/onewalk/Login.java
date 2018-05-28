@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity{
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
-                .setLogo(R.drawable.ic_appiconv4svg)
+                //.setLogo(R.drawable.ic_appiconv4svg)
                 .setTheme(R.style.AppThemeFirebaseAuth)
                 .build(), RC_SIGN_IN);
     }
