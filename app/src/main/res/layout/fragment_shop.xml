@@ -86,6 +86,14 @@
         android:layout_alignStart="@+id/imgView"
         android:layout_alignTop="@+id/imgView" />
 
+    <TextView
+        android:id="@+id/currencyShop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:text="" />
+
     <!--    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
