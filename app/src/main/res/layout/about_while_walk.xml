@@ -31,18 +31,19 @@
         android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="OneWalk"
-        android:textColor="#000000"
+        android:textColor="#666"
         android:textSize="35sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="182dp"
-        android:layout_height="141dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="39dp"
-        app:srcCompat="@mipmap/appiconv4" />
+        android:layout_marginLeft="10dp"
+        app:srcCompat="@drawable/ic_appiconv4svg" />
 
     <TextView
         android:id="@+id/versionnumber"
@@ -65,7 +66,9 @@
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:paddingTop="20dp"
-        android:text="Take walking to the next level with OneWalk. Walk with a purpose from now on. OneWalk will help you feel better in game and in real life. Challenge yourself now!"
+        android:textColor="#777"
+        android:lineSpacingMultiplier="1.08"
+        android:text="Take walking to the next level with OneWalk. Walk with a purpose from now on. OneWalk will help you feel better in game and in real life. \n Challenge yourself now!"
         android:textAlignment="center"
         android:textSize="15dp" />
 
@@ -77,7 +80,7 @@
         android:layout_alignParentStart="true"
         android:text="Creators:"
         android:textAlignment="center"
-        android:textColor="#828282"
+        android:textColor="#777"
         android:textSize="20dp" />
 
     <TextView
@@ -87,6 +90,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="21dp"
+        android:textColor="#777"
         android:text="Rahul Shenoy \nAlexander Lo\nElaine Hsieh\nShengzhi Wang\nSergio Villazon\nAlexander Zhu\nConnie Guan\nJungyong Yi\nKimberly Li\nDavid Liau"
         android:textAlignment="center"
         android:textSize="12dp" />
