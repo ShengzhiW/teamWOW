@@ -30,7 +30,7 @@
 
     <!-- Profile strings -->
     <string name="view_profile">View Profile</string>
-    <string name="total_curr">Total # of Gary Points</string>
+    <string name="total_curr">Total # of Gary Bucks</string>
     <string name="total_hats">Hats Owned</string>
     <string name="total_bodies">Bodies Owned</string>
     <string name="total_quests">Quests Completed</string>
