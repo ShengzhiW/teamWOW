@@ -77,7 +77,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
-        android:adjustViewBounds="false" />
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:background="@drawable/avatarimage_rounded"/>
 
     <ImageView
         android:id="@+id/imgViewHat"

@@ -43,8 +43,11 @@ public class Login extends AppCompatActivity{
         auth = FirebaseAuth.getInstance();
 
         /* Start log in. Email is available for log in */
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+        startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
+                //.setLogo(R.drawable.ic_appiconv4svg)
+                .setTheme(R.style.AppThemeFirebaseAuth)
                 .build(), RC_SIGN_IN);
     }
 
@@ -112,6 +115,7 @@ public class Login extends AppCompatActivity{
         initializeReference(userdb.child("Quests Completed"), 0);
         initializeReference(lbdb.child("Private"), false);
         initializeReference(lbdb.child("Name"), name);
+        initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
 
         // Update shop database if not already
         initializeInventory(userdb.child("Inventory").child("Hat"),t);
