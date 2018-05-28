@@ -1,10 +1,12 @@
 package com.example.teamwow.onewalk;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -117,7 +119,14 @@ public class ShopFragment extends Fragment {
 
                         if(isAdded())
                         {
+                            DisplayMetrics dimension = new DisplayMetrics();
+                            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
+                            int height = dimension.heightPixels;
                             ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
+                            imgView.getLayoutParams().height = height / 3;
+                            imgView.getLayoutParams().width = height / 3;
+
+
                             //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
                             Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
                             imgView.setImageDrawable(drawable);
