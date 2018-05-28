@@ -24,20 +24,6 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/closePrivacy"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/round_button"
-
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
     <Switch
         android:id="@+id/leaderboardSwitch"
         android:layout_width="280dp"
@@ -63,4 +49,31 @@
         android:checked="false"
         android:splitTrack="false"
         android:text="@string/privacy_steps" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:gravity="bottom"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:clipToPadding="false">
+
+
+        <Button
+            android:id="@+id/closePrivacy"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_button"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:drawableTop="@drawable/close_button"
+            android:paddingTop="10dp"
+            />
+    </LinearLayout>
 </RelativeLayout>
+

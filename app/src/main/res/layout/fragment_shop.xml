@@ -36,10 +36,11 @@
         android:layout_marginTop="70dp"
         android:adjustViewBounds="true"
         android:background="@drawable/currency_counter"
-        android:text="abcd"
+        android:text="13060"
         android:textColor="@color/goldvalue"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
+        android:textSize="18sp"
         android:stateListAnimator="@null"
         android:drawableLeft="@drawable/garybucks"/>
 
