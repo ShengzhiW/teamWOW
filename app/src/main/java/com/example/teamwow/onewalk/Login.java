@@ -102,15 +102,15 @@ public class Login extends AppCompatActivity{
 
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
-        lbdb = db.getReference("Leaderboard");
+        lbdb = db.getReference("Leaderboard").child(uid);
         initializeReference(userdb.child("Name"), name);
         initializeReference(userdb.child("BodyIdx"), "0");
         initializeReference(userdb.child("HatIdx"), "0");
         initializeReference(userdb.child("Email"), email);
         initializeReference(userdb.child("Steps"), 0);
-        initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), "true");
+        initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), true);
         initializeReference(lbdb.child("Private"), false);
-        initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
+        initializeReference(lbdb.child("Name"), name);
 
         // Update shop database if not already
         initializeInventory(userdb.child("Inventory").child("Hat"),t);
@@ -130,6 +130,17 @@ public class Login extends AppCompatActivity{
     }
 
     public void initializeReference(final DatabaseReference dr, final int value) {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) dr.setValue(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    public void initializeReference(final DatabaseReference dr, final Boolean value) {
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

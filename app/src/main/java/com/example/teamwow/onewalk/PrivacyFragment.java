@@ -32,7 +32,7 @@ public class PrivacyFragment extends Fragment {
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
     private DatabaseReference privacyDB = db.getReference("Users").child(uid).child("Privacy");
-    private DatabaseReference privacylbdb = db.getReference("Leaderboard").child("Private");
+    private DatabaseReference privacylbdb = db.getReference("Leaderboard").child(uid).child("Private");
     private DatabaseReference privacy_leaderboard = privacyDB.child("Appear on Leaderboard");
     private DatabaseReference privacy_email = privacyDB.child("Show Email");
 
