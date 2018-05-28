@@ -106,7 +106,7 @@ public class Login extends AppCompatActivity{
         initializeReference(userdb.child("HatIdx"), "0");
         initializeReference(userdb.child("Email"), email);
         initializeReference(userdb.child("Steps"), 0);
-        initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), "true");
+        initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), true);
         initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
 
         // Update shop database if not already
@@ -127,6 +127,17 @@ public class Login extends AppCompatActivity{
     }
 
     public void initializeReference(final DatabaseReference dr, final int value) {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) dr.setValue(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    public void initializeReference(final DatabaseReference dr, final Boolean value) {
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
