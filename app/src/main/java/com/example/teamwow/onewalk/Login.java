@@ -30,6 +30,7 @@ public class Login extends AppCompatActivity{
     // Reference to the firebase database
     private FirebaseDatabase db;
     private DatabaseReference userdb;
+    private DatabaseReference lbdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,12 +102,14 @@ public class Login extends AppCompatActivity{
 
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
+        lbdb = db.getReference("Leaderboard");
         initializeReference(userdb.child("Name"), name);
         initializeReference(userdb.child("BodyIdx"), "0");
         initializeReference(userdb.child("HatIdx"), "0");
         initializeReference(userdb.child("Email"), email);
         initializeReference(userdb.child("Steps"), 0);
         initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), "true");
+        initializeReference(lbdb.child("Private"), false);
         initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
 
         // Update shop database if not already

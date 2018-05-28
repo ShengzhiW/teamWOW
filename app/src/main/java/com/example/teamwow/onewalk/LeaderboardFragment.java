@@ -32,7 +32,7 @@ public class LeaderboardFragment extends Fragment {
     private RecyclerView.LayoutManager leaderboardLayoutManager;
     private ArrayList<String> list = new ArrayList<>();
 
-    private int totalmembers = 0;
+ //   private int totalmembers = 0;
 
     @Nullable
     @Override
@@ -44,8 +44,8 @@ public class LeaderboardFragment extends Fragment {
 
     /* Pulls and displays the top 10 users on the leaderboard from the database */
     public void buildLeaderboard() {
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
-        //.limitToLast(10);
+        Query toShow = db.getReference("Leaderboard").child("Private").equalTo(false);
+        Query leaderQuery = toShow.orderByChild("Steps").limitToLast(10);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
 
@@ -56,15 +56,20 @@ public class LeaderboardFragment extends Fragment {
                 list.clear();
                 for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
                     if(leaderSnapshot.child("Steps").exists()) {
-                        boolean showlb = leaderSnapshot.child("Privacy").child("Appear on Leaderboard").getValue(boolean.class);
-                        if(showlb){
-                            list.add(leaderSnapshot.child("Name").getValue(String.class)
-                                    + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
-                            totalmembers++;
-                            if(totalmembers == 10){
-                                break;
-                            }
-                        }
+                   //     if(leaderSnapshot.child("Privacy").exists()) {
+                      //      if (leaderSnapshot.child("Privacy").child("Appear on Leaderboard").exists()) {
+
+                                //Boolean showlb = leaderSnapshot.child("Privacy").child("Appear on Leaderboard").getValue(Boolean.class);
+                                //if (showlb) {
+                                    list.add(leaderSnapshot.child("Name").getValue(String.class)
+                                            + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
+                         //           totalmembers++;
+                           //         if (totalmembers == 10) {
+                             //           break;
+                               //     }
+                                //}
+                            //}
+                       // }
                     }
                 }
                 Collections.reverse(list);

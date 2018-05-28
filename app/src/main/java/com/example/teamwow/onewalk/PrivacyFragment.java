@@ -32,6 +32,7 @@ public class PrivacyFragment extends Fragment {
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
     private DatabaseReference privacyDB = db.getReference("Users").child(uid).child("Privacy");
+    private DatabaseReference privacylbdb = db.getReference("Leaderboard").child("Private");
     private DatabaseReference privacy_leaderboard = privacyDB.child("Appear on Leaderboard");
     private DatabaseReference privacy_email = privacyDB.child("Show Email");
 
@@ -79,7 +80,7 @@ public class PrivacyFragment extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
 
                 privacyDB.child("Appear on Leaderboard").setValue(isChecked);
-
+                privacylbdb.setValue(!isChecked);
                 // Turn off all other switches if the leaderboard switch is turned off
                 if(!leaderboardSwitch.isChecked()) {
                     emailSwitch.setChecked(false);
