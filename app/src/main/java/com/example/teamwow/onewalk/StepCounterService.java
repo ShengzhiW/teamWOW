@@ -30,6 +30,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
+    private int lifetimeCurrencyCount = 0;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private int stepReq = 0;
@@ -39,6 +40,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private DatabaseReference lbStepCount;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
+    private DatabaseReference lifetimeCurrencyCountDb;
     private DatabaseReference questDb;
 
 
@@ -53,6 +55,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         count = 0;
         dailyCount = 0;
         currencyCount = 0;
+        lifetimeCurrencyCount = 0;
 
         // Get the current time
         Date today = Calendar.getInstance().getTime();
@@ -77,6 +80,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
+        lifetimeCurrencyCountDb = db.getReference("Users").child(uid).child("Lifetime Currency");
         questDb = db.getReference("Quests").child("" + dailyQuestNum);
 
         // set a listener every time a user's steps change
@@ -104,10 +108,23 @@ public class StepCounterService extends Service implements SensorEventListener {
         };
 
         // Set a listener for the currency
-        ValueEventListener currencyListner = new ValueEventListener() {
+        ValueEventListener currencyListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        // Set a listener for the lifetime currency
+        ValueEventListener lifetimeCurrencyListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) lifetimeCurrencyCount = dataSnapshot.getValue(Integer.class);
             }
 
             @Override
@@ -134,7 +151,8 @@ public class StepCounterService extends Service implements SensorEventListener {
 
         userStepCount.addListenerForSingleValueEvent(stepListener);
         todayStepCount.addListenerForSingleValueEvent(dailyStepListener);
-        currencyCountDb.addListenerForSingleValueEvent(currencyListner);
+        currencyCountDb.addListenerForSingleValueEvent(currencyListener);
+        lifetimeCurrencyCountDb.addListenerForSingleValueEvent(lifetimeCurrencyListener);
         questDb.addListenerForSingleValueEvent(questListener);
 
         // if service killed, recreate service (may change to different value found on android service guide)
@@ -164,6 +182,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         {
             currencyCount = currencyCount + reward + 1;
             currencyCountDb.setValue(currencyCount);
+
+            lifetimeCurrencyCount = lifetimeCurrencyCount + reward + 1;
+            lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
         // If you've walked 100 steps and have not fulfilled the daily step req
         // increment currency by one
@@ -171,6 +192,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         {
             currencyCount++;
             currencyCountDb.setValue(currencyCount);
+
+            lifetimeCurrencyCount = lifetimeCurrencyCount + 1;
+            lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
         // If you've not walked 100 steps and have fulfilled the daily step req
         // then only add the reward to currency count
@@ -178,6 +202,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         {
             currencyCount = currencyCount + reward;
             currencyCountDb.setValue(currencyCount);
+
+            lifetimeCurrencyCount = lifetimeCurrencyCount + reward;
+            lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
 
         userStepCount.setValue(count);

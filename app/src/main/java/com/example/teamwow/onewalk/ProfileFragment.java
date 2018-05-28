@@ -41,6 +41,7 @@ public class ProfileFragment extends Fragment {
     private int count = 0;
     private int hats = 0;
     private int bodies = 0;
+    private int currency = 0;
 
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
@@ -63,7 +64,7 @@ public class ProfileFragment extends Fragment {
 
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
-        userCurrency = db.getReference("Users").child(uid).child("Steps");
+        userCurrency = db.getReference("Users").child(uid).child("Lifetime Currency");
         userHats = db.getReference("Users").child(uid).child("Inventory").child("Hat");
         userBodies = db.getReference("Users").child(uid).child("Inventory").child("Body");
 
@@ -96,8 +97,8 @@ public class ProfileFragment extends Fragment {
         userCurrency.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
-                totalCurrency.setText(String.valueOf(count / 100));
+                if(dataSnapshot.exists()) currency = dataSnapshot.getValue(Integer.class);
+                totalCurrency.setText(String.valueOf(currency));
             }
 
             @Override
