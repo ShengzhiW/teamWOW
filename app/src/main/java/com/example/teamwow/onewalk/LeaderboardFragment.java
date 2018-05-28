@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,8 @@ public class LeaderboardFragment extends Fragment {
             R.id.rank8steps, R.id.rank9steps, R.id.rank10steps};
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Integer> stepCounts = new ArrayList<>();
+    private ArrayList<Boolean> showSteps = new ArrayList<>();
+
 
 //    @Nullable
 //    @Override
@@ -117,7 +120,15 @@ public class LeaderboardFragment extends Fragment {
                     if(leaderSnapshot.child("Steps").exists()) {
                         if((leaderSnapshot.child("Private").getValue()).equals(false)) {
                             names.add(leaderSnapshot.child("Name").getValue(String.class));
+
+                            if((leaderSnapshot.child("Private Steps").getValue()).equals(false)){
+                               showSteps.add(true);
+                            }
+                            else{
+                                showSteps.add(false);
+                            }
                             stepCounts.add(leaderSnapshot.child("Steps").getValue(Integer.class));
+
                             totalMembers++;
                             if (totalMembers >= 10) break;
                         }
@@ -125,6 +136,7 @@ public class LeaderboardFragment extends Fragment {
                 }
                 Collections.reverse(names);
                 Collections.reverse(stepCounts);
+                Collections.reverse(showSteps);
 
                 TextView name;
                 TextView stepCount;
@@ -135,7 +147,12 @@ public class LeaderboardFragment extends Fragment {
                     name.setTextColor(Color.parseColor("#747474"));
 
                     stepCount = (TextView) v.findViewById(stepIds[i]);
-                    stepCount.setText(String.valueOf(stepCounts.get(i)));
+                    if((showSteps.get(i)).equals(true)) {
+                        stepCount.setText(String.valueOf(stepCounts.get(i)));
+                    }
+                    else{
+                        stepCount.setText(" ");
+                    }
                     stepCount.setTextColor(Color.parseColor("#B7B7B7"));
                 }
 

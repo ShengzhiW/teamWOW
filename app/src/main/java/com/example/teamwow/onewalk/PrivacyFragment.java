@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PrivacyFragment extends Fragment {
 
     Button closeButton;
-    Switch leaderboardSwitch, emailSwitch;
+    Switch leaderboardSwitch, stepsSwitch;
 
     // Set up database references
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -33,8 +33,9 @@ public class PrivacyFragment extends Fragment {
     final String uid = user.getUid();
     private DatabaseReference privacyDB = db.getReference("Users").child(uid).child("Privacy");
     private DatabaseReference privacylbdb = db.getReference("Leaderboard").child(uid).child("Private");
+    private DatabaseReference privacystepslbdb = db.getReference("Leaderboard").child(uid).child("Private Steps");
     private DatabaseReference privacy_leaderboard = privacyDB.child("Appear on Leaderboard");
-    private DatabaseReference privacy_email = privacyDB.child("Show Email");
+    private DatabaseReference privacy_email = privacyDB.child("Display Steps on Leaderboard");
 
     @Nullable
     @Override
@@ -43,7 +44,7 @@ public class PrivacyFragment extends Fragment {
 
         closeButton = rootView.findViewById(R.id.closePrivacy);
         leaderboardSwitch = rootView.findViewById(R.id.leaderboardSwitch);
-        emailSwitch = rootView.findViewById(R.id.emailSwitch);
+        stepsSwitch = rootView.findViewById(R.id.stepsSwitch);
 
         // Access current data, and update switches as necessary
         ValueEventListener leaderboardListener = new ValueEventListener() {
@@ -53,8 +54,8 @@ public class PrivacyFragment extends Fragment {
                 if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
                 leaderboardSwitch.setChecked(value);
                 if(!leaderboardSwitch.isChecked()) {
-                    emailSwitch.setChecked(false);
-                    privacyDB.child("Show Email").setValue(false);
+                    stepsSwitch.setChecked(false);
+                    privacyDB.child("Display Steps on Leaderboard").setValue(false);
                 }
             }
             @Override
@@ -62,17 +63,17 @@ public class PrivacyFragment extends Fragment {
         };
         privacy_leaderboard.addValueEventListener(leaderboardListener);
 
-        ValueEventListener emailListener = new ValueEventListener() {
+        ValueEventListener stepsListener = new ValueEventListener() {
             boolean value;
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
-                emailSwitch.setChecked(value);
+                stepsSwitch.setChecked(value);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
-        privacy_email.addValueEventListener(emailListener);
+        privacy_email.addValueEventListener(stepsListener);
 
         // Set up leaderboard switch functionality
         leaderboardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -83,19 +84,21 @@ public class PrivacyFragment extends Fragment {
                 privacylbdb.setValue(!isChecked);
                 // Turn off all other switches if the leaderboard switch is turned off
                 if(!leaderboardSwitch.isChecked()) {
-                    emailSwitch.setChecked(false);
-                    privacyDB.child("Show Email").setValue(false);
+                    stepsSwitch.setChecked(false);
+                    privacyDB.child("Display Steps on Leaderboard").setValue(false);
+                    privacystepslbdb.setValue(true);
                 }
-                emailSwitch.setEnabled(isChecked);
+                stepsSwitch.setEnabled(isChecked);
             }
         });
 
 
         // Set up email switch functionality
-        emailSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        stepsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                privacyDB.child("Show Email").setValue(isChecked);
+                privacyDB.child("Display Steps on Leaderboard").setValue(isChecked);
+                privacystepslbdb.setValue(!isChecked);
             }
         });
 

@@ -51,7 +51,7 @@
         android:text="@string/privacy_leaderboard" />
 
     <Switch
-        android:id="@+id/emailSwitch"
+        android:id="@+id/stepsSwitch"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -62,5 +62,5 @@
         style="?android:attr/borderlessButtonStyle"
         android:checked="false"
         android:splitTrack="false"
-        android:text="@string/privacy_email" />
+        android:text="@string/privacy_steps" />
 </RelativeLayout>
