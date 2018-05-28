@@ -39,6 +39,6 @@
     <!-- Help string -->
     <string name="OwO">What\'s this?</string>
     <string name="total_steps">Total Steps Walked</string>
-    <string name="currency_title">Gary Points</string>
+    <string name="currency_title">Gary Bucks</string>
     <string name="instructions">Walk around in your daily life and everytime you meet the step requirement you\'ll gain Gary Bucks! \n\n Happy walking!</string>
 </resources>
