@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -31,6 +32,8 @@ public class LeaderboardFragment extends Fragment {
     private RecyclerView.LayoutManager leaderboardLayoutManager;
     private ArrayList<String> list = new ArrayList<>();
 
+    private int totalmembers = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class LeaderboardFragment extends Fragment {
 
     /* Pulls and displays the top 10 users on the leaderboard from the database */
     public void buildLeaderboard() {
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(10);
+        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
 
@@ -51,9 +54,16 @@ public class LeaderboardFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 list.clear();
                 for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
-                    if(leaderSnapshot.child("Steps").exists())
-                        list.add(leaderSnapshot.child("Name").getValue(String.class)
-                                + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
+                    if(leaderSnapshot.child("Steps").exists()) {
+                        if((leaderSnapshot.child("Private").getValue()).equals(false)) {
+                                    list.add(leaderSnapshot.child("Name").getValue(String.class)
+                                            + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
+                                    totalmembers++;
+                                    if (totalmembers == 10) {
+                                       break;
+                                    }
+                                }
+                    }
                 }
                 Collections.reverse(list);
                 leaderboardAdapter.notifyDataSetChanged();
