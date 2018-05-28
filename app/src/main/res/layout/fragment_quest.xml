@@ -54,7 +54,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="daily_quest"
             android:textAlignment="center" />
 
         <TextView
@@ -70,8 +69,7 @@
             android:id="@+id/reward_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="reward_text" />
+            android:gravity="center_horizontal" />
     </LinearLayout>
 
 </RelativeLayout>

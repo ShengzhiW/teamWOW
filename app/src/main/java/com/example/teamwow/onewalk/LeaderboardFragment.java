@@ -2,6 +2,7 @@ package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -91,7 +92,7 @@ public class LeaderboardFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.secretstuffsimtesting, container, false);
+        rootView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
         return rootView;
     }
 
@@ -129,11 +130,21 @@ public class LeaderboardFragment extends Fragment {
                 TextView stepCount;
                 for(int i = 0; i < names.size(); i++) {
                     name = (TextView) v.findViewById(nameIds[i]);
+                    if(names.get(i).length() > 15) names.set(i, names.get(i).substring(0,15)+"...");
                     name.setText(names.get(i));
+                    name.setTextColor(Color.parseColor("#747474"));
 
                     stepCount = (TextView) v.findViewById(stepIds[i]);
                     stepCount.setText(String.valueOf(stepCounts.get(i)));
+                    stepCount.setTextColor(Color.parseColor("#B7B7B7"));
                 }
+
+                ((TextView)v.findViewById(nameIds[0])).setTextColor(Color.parseColor("#FFD700"));
+                ((TextView)v.findViewById(nameIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
+                ((TextView)v.findViewById(nameIds[2])).setTextColor(Color.parseColor("#CD7F32"));
+                ((TextView)v.findViewById(stepIds[0])).setTextColor(Color.parseColor("#FFD700"));
+                ((TextView)v.findViewById(stepIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
+                ((TextView)v.findViewById(stepIds[2])).setTextColor(Color.parseColor("#CD7F32"));
             }
 
             @Override
