@@ -8,6 +8,9 @@
     <!-- The background color, preferably the same as your normal theme -->
     <item android:drawable="@color/Figma"/>
 
-    <item android:drawable="@drawable/ic_splash_svg" />
-
+    <item
+        android:drawable="@drawable/ic_splash_svg"
+        android:gravity="center|bottom|clip_vertical"/>
 </layer-list>
+
+

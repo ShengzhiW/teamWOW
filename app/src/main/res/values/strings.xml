@@ -69,7 +69,7 @@
     <!-- Privacy strings -->
     <string name="title_privacy">Privacy</string>
     <string name="privacy_leaderboard">Appear on leaderboard</string>
-    <string name="privacy_steps">Display steps on leaderboard</string>
+    <string name="privacy_steps">Show steps on leaderboard</string>
 
     <!-- Profile strings -->
     <string name="total_curr">Total # of Gary Bucks</string>
