@@ -21,5 +21,5 @@
     android:valueFrom="1.0"
     android:valueTo="0.0"
     android:propertyName="alpha"
-    android:duration="@android:integer/config_shortAnimTime"
+    android:duration="150"
 />
