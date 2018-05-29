@@ -70,6 +70,7 @@ public class Login extends AppCompatActivity{
 
                 //loginUser();
                 //Test making an intent
+                //Intent intent = new Intent(this, AnimatedWelcome.class);
                 Intent intent = new Intent(this, ContainerPage.class);
                 startActivity(intent);
             }
