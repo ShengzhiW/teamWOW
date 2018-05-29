@@ -21,7 +21,7 @@
         android:layout_rowSpan="1"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text=""
+        android:text="nickname"
         android:textColor="#000000"
         android:textSize="50sp"
         android:textStyle="bold" />

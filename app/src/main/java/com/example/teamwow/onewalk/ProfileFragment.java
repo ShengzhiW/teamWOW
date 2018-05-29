@@ -112,7 +112,7 @@ public class ProfileFragment extends Fragment {
                 if(array != null)
                 {
                     for(int i = 0; i < array.size(); i++){
-                        if(Integer.valueOf(array.get(i).toString()) >= 1){
+                        if(Integer.valueOf(array.get(i).toString()) > 0){
                             hats++;
                         }
                     }
@@ -133,7 +133,7 @@ public class ProfileFragment extends Fragment {
                 if(array != null)
                 {
                     for(int i = 0; i < array.size(); i++){
-                        if(Integer.valueOf(array.get(i).toString()) >= 1){
+                        if(Integer.valueOf(array.get(i).toString()) > 0){
                             bodies++;
                         }
                     }
