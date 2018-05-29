@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -33,6 +35,7 @@ public class ProfileFragment extends Fragment {
     private TextView totalHats;
     private TextView totalBodies;
     private TextView totalQuests;
+    private TextView totalDays;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -44,6 +47,7 @@ public class ProfileFragment extends Fragment {
     private int bodies = 0;
     private int numquests = 0;
     private int currency = 0;
+    private int numdays = 0;
 
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
@@ -51,6 +55,7 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference userHats;
     private DatabaseReference userBodies;
     private DatabaseReference questsCompleted;
+    private DatabaseReference daysWalked;
 
 
     @Nullable
@@ -66,6 +71,7 @@ public class ProfileFragment extends Fragment {
         totalHats = rootView.findViewById(R.id.total_hats);
         totalBodies = rootView.findViewById(R.id.total_bodies);
         totalQuests = rootView.findViewById(R.id.total_quests);
+        totalDays = rootView.findViewById(R.id.total_days);
 
 
         userName = db.getReference("Users").child(uid).child("Name");
@@ -74,6 +80,7 @@ public class ProfileFragment extends Fragment {
         userHats = db.getReference("Users").child(uid).child("Inventory").child("Hat");
         userBodies = db.getReference("Users").child(uid).child("Inventory").child("Body");
         questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
+        daysWalked = db.getReference("Users").child(uid).child("Archive");
 
 
         //Add listener to get the username
@@ -167,6 +174,23 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError){}
 
+        });
+
+        // Add listener to get the total number of days walked
+        daysWalked.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap array = (HashMap) dataSnapshot.getValue();
+                if(array != null)
+                {
+
+                    totalDays.setText(String.valueOf(array.size()));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         return rootView;

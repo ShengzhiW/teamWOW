@@ -76,7 +76,7 @@
     <string name="total_hats">Hats Owned</string>
     <string name="total_bodies">Bodies Owned</string>
     <string name="total_quests">Quests Completed</string>
-    <string name="total_days"># of Days Logged In</string>
+    <string name="total_days">Total # of Days Walked</string>
 
     <!-- Quest strings -->
     <string name="instructions">Walk around in your daily life and everytime you meet the step requirement you\'ll gain Gary Bucks! \n\n Happy walking!</string>
