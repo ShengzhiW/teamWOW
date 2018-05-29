@@ -1,5 +1,6 @@
 package com.example.teamwow.onewalk;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -84,6 +85,7 @@ public class ContainerPage extends AppCompatActivity {
     }
 
     /* Replaces the currently displayed fragment with the specified fragment */
+    @SuppressLint("ResourceType")
     protected void pushFragment(Fragment fragment) {
         if (fragment == null)
             return;
@@ -92,6 +94,7 @@ public class ContainerPage extends AppCompatActivity {
         if (fragmentManager != null) {
             FragmentTransaction ft = fragmentManager.beginTransaction();
             if (ft != null) {
+                ft.setCustomAnimations(R.animator.fade_in, R.animator.fade_out);
                 ft.replace(R.id.container, fragment);
                 ft.commit();
             }
