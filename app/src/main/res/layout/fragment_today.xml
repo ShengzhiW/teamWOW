@@ -110,14 +110,4 @@
         android:text="0"
         android:textSize="50sp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="208dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:layout_marginBottom="111dp"
-        android:text="Change Avatar" />
-
 </RelativeLayout>

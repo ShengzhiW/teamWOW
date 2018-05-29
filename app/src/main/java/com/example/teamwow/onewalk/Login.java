@@ -68,9 +68,7 @@ public class Login extends AppCompatActivity{
             if(resultCode == RESULT_OK) {
                 updateDatabase();
 
-                //loginUser();
                 //Test making an intent
-                //Intent intent = new Intent(this, AnimatedWelcome.class);
                 Intent intent = new Intent(this, ContainerPage.class);
                 startActivity(intent);
             }

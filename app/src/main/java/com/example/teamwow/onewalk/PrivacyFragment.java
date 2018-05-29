@@ -1,12 +1,8 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +27,12 @@ public class PrivacyFragment extends Fragment {
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
+
     private DatabaseReference privacyDB = db.getReference("Users").child(uid).child("Privacy");
     private DatabaseReference privacylbdb = db.getReference("Leaderboard").child(uid).child("Private");
     private DatabaseReference privacystepslbdb = db.getReference("Leaderboard").child(uid).child("Private Steps");
     private DatabaseReference privacy_leaderboard = privacyDB.child("Appear on Leaderboard");
-    private DatabaseReference privacy_email = privacyDB.child("Display Steps on Leaderboard");
+    private DatabaseReference privacy_steps = privacyDB.child("Display Steps on Leaderboard");
 
     @Nullable
     @Override
@@ -73,7 +70,7 @@ public class PrivacyFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
-        privacy_email.addValueEventListener(stepsListener);
+        privacy_steps.addValueEventListener(stepsListener);
 
         // Set up leaderboard switch functionality
         leaderboardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -93,7 +90,7 @@ public class PrivacyFragment extends Fragment {
         });
 
 
-        // Set up email switch functionality
+        // Set up step count switch functionality
         stepsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

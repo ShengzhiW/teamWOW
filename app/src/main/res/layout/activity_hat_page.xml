@@ -41,7 +41,6 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
             android:rowCount="3"
             android:clipToPadding="false">
 
-            <!-- to do : change src image and text -->
             <!-- Row 1 column 1-->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
@@ -459,6 +458,8 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+
+            <!-- jojo hat -->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -495,6 +496,8 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+
+            <!-- duck hat -->
             <android.support.v7.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -537,10 +540,8 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
         </GridLayout>
     </LinearLayout>
 
-
-
-
 </ScrollView>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="55dp"

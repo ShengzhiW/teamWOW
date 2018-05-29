@@ -13,6 +13,7 @@ public class SplashActivity extends AppCompatActivity {
 
         final SplashActivity splash = this;
 
+        // delay splash screen for 1 second
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

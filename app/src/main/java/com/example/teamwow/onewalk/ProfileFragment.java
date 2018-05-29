@@ -1,18 +1,11 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,7 +40,6 @@ public class ProfileFragment extends Fragment {
     private int bodies = 0;
     private int numquests = 0;
     private int currency = 0;
-    private int numdays = 0;
 
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
@@ -72,7 +64,6 @@ public class ProfileFragment extends Fragment {
         totalBodies = rootView.findViewById(R.id.total_bodies);
         totalQuests = rootView.findViewById(R.id.total_quests);
         totalDays = rootView.findViewById(R.id.total_days);
-
 
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
@@ -183,7 +174,6 @@ public class ProfileFragment extends Fragment {
                 HashMap array = (HashMap) dataSnapshot.getValue();
                 if(array != null)
                 {
-
                     totalDays.setText(String.valueOf(array.size()));
                 }
 
