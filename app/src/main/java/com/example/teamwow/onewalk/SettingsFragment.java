@@ -93,6 +93,7 @@ public class SettingsFragment extends Fragment {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and update database
                                         String input = userInput.getText().toString();
+                                        if(input.length() > 15) input = input.substring(0,15);
                                         if(!(input.equals(""))) {
                                             db.getReference("Users").child(uid).child("Name").setValue(input);
                                             db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
@@ -185,8 +186,7 @@ public class SettingsFragment extends Fragment {
         // Alert Builder
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
 
-        alertBuilder.setMessage("Are you sure you want to delete your account? This will erase all data " +
-                "linked to your account.");
+        alertBuilder.setMessage(R.string.confirm_delete_account);
         alertBuilder.setCancelable(true);
 
         // Action for positive button

@@ -58,7 +58,6 @@ public class BodyPage extends AppCompatActivity {
         bodyDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //Toast.makeText(HatPage.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
                 // the snapshot provides a generic list holding Objects
                 List array = (List) snapshot.getValue();
 
@@ -66,7 +65,6 @@ public class BodyPage extends AppCompatActivity {
                 {
                     // we then transform those objects into integers for our hat array
                     for(int i = 0; i < array.size(); i++){
-                        //Toast.makeText(HatPage.this, "Value is" + Integer.valueOf(array.get(i).toString()), Toast.LENGTH_SHORT).show();
                         bodyArray.add(Integer.valueOf(array.get(i).toString()));
                     }
                 }
@@ -81,7 +79,7 @@ public class BodyPage extends AppCompatActivity {
                 // DO nothing
             }
         });
-        ValueEventListener currencyListner = new ValueEventListener() {
+        ValueEventListener currencyListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) garyBucks = dataSnapshot.getValue(Integer.class);
@@ -92,7 +90,7 @@ public class BodyPage extends AppCompatActivity {
 
             }
         };
-        currencyDB.addListenerForSingleValueEvent(currencyListner);
+        currencyDB.addListenerForSingleValueEvent(currencyListener);
 
         /* Begin process */
         setSingleEvent(mainGrid);
@@ -148,6 +146,7 @@ public class BodyPage extends AppCompatActivity {
                                                 }
                                             }
                                             currencyDB.setValue(garyBucks - price);
+                                            garyBucks -= price;
                                             bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
                                             bodyArray.set(finalI, 2);
                                         }else{

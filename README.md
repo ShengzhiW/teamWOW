@@ -60,16 +60,10 @@ Add your code changes until you are ready to send your code to the Github
 9. git push
     - Now your changes are pushed to the Github!!!
 
-### Things recently added:
-- Back to fragments > <
-- Daily quests?
-- UI elements and layout
-
 ### Things to implement/work on:
 - Cleaning code (split into smaller functions and stuff, move stuff)
 - Comment code
 - UI/layout stuff
-- Avatar stuff
 - Leaderboards
 - ((Artifacts))
 - Rename the package name lmao

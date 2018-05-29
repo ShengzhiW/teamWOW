@@ -12,7 +12,7 @@
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:elevation="10dp">
+    android:elevation="5dp">
 
     <TextView
         android:id="@+id/textView"
@@ -22,21 +22,6 @@
         android:text="@string/title_privacy"
         android:textColor="@color/Figma"
         android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/closePrivacy"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/round_button"
-
-        android:text="X"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
         android:textStyle="bold" />
 
     <Switch
@@ -52,7 +37,7 @@
         android:text="@string/privacy_leaderboard" />
 
     <Switch
-        android:id="@+id/emailSwitch"
+        android:id="@+id/stepsSwitch"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -63,5 +48,31 @@
         style="?android:attr/borderlessButtonStyle"
         android:checked="false"
         android:splitTrack="false"
-        android:text="@string/privacy_email" />
+        android:text="@string/privacy_steps" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:gravity="bottom"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:clipToPadding="false">
+
+
+        <Button
+            android:id="@+id/closePrivacy"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_button"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:drawableTop="@drawable/close_button"
+            android:paddingTop="10dp"
+            />
+    </LinearLayout>
 </RelativeLayout>

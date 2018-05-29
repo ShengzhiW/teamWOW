@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10dp"
     android:background="@drawable/layout_bg"
-    android:elevation="10dp"
+    android:elevation="5dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.506"
@@ -27,6 +27,23 @@
         android:textStyle="bold"
         />
 
+    <Button
+        android:id="@+id/currencyShop"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/currency_counter"
+        android:text="13060"
+        android:textColor="@color/goldvalue"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textSize="18sp"
+        android:stateListAnimator="@null"
+        android:drawableLeft="@drawable/garybucks"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,29 +55,37 @@
         <Button
             android:id="@+id/hatOpen"
             style="@style/FirebaseUI.Button"
-            android:width="150dp"
-            android:height="150dp"
+            android:width="140dp"
+            android:height="140dp"
             android:background="@drawable/button_rounded"
             android:drawablePadding="10dp"
             android:drawableTop="@drawable/ic_avatartop"
-            android:padding="30dp"
-            android:text="Hats"
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:text="@string/shop_hat"
             android:textAllCaps="false"
             android:textSize="25sp"
+            android:stateListAnimator="@null"
             android:layout_marginRight="10dp"/>
 
         <Button
             android:id="@+id/bodyOpen"
             style="@style/FirebaseUI.Button"
-            android:width="150dp"
-            android:height="150dp"
+            android:width="140dp"
+            android:height="140dp"
             android:background="@drawable/button_rounded"
             android:drawablePadding="10dp"
             android:drawableTop="@drawable/ic_avatarbody"
-            android:padding="30dp"
-            android:text="Body"
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:text="@string/shop_body"
             android:textAllCaps="false"
             android:textSize="25sp"
+            android:stateListAnimator="@null"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
@@ -70,8 +95,10 @@
         android:layout_height="240dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-        android:adjustViewBounds="false" />
+        android:layout_marginTop="110dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:background="@drawable/avatar_image_rounded"/>
 
     <ImageView
         android:id="@+id/imgViewHat"
@@ -79,32 +106,6 @@
         android:layout_height="240dp"
         android:layout_alignStart="@+id/imgView"
         android:layout_alignTop="@+id/imgView" />
-
-    <!--    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="false"
-                android:layout_weight="0.5"
-                android:text="Left Button"
-                />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:text="Right Button"
-                />
-        </LinearLayout>-->
-
-
 
 </RelativeLayout>
 
