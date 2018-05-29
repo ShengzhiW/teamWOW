@@ -20,8 +20,10 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
         android:gravity="center"
         android:text="@string/title_leaderboard"
+        android:textAlignment="center"
         android:textColor="@color/Figma"
         android:textSize="30sp"
         android:textStyle="bold" />

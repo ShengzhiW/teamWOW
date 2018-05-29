@@ -115,6 +115,8 @@ public class BodyPage extends AppCompatActivity {
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //TODO: replace toast with start new Activity
+                    //Toast.makeText(BodyPage.this, "Clicked at index" + finalI, Toast.LENGTH_SHORT).show();
 
                     ImageView image = new ImageView(BodyPage.this);
                     ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
