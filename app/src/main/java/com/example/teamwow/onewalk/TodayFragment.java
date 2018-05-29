@@ -125,8 +125,4 @@ public class TodayFragment extends Fragment {
     }
 
 
-        public void displayMessage(String message){
-            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-        }
-
-    }
+}

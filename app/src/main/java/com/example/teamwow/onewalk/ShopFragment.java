@@ -1,16 +1,19 @@
 package com.example.teamwow.onewalk;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,6 +29,8 @@ import java.util.List;
 
 public class ShopFragment extends Fragment {
 
+    private TextView currencyAmount;
+
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
@@ -33,6 +38,7 @@ public class ShopFragment extends Fragment {
     private DatabaseReference dbRef = db.getReference("Users").child(uid);
     private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
     private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
+    private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
 
 
     private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
@@ -45,6 +51,7 @@ public class ShopFragment extends Fragment {
 
     private int bodyIndex;
     private int hatIndex;
+    private int currency = 0;
 
     @Nullable
     @Override
@@ -52,6 +59,20 @@ public class ShopFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_shop, container, false);
         Button hatButton = (Button)view.findViewById(R.id.hatOpen);
         Button bodyButton = (Button)view.findViewById(R.id.bodyOpen);
+
+        currencyAmount = view.findViewById(R.id.currencyShop);
+        //Add listener to get the username
+        currencyDB.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()) currency = dataSnapshot.getValue(Integer.class);
+                currencyAmount.setText(String.valueOf(currency));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+
+        });
 
 
         final int [] bodiesDrawables = {
@@ -117,7 +138,14 @@ public class ShopFragment extends Fragment {
 
                         if(isAdded())
                         {
+                            DisplayMetrics dimension = new DisplayMetrics();
+                            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
+                            int height = dimension.heightPixels;
                             ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
+                            imgView.getLayoutParams().height = height / 3;
+                            imgView.getLayoutParams().width = height / 3;
+
+
                             //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
                             Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
                             imgView.setImageDrawable(drawable);

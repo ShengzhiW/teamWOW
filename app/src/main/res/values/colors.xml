@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="Figma">#ff004c</color>
     <color name="lightGrey">#aaaaaa</color>
+    <color name="lighterGrey">#dddddd</color>
+    <color name="goldborder">#ffd600</color>
+    <color name="goldvalue">#C7831D</color>
 </resources>

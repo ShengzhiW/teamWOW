@@ -5,49 +5,29 @@ https://www.youtube.com/watch?v=VUPM387qyrw&t=1s
 https://www.youtube.com/watch?v=K2V6Y7zQ8NU
 https://www.youtube.com/watch?v=go9q4O44b4E -->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HatPage">
+    android:gravity="center"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".HatPage"
+        >
 
     <LinearLayout
         android:orientation = "vertical"
         android:weightSum="10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_image">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/closeHatShop"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="12dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/round_button"
-                android:text="X"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="HAT SHOP"
-                android:textColor="@color/Figma"
-                android:textSize="34sp" />
-        </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_image"
+        android:paddingTop="80dp"
+        android:clipToPadding="false">
 
         <GridLayout
             android:id="@+id/mainGrid"
@@ -58,7 +38,8 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
             android:columnCount="2"
             android:columnOrderPreserved="false"
             android:padding="14dp"
-            android:rowCount="3">
+            android:rowCount="3"
+            android:clipToPadding="false">
 
             <!-- to do : change src image and text -->
             <!-- Row 1 column 1-->
@@ -70,7 +51,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -89,7 +70,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Baseball Hat"
+                        android:text="@string/hat_0"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -108,7 +89,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -127,7 +108,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Magician Hat"
+                        android:text="@string/hat_1"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -146,7 +127,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -165,7 +146,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pirate Hat"
+                        android:text="@string/hat_2"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -184,7 +165,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -203,7 +184,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tree Hat"
+                        android:text="@string/hat_3"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -222,7 +203,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -241,7 +222,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Poop Hat"
+                        android:text="@string/hat_4"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -260,7 +241,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -279,7 +260,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cowboy Hat"
+                        android:text="@string/hat_5"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -298,7 +279,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -317,7 +298,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Chef hat"
+                        android:text="@string/hat_6"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -336,7 +317,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -355,7 +336,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Konoha Hat"
+                        android:text="@string/hat_7"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -374,7 +355,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -393,7 +374,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Viking Hat"
+                        android:text="@string/hat_8"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -412,7 +393,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -431,7 +412,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Leprechaun Hat"
+                        android:text="@string/hat_9"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -450,7 +431,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -469,7 +450,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Earth hat"
+                        android:text="@string/hat_10"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -486,7 +467,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -505,7 +486,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Jojo Hat"
+                        android:text="@string/hat_11"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -522,7 +503,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_rowWeight="1"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="20dp"
                 app:cardElevation="8dp">
 
                 <LinearLayout
@@ -541,7 +522,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Duck Hat"
+                        android:text="@string/hat_12"
                         android:textAlignment="center"
                         android:textColor="@color/Figma"
 
@@ -560,3 +541,50 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
 
 
 </ScrollView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:gravity="bottom"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:clipToPadding="false">
+
+
+        <Button
+            android:id="@+id/closeHatShop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_button"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:drawableTop="@drawable/close_button"
+            android:paddingTop="10dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:gravity="top|center_horizontal"
+        android:paddingTop="20dp"
+        android:background="#fff"
+        >
+
+        <TextView
+            android:id="@+id/textGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hat_title"
+            android:textColor="@color/Figma"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</RelativeLayout>

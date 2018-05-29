@@ -30,6 +30,7 @@ public class Login extends AppCompatActivity{
     // Reference to the firebase database
     private FirebaseDatabase db;
     private DatabaseReference userdb;
+    private DatabaseReference lbdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,11 @@ public class Login extends AppCompatActivity{
         auth = FirebaseAuth.getInstance();
 
         /* Start log in. Email is available for log in */
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
+        startActivityForResult(AuthUI.getInstance()
+                .createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
+                .setLogo(R.mipmap.appiconv4)
+                .setTheme(R.style.AppThemeFirebaseAuth)
                 .build(), RC_SIGN_IN);
     }
 
@@ -66,6 +70,7 @@ public class Login extends AppCompatActivity{
 
                 //loginUser();
                 //Test making an intent
+                //Intent intent = new Intent(this, AnimatedWelcome.class);
                 Intent intent = new Intent(this, ContainerPage.class);
                 startActivity(intent);
             }
@@ -92,6 +97,7 @@ public class Login extends AppCompatActivity{
 
         /* Initialize empty list for inventory */
         List<Integer> t = new ArrayList<Integer>(Collections.nCopies(20, 0));
+        t.set(0, 2);
 
         // Look up / add the specific user in/to the database and keep a reference while app is open
         final String email = user.getEmail();
@@ -100,12 +106,19 @@ public class Login extends AppCompatActivity{
 
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
+        lbdb = db.getReference("Leaderboard").child(uid);
         initializeReference(userdb.child("Name"), name);
-        initializeReference(userdb.child("BodyIdx"), "1");
-        initializeReference(userdb.child("HatIdx"), "1");
+        initializeReference(userdb.child("BodyIdx"), "0");
+        initializeReference(userdb.child("HatIdx"), "0");
         initializeReference(userdb.child("Email"), email);
-        initializeReference(db.getReference("Leaderboard").child(uid).child("Name"), name);
-        initializeReference(userdb.child("UpdateTime"), String.valueOf(0));
+        initializeReference(userdb.child("Steps"), 0);
+        initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), true);
+        initializeReference(userdb.child("Privacy").child("Display Steps on Leaderboard"), true);
+        initializeReference(userdb.child("Quests Completed"), 0);
+        initializeReference(userdb.child("Lifetime Currency"), 0);
+        initializeReference(lbdb.child("Private Steps"), false);
+        initializeReference(lbdb.child("Private"), false);
+        initializeReference(lbdb.child("Name"), name);
 
         // Update shop database if not already
         initializeInventory(userdb.child("Inventory").child("Hat"),t);
@@ -124,16 +137,34 @@ public class Login extends AppCompatActivity{
         });
     }
 
+    public void initializeReference(final DatabaseReference dr, final int value) {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) dr.setValue(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    public void initializeReference(final DatabaseReference dr, final Boolean value) {
+        dr.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()) dr.setValue(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
     /* Had to be a different function due to it not being a String */
     public void initializeInventory(final  DatabaseReference dr, final List<Integer> list){
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()) {
-                    dr.setValue(list);
-                }else{
-                    Toast.makeText(Login.this, "Inventory exists", Toast.LENGTH_SHORT).show();
-                }
+                if(!dataSnapshot.exists()) dr.setValue(list);
             }
 
             @Override
