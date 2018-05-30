@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
-                    android:text="username"
+                    android:text="@string/Username"
                     android:paddingTop="10dp"
                     android:paddingStart="20dp"
                     android:layout_column="2"
@@ -83,7 +83,7 @@
                     android:paddingTop="10dp"
                     android:paddingRight="10dp"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4"
                     android:maxLength="9"/>
 
@@ -127,7 +127,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -169,7 +169,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -253,7 +253,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -294,7 +294,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -336,7 +336,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -377,7 +377,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -419,7 +419,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -461,7 +461,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
             </TableRow>
 
@@ -504,7 +504,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:layout_marginTop="10dp"
-                    android:text="  Steps"
+                    android:text="@string/steps"
                     android:layout_column="4" />
 
             </TableRow>

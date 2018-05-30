@@ -90,7 +90,6 @@ public class SettingsFragment extends Fragment {
                                     public void onClick(DialogInterface dialog,int id) {
                                         // get user input and update database
                                         String input = userInput.getText().toString();
-                                        if(input.length() > 15) input = input.substring(0,15);
                                         if(!(input.equals(""))) {
                                             db.getReference("Users").child(uid).child("Name").setValue(input);
                                             db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
