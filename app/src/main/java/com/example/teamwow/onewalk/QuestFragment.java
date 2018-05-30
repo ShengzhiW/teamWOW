@@ -1,10 +1,7 @@
 package com.example.teamwow.onewalk;
 
-import android.app.AlarmManager;
 import android.app.Fragment;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
-import java.util.Random;
 
 public class QuestFragment extends Fragment {
     private FirebaseDatabase db = FirebaseDatabase.getInstance();

@@ -30,7 +30,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
-    private int numquests = 0;
+    private int numQuests = 0;
     private int lifetimeCurrencyCount = 0;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
@@ -127,7 +127,7 @@ public class StepCounterService extends Service implements SensorEventListener {
         ValueEventListener questsCompletedListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) numquests = dataSnapshot.getValue(Integer.class);
+                if (dataSnapshot.exists()) numQuests = dataSnapshot.getValue(Integer.class);
             }
 
             @Override
@@ -200,9 +200,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         if(count%100 == 0 && dailyCount%stepReq == 0)
         {
             currencyCount = currencyCount + reward + 1;
-            numquests++;
+            numQuests++;
             currencyCountDb.setValue(currencyCount);
-            questsCompleted.setValue(numquests);
+            questsCompleted.setValue(numQuests);
             lifetimeCurrencyCount = lifetimeCurrencyCount + reward + 1;
             lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
@@ -220,9 +220,9 @@ public class StepCounterService extends Service implements SensorEventListener {
         else if(count%100 != 0 && dailyCount%stepReq == 0)
         {
             currencyCount = currencyCount + reward;
-            numquests++;
+            numQuests++;
             currencyCountDb.setValue(currencyCount);
-            questsCompleted.setValue(numquests);
+            questsCompleted.setValue(numQuests);
             lifetimeCurrencyCount = lifetimeCurrencyCount + reward;
             lifetimeCurrencyCountDb.setValue(lifetimeCurrencyCount);
         }
@@ -230,7 +230,6 @@ public class StepCounterService extends Service implements SensorEventListener {
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
         todayStepCount.setValue(dailyCount);
-
     }
 
     /*
@@ -240,7 +239,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
     /*
-     * Method called when service is stopped; must unreigster step detector so steps no longer
+     * Method called when service is stopped; must unregister step detector so steps no longer
      * counted.
      */
     @Override

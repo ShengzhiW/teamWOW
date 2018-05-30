@@ -68,10 +68,13 @@ public class Login extends AppCompatActivity{
             if(resultCode == RESULT_OK) {
                 updateDatabase();
 
-                //loginUser();
                 //Test making an intent
+<<<<<<< HEAD
                 Intent intent = new Intent(this, AnimatedWelcome.class);
                 //Intent intent = new Intent(this, ContainerPage.class);
+=======
+                Intent intent = new Intent(this, ContainerPage.class);
+>>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
                 startActivity(intent);
             }
 
@@ -107,6 +110,7 @@ public class Login extends AppCompatActivity{
         // Get a reference to the user's database
         userdb = db.getReference("Users").child(uid);
         lbdb = db.getReference("Leaderboard").child(uid);
+
         initializeReference(userdb.child("Name"), name);
         initializeReference(userdb.child("BodyIdx"), "0");
         initializeReference(userdb.child("HatIdx"), "0");
@@ -115,7 +119,9 @@ public class Login extends AppCompatActivity{
         initializeReference(userdb.child("Privacy").child("Appear on Leaderboard"), true);
         initializeReference(userdb.child("Privacy").child("Display Steps on Leaderboard"), true);
         initializeReference(userdb.child("Quests Completed"), 0);
+        initializeReference(userdb.child("Currency"), 0);
         initializeReference(userdb.child("Lifetime Currency"), 0);
+
         initializeReference(lbdb.child("Private Steps"), false);
         initializeReference(lbdb.child("Private"), false);
         initializeReference(lbdb.child("Name"), name);

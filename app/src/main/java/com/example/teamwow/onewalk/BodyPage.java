@@ -43,7 +43,9 @@ public class BodyPage extends AppCompatActivity {
     private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Body");
     private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
-    ArrayList<Integer> bodyArray = new ArrayList<>();
+
+    // body shop variables
+    private ArrayList<Integer> bodyArray = new ArrayList<>();
     private int garyBucks;
 
     @Override

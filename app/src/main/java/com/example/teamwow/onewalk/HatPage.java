@@ -8,14 +8,10 @@
 package com.example.teamwow.onewalk;
 
 import android.content.DialogInterface;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -32,7 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +43,9 @@ public class HatPage extends AppCompatActivity {
     private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Hat");
     private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
-    ArrayList<Integer> hatArray = new ArrayList<Integer>();
+
+    // hat shop variables
+    private ArrayList<Integer> hatArray = new ArrayList<Integer>();
     private int garyBucks;
 
     @Override

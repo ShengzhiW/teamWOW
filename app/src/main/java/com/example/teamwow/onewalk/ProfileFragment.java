@@ -1,6 +1,7 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
+<<<<<<< HEAD
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -16,6 +17,13 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+=======
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+>>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +34,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.HashMap;
+>>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -42,6 +54,7 @@ public class ProfileFragment extends Fragment {
     private TextView totalHats;
     private TextView totalBodies;
     private TextView totalQuests;
+    private TextView totalDays;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -60,6 +73,7 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference userHats;
     private DatabaseReference userBodies;
     private DatabaseReference questsCompleted;
+    private DatabaseReference daysWalked;
 
     private int bodyIndex;
     private int hatIndex;
@@ -89,7 +103,7 @@ public class ProfileFragment extends Fragment {
         totalHats = rootView.findViewById(R.id.total_hats);
         totalBodies = rootView.findViewById(R.id.total_bodies);
         totalQuests = rootView.findViewById(R.id.total_quests);
-
+        totalDays = rootView.findViewById(R.id.total_days);
 
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
@@ -97,6 +111,7 @@ public class ProfileFragment extends Fragment {
         userHats = db.getReference("Users").child(uid).child("Inventory").child("Hat");
         userBodies = db.getReference("Users").child(uid).child("Inventory").child("Body");
         questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
+        daysWalked = db.getReference("Users").child(uid).child("Archive");
 
 
         final int [] bodiesDrawables = {
@@ -174,7 +189,7 @@ public class ProfileFragment extends Fragment {
                 if(array != null)
                 {
                     for(int i = 0; i < array.size(); i++){
-                        if(Integer.valueOf(array.get(i).toString()) >= 1){
+                        if(Integer.valueOf(array.get(i).toString()) > 0){
                             hats++;
                         }
                     }
@@ -195,7 +210,7 @@ public class ProfileFragment extends Fragment {
                 if(array != null)
                 {
                     for(int i = 0; i < array.size(); i++){
-                        if(Integer.valueOf(array.get(i).toString()) >= 1){
+                        if(Integer.valueOf(array.get(i).toString()) > 0){
                             bodies++;
                         }
                     }
@@ -222,6 +237,7 @@ public class ProfileFragment extends Fragment {
 
         });
 
+<<<<<<< HEAD
 
 
         /* Set up inventory array */
@@ -301,6 +317,22 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 ((ContainerPage)getActivity()).pushFragment(new SettingsFragment());
             }
+=======
+        // Add listener to get the total number of days walked
+        daysWalked.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap array = (HashMap) dataSnapshot.getValue();
+                if(array != null)
+                {
+                    totalDays.setText(String.valueOf(array.size()));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+>>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
         });
 
         return rootView;
