@@ -46,13 +46,14 @@
                 android:layout_height="50dp"
                 android:layout_width="fill_parent"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/avatar_image_rounded">
+                android:background="@drawable/leaderboard_self_rounded">
 
                 <ImageView
                     android:id="@+id/imageView0"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_marginTop="6dp"
+                    app:srcCompat="@drawable/ic_directions_walk_black_24dp"
                     android:layout_column="1"/>
                 <TextView
                     android:id="@+id/userLB"
@@ -101,7 +102,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_1"
                     android:layout_column="1"/>
 
                 <TextView
@@ -142,7 +143,7 @@
                     android:id="@+id/imageView2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_2"
                     android:layout_column="1"/>
 
                 <TextView
@@ -184,7 +185,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_3"
                     android:layout_column="1"/>
 
                 <TextView
@@ -226,7 +227,7 @@
                     android:id="@+id/imageView4"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_4"
                     android:layout_column="1"/>
 
                 <TextView
@@ -268,7 +269,7 @@
                     android:id="@+id/imageView5"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_5"
                     android:layout_column="1"/>
                 <TextView
                     android:id="@+id/rank5username"
@@ -309,7 +310,7 @@
                     android:id="@+id/imageView6"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_6"
                     android:layout_column="1"/>
 
                 <TextView
@@ -351,7 +352,7 @@
                     android:id="@+id/imageView7"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_7"
                     android:layout_column="1"/>
 
                 <TextView
@@ -392,7 +393,7 @@
                     android:id="@+id/imageView8"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_8"
                     android:layout_column="1"/>
 
                 <TextView
@@ -434,7 +435,7 @@
                     android:id="@+id/imageView9"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_9"
                     android:layout_column="1"/>
 
                 <TextView
@@ -474,7 +475,7 @@
                     android:id="@+id/imageView10"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    app:srcCompat="@drawable/ic_leaderboard_10"
                     android:layout_column="1"/>
 
                 <TextView
