@@ -29,9 +29,10 @@
         android:textStyle="bold" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
+        android:layout_centerHorizontal="true"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="55dp"
         android:fillViewport="true">
 
         <TableLayout
@@ -42,305 +43,470 @@
             android:theme="@style/Leaderboard">
 
             <TableRow
+                android:layout_height="50dp"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/avatar_image_rounded">
 
+                <ImageView
+                    android:id="@+id/imageView0"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
                 <TextView
-                    android:text="Rank"
+                    android:id="@+id/userLB"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:layout_column="1" />
+                    android:text="username"
+                    android:paddingTop="10dp"
+                    android:paddingStart="20dp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:ellipsize="end"/>
 
                 <TextView
-                    android:text="Name"
+                    android:id="@+id/userLBSteps"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textStyle="bold"
-                    android:layout_column="2" />
+                    android:layout_height="50dp"
+                    android:paddingTop="10dp"
+                    android:layout_column="3"
+                    android:maxLines="1"
+                    android:maxLength="9"
+                    android:text="100" />
 
                 <TextView
-                    android:text="Steps"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:textStyle="bold"
-                    android:layout_column="3" />
+                    android:layout_height="50dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4"
+                    android:maxLength="9"/>
+
             </TableRow>
+
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_column="1" />
-            </TableRow>
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-
-            <TableRow
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <TextView
-                    android:text="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textColor="#FFD700"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank1username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank1steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textColor="#A8A8A8"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank2username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank2steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textColor="#CD7F32"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank3username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank3steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank4username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank4steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
-
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
                 <TextView
                     android:id="@+id/rank5username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank5steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank6username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank6steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank7username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
-
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
                 <TextView
                     android:id="@+id/rank7steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank8username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank8steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="fill_parent"
+                android:background="@drawable/button_round"
+                style="?android:attr/borderlessButtonStyle"
+                android:minHeight="35dp">
 
-                <TextView
-                    android:text="9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank9username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank9steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
             </TableRow>
 
             <TableRow
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="40dp"
+                >
 
-                <TextView
-                    android:text="10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_column="1" />
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:srcCompat="@drawable/ic_appiconv4svg"
+                    android:layout_column="1"/>
 
                 <TextView
                     android:id="@+id/rank10username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_column="2" />
+                    android:layout_marginTop="10dp"
+                    android:textSize="15sp"
+                    android:layout_column="2"
+                    android:maxLines="1"
+                    android:maxLength="12"
+                    android:paddingStart="20dp"
+                    android:ellipsize="end" />
 
                 <TextView
                     android:id="@+id/rank10steps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
-                    android:layout_column="3" />
+                    android:layout_marginTop="10dp"
+                    android:textSize="15sp"
+                    android:layout_column="3"
+                    android:maxLength="9"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginTop="10dp"
+                    android:text="  Steps"
+                    android:layout_column="4" />
+
             </TableRow>
 
         </TableLayout>

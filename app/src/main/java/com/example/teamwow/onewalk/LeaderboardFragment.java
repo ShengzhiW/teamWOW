@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -24,6 +27,9 @@ public class LeaderboardFragment extends Fragment {
 
     View rootView;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+    TextView username;
+    TextView steps;
 
     // for leaderboard
     private RecyclerView leaderboardView;
@@ -38,6 +44,14 @@ public class LeaderboardFragment extends Fragment {
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Integer> stepCounts = new ArrayList<>();
     private ArrayList<Boolean> showSteps = new ArrayList<>();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String uid = user.getUid();
+
+    private String name = "";
+    private int stepCount = 0;
+
+    private DatabaseReference userName;
+    private DatabaseReference userStepCount;
 
 
 //    @Nullable
@@ -101,6 +115,37 @@ public class LeaderboardFragment extends Fragment {
 
     public void buildLeaderboard(final View v) {
 
+        userName = db.getReference("Users").child(uid).child("Name");
+        userStepCount = db.getReference("Users").child(uid).child("Steps");
+
+        username = rootView.findViewById(R.id.userLB);
+        steps = rootView.findViewById(R.id.userLBSteps);
+
+        //Add listener to get the username
+        userName.addValueEventListener(new ValueEventListener(){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                if(dataSnapshot.exists()) name = dataSnapshot.getValue(String.class);
+                username.setText(String.valueOf(name));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){}
+
+        });
+
+        // Add listener to get the total step count
+        userStepCount.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) stepCount = dataSnapshot.getValue(Integer.class);
+                steps.setText(String.valueOf(stepCount));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
         Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
 
         // attaches a listener to check when a user's step count is updated
@@ -149,6 +194,7 @@ public class LeaderboardFragment extends Fragment {
                     }
                     stepCount.setTextColor(Color.parseColor("#B7B7B7"));
                 }
+
 
                 ((TextView)v.findViewById(nameIds[0])).setTextColor(Color.parseColor("#FFD700"));
                 ((TextView)v.findViewById(nameIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
