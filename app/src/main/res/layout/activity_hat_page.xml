@@ -541,20 +541,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
     </LinearLayout>
 
 </ScrollView>
-<<<<<<< HEAD
-=======
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:gravity="bottom"
-
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:clipToPadding="false">
->>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
 
 <LinearLayout
     android:layout_width="wrap_content"

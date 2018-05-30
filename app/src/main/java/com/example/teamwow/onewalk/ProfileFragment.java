@@ -1,7 +1,6 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
-<<<<<<< HEAD
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -17,13 +16,11 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
-=======
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
->>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,11 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.util.HashMap;
->>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
 import java.util.List;
 
 public class ProfileFragment extends Fragment {
@@ -237,8 +231,6 @@ public class ProfileFragment extends Fragment {
 
         });
 
-<<<<<<< HEAD
-
 
         /* Set up inventory array */
         bodyDB.addValueEventListener(new ValueEventListener() {
@@ -311,13 +303,6 @@ public class ProfileFragment extends Fragment {
         });
 
 
-        // Finish activity, should return to Settings Page activity
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ContainerPage)getActivity()).pushFragment(new SettingsFragment());
-            }
-=======
         // Add listener to get the total number of days walked
         daysWalked.addValueEventListener(new ValueEventListener() {
             @Override
@@ -332,7 +317,15 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
->>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
+        });
+
+
+        // Finish activity, should return to Settings Page activity
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ContainerPage)getActivity()).pushFragment(new SettingsFragment());
+            }
         });
 
         return rootView;

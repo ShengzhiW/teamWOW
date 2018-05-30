@@ -69,12 +69,8 @@ public class Login extends AppCompatActivity{
                 updateDatabase();
 
                 //Test making an intent
-<<<<<<< HEAD
                 Intent intent = new Intent(this, AnimatedWelcome.class);
                 //Intent intent = new Intent(this, ContainerPage.class);
-=======
-                Intent intent = new Intent(this, ContainerPage.class);
->>>>>>> 918a8a0ef6e02637d10755ad18d0858cb5094b22
                 startActivity(intent);
             }
 
