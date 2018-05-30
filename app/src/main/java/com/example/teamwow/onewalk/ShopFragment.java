@@ -157,7 +157,14 @@ public class ShopFragment extends Fragment {
 
                         if(isAdded())
                         {
+                            DisplayMetrics dimension = new DisplayMetrics();
+                            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
+                            int height = dimension.heightPixels;
                             ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
+
+                            imgViewHat.getLayoutParams().height = height / 3;
+                            imgViewHat.getLayoutParams().width = height / 3;
+
                             Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
                             imgViewHat.setImageDrawable(drawableHat);
                         }
