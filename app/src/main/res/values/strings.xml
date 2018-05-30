@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">OneWalk</string>
-    
+
+    <string name="fui_name_hint" translation_description="Hint for last name input field">Nickname (max 16 char.)</string>
+    <string name="steps">&#160;&#160;Steps</string>
+
     <!-- Login strings -->
     <string name="signin_failed">Failed sign in</string>
     <string name="signout_failed">Failed sign out</string>
