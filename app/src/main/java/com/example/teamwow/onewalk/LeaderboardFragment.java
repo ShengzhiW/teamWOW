@@ -181,7 +181,6 @@ public class LeaderboardFragment extends Fragment {
                 TextView stepCount;
                 for(int i = 0; i < names.size(); i++) {
                     name = (TextView) v.findViewById(nameIds[i]);
-                    if(names.get(i).length() > 15) names.set(i, names.get(i).substring(0,15)+"...");
                     name.setText(names.get(i));
                     name.setTextColor(Color.parseColor("#747474"));
 

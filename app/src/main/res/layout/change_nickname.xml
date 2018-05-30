@@ -21,7 +21,8 @@
         android:id="@+id/newNickname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textFilter|textNoSuggestions" >
+        android:inputType="textFilter|textNoSuggestions"
+        android:maxLength="12">
 
         <requestFocus />
 
