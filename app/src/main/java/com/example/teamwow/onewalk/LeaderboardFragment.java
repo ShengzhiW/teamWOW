@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -146,7 +147,7 @@ public class LeaderboardFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
+        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(10);
 
         // attaches a listener to check when a user's step count is updated
         leaderQuery.addValueEventListener(new ValueEventListener() {
@@ -157,6 +158,7 @@ public class LeaderboardFragment extends Fragment {
                 int totalMembers = 0;
                 for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
                     if(leaderSnapshot.child("Steps").exists()) {
+                        Log.d("User", leaderSnapshot.getKey());
                         if((leaderSnapshot.child("Private").getValue()).equals(false)) {
                             names.add(leaderSnapshot.child("Name").getValue(String.class));
 
