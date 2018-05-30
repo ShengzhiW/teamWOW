@@ -541,50 +541,51 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
 
 
 </ScrollView>
-    <LinearLayout
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="55dp"
+    android:gravity="bottom"
+
+    android:layout_alignParentBottom="true"
+    android:layout_margin="10dp"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:clipToPadding="false">
+
+
+    <Button
+        android:id="@+id/closeHatShop"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/round_button"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:drawableTop="@drawable/close_button"
+        android:paddingTop="10dp"
+        />
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentTop="true"
+    android:gravity="top|center_horizontal"
+    android:paddingTop="20dp"
+    android:background="#fff"
+    >
+
+    <TextView
+        android:id="@+id/textGrid"
         android:layout_width="wrap_content"
-        android:layout_height="55dp"
-        android:gravity="bottom"
-
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:clipToPadding="false">
-
-
-        <Button
-            android:id="@+id/closeHatShop"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@drawable/round_button"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:drawableTop="@drawable/close_button"
-            android:paddingTop="10dp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:gravity="top|center_horizontal"
-        android:paddingTop="20dp"
-        android:background="#fff"
-        >
-
-        <TextView
-            android:id="@+id/textGrid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hat_title"
-            android:textColor="@color/Figma"
-            android:textSize="30sp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="@string/hat_title"
+        android:textColor="@color/Figma"
+        android:textSize="30sp"
+        android:textStyle="bold"/>
+</LinearLayout>
 
 </RelativeLayout>

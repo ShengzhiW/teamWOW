@@ -1,189 +1,577 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="0dp"
-    android:background="@drawable/today_background"
+    android:layout_margin="10dp"
+    android:background="@drawable/layout_bg"
+    android:elevation="5dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.506"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:elevation="10dp">
+    >
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="6dp"
+            android:src="@drawable/profilebg"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/profilebanner_frame" />
+    </FrameLayout>
+
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/avatar_image_round" />
+
+    <ImageView
+        android:id="@+id/imgViewHat"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="80dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/avatar_image_round" />
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="130dp"
         android:layout_height="wrap_content"
-        android:layout_rowSpan="1"
-        android:layout_marginTop="5dp"
+        android:layout_alignBottom="@+id/imgView"
+        android:layout_alignParentEnd="true"
+        android:text="Username"
         android:gravity="center"
-        android:text=""
-        android:textColor="#000000"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-
-    <!-- An invisible view aligned to the center of the parent. Allows other
-    views to be arranged on either side -->
-    <View
-        android:id="@+id/centerShim"
-        android:layout_height="match_parent"
-        android:layout_width="0dp"
-        android:visibility="invisible"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/centerShim"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/name"
-        android:gravity="center"
-        android:text="@string/total_steps"
-        android:textColor="#000000"
+        android:textColor="#666"
         android:textSize="25sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/total_step_count"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/centerShim"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="40sp"/>
+        android:layout_marginTop="190dp"
+        android:fillViewport="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:scrollbars="none"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/profile_scroll_bg">
 
-    <TextView
-        android:id="@+id/total_currency"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/centerShim"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/total_curr"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
 
-    <TextView
-        android:id="@+id/total_currency_count"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/centerShim"
-        android:layout_below="@+id/total_currency"
-        android:gravity="center_horizontal"
-        android:text="0"
-        android:textSize="40sp" />
+            <!--card 1-->
 
-    <TextView
-        android:id="@+id/hatsOwned"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/centerShim"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/total_step_count"
-        android:gravity="center"
-        android:text="@string/total_hats"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_appiconv4svg"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/textView"
+                        android:text="@string/total_steps"/>
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:id="@+id/total_step_count"
+                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="normal"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/total_hats"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/hatsOwned"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/centerShim"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="40sp"/>
+            <!--card 2-->
 
-    <TextView
-        android:id="@+id/bodiesOwned"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/total_currency_count"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/centerShim"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/total_bodies"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_appiconv4svg"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/total_currency"
+                        android:text="@string/total_curr"/>
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:id="@+id/total_currency_count"
+                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="normal"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/total_bodies"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/centerShim"
-        android:layout_below="@+id/bodiesOwned"
-        android:gravity="center_horizontal"
-        android:text="0"
-        android:textSize="40sp" />
+            <!--card 3-->
 
-    <TextView
-        android:id="@+id/questsDone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/centerShim"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/total_hats"
-        android:gravity="center"
-        android:text="@string/total_quests"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_appiconv4svg"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/hatsOwned"
+                        android:text="@string/total_hats"/>
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:id="@+id/total_hats"
+                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="normal"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/total_quests"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/questsDone"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/centerShim"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="40sp"/>
+            <!--card 4-->
 
-    <TextView
-        android:id="@+id/loginDays"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/total_bodies"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/centerShim"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/total_days"
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_appiconv4svg"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/bodiesOwned"
+                        android:text="@string/total_bodies"/>
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:id="@+id/total_bodies"
+                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="normal"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
 
-    <TextView
-        android:id="@+id/total_days"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/centerShim"
-        android:layout_below="@+id/loginDays"
-        android:gravity="center_horizontal"
-        android:text="0"
-        android:textSize="40sp" />
+            <!--card 5-->
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_appiconv4svg"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/questsDone"
+                        android:text="@string/total_quests"/>
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:id="@+id/total_quests"
+                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="normal"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--card 6-->
+
+            <android.support.v7.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                app:cardUseCompatPadding="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:src="@drawable/ic_appiconv4svg"
+                        android:layout_height="match_parent"
+                        />
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#000000"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:id="@+id/loginDays"
+                        android:text="@string/total_days"/>
+                    <TextView
+                        android:paddingLeft="90dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:id="@+id/total_days"
+                        android:text="0"
+                        android:layout_marginTop="20dp"
+                        android:textStyle="normal"/>
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="bottom"
+
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:clipToPadding="false">
+
+
+        <Button
+            android:id="@+id/closeProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_button"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:drawableTop="@drawable/close_button"
+            android:paddingTop="10dp"
+            />
+    </LinearLayout>
+
+
 </RelativeLayout>
+
+            <!--<RelativeLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_margin="0dp"-->
+    <!--android:background="@drawable/today_background"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.506"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--android:elevation="10dp">-->
+
+
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/name"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_rowSpan="1"-->
+        <!--android:layout_marginTop="5dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text=""-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="50sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--&lt;!&ndash; An invisible view aligned to the center of the parent. Allows other-->
+    <!--views to be arranged on either side &ndash;&gt;-->
+    <!--<View-->
+        <!--android:id="@+id/centerShim"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:visibility="invisible"-->
+        <!--android:layout_centerHorizontal="true"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_toLeftOf="@+id/centerShim"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_below="@+id/name"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/total_steps"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_step_count"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/textView"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_toLeftOf="@+id/centerShim"-->
+        <!--android:gravity="center"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40sp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_currency"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/name"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/centerShim"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/total_curr"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_currency_count"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/centerShim"-->
+        <!--android:layout_below="@+id/total_currency"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40sp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/hatsOwned"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_toLeftOf="@+id/centerShim"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_below="@+id/total_step_count"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/total_hats"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_hats"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/hatsOwned"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_toLeftOf="@+id/centerShim"-->
+        <!--android:gravity="center"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40sp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/bodiesOwned"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/total_currency_count"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/centerShim"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/total_bodies"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_bodies"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/centerShim"-->
+        <!--android:layout_below="@+id/bodiesOwned"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40sp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/questsDone"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_toLeftOf="@+id/centerShim"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_below="@+id/total_hats"-->
+        <!--android:gravity="center"-->
+        <!--android:text="@string/total_quests"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_quests"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/questsDone"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_toLeftOf="@+id/centerShim"-->
+        <!--android:gravity="center"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40sp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/loginDays"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@+id/total_bodies"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/centerShim"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="@string/total_days"-->
+        <!--android:textColor="#000000"-->
+        <!--android:textSize="25sp"-->
+        <!--android:textStyle="bold" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/total_days"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_toRightOf="@+id/centerShim"-->
+        <!--android:layout_below="@+id/loginDays"-->
+        <!--android:gravity="center_horizontal"-->
+        <!--android:text="0"-->
+        <!--android:textSize="40sp" />-->
+
+
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imgView"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="110dp"-->
+        <!--android:scaleType="centerInside"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:background="@drawable/avatar_image_rounded"/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imgViewHat"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignStart="@+id/imgView"-->
+        <!--android:layout_alignTop="@+id/imgView" />-->
+
+<!--</RelativeLayout>-->
