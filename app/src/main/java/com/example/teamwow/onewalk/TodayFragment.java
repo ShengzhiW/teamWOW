@@ -3,6 +3,7 @@ package com.example.teamwow.onewalk;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Random;
 
 public class TodayFragment extends Fragment {
     // variable for the default text currently on screen
@@ -36,10 +39,14 @@ public class TodayFragment extends Fragment {
     private int dailyCount = 0;
     private int currencyCount = 0;
 
+    private String challengerUid = "";
+
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
+
+    private DatabaseReference challengerDb;
 
     @Nullable
     @Override
@@ -55,14 +62,14 @@ public class TodayFragment extends Fragment {
         // Get the current time
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-        String todayDate = df.format(today);
+        final String todayDate = df.format(today);
 
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
         currencyCountDb = db.getReference("Users").child(uid).child("Currency");
 
-
+        challengerDb = db.getReference("Users").child(uid).child("Archive").child(todayDate + " Challenger");
 
         //Add listener to get the username
         userName.addValueEventListener(new ValueEventListener(){
@@ -116,8 +123,60 @@ public class TodayFragment extends Fragment {
             }
         });
 
+        // Add singled value event listener, only need to set challenger uid once upon entering fragment
+        challengerDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // if no challenger is found, then add a challenger for the day
+                if(!dataSnapshot.exists()) {
+                    getRandomUid(db.getReference("Users"));
+                }
+                else {
+                    challengerUid = dataSnapshot.getValue(String.class);
+
+                    // TODO with access to challenger uid, it would be best to call a function here because i think these are async calls
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return rootView;
     }
 
+    /*
+     * Gets a random uid from users list and sets it to challenger uid
+     */
+    private void getRandomUid(DatabaseReference users) {
+        users.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    int userCount = (int) dataSnapshot.getChildrenCount();
+                    int newChallenger = new Random().nextInt(userCount);
+
+                    Iterator randomUser = dataSnapshot.getChildren().iterator();
+
+                    for(int i = 0; i < newChallenger; i++) {
+                        randomUser.next();
+                    }
+
+                    DataSnapshot childSnapshot = (DataSnapshot)randomUser.next();
+                    challengerUid = childSnapshot.getKey();
+
+                    challengerDb.setValue(challengerUid);
+
+                    //TODO like the above TODO, probably make a function call from here if you use challenger uid
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }

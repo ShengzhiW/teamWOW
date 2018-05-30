@@ -310,7 +310,8 @@ public class ProfileFragment extends Fragment {
                 HashMap array = (HashMap) dataSnapshot.getValue();
                 if(array != null)
                 {
-                    totalDays.setText(String.valueOf(array.size()));
+                    // divide by 2 because for each day there is a step count and challenger
+                    totalDays.setText(String.valueOf(array.size()/2));
                 }
 
             }
