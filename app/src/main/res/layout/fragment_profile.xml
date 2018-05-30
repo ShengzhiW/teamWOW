@@ -38,15 +38,24 @@
 
 
     <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/avatar_image_round"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="30dp"
+        />
+
+    <ImageView
         android:id="@+id/imgView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="80dp"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/avatar_image_round" />
+        android:layout_marginTop="30dp"
+        android:scaleType="centerInside"/>
 
     <ImageView
         android:id="@+id/imgViewHat"
@@ -55,27 +64,28 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="19dp"
-        android:layout_marginTop="80dp"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/avatar_image_round" />
+        android:layout_marginTop="30dp"
+        android:scaleType="centerInside" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="fill_parent"
-        android:layout_marginLeft="130dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imgView"
         android:layout_alignParentEnd="true"
-        android:text="Username"
+        android:layout_marginLeft="130dp"
+        android:layout_marginRight="15dp"
         android:gravity="center"
-        android:textColor="#666"
-        android:textSize="25sp"
+        android:text="Username"
+        android:textColor="#fff"
+        android:textSize="27sp"
         android:textStyle="bold" />
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="150dp"
         android:fillViewport="true"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -106,7 +116,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="80dp"
-                        android:src="@drawable/ic_appiconv4svg"
+                        android:src="@drawable/ic_profile_steps"
                         android:layout_height="match_parent"
                         />
                     <TextView
@@ -146,7 +156,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="80dp"
-                        android:src="@drawable/ic_appiconv4svg"
+                        android:src="@drawable/ic_profile_gbucks"
                         android:layout_height="match_parent"
                         />
                     <TextView
@@ -186,7 +196,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="80dp"
-                        android:src="@drawable/ic_appiconv4svg"
+                        android:src="@drawable/ic_profile_top"
                         android:layout_height="match_parent"
                         />
                     <TextView
@@ -226,7 +236,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="80dp"
-                        android:src="@drawable/ic_appiconv4svg"
+                        android:src="@drawable/ic_profile_body"
                         android:layout_height="match_parent"
                         />
                     <TextView
@@ -266,7 +276,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="80dp"
-                        android:src="@drawable/ic_appiconv4svg"
+                        android:src="@drawable/ic_profile_quests"
                         android:layout_height="match_parent"
                         />
                     <TextView
@@ -306,7 +316,7 @@
                     android:layout_height="wrap_content">
                     <ImageView
                         android:layout_width="80dp"
-                        android:src="@drawable/ic_appiconv4svg"
+                        android:src="@drawable/ic_profile_days"
                         android:layout_height="match_parent"
                         />
                     <TextView
