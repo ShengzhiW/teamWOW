@@ -175,6 +175,8 @@ public class ProfileFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+
+
         // Add listener to get the total hats
         userHats.addValueEventListener(new ValueEventListener() {
             @Override

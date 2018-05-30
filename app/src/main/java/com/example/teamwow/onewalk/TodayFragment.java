@@ -1,11 +1,14 @@
 package com.example.teamwow.onewalk;
 
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,8 +20,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class TodayFragment extends Fragment {
     // variable for the default text currently on screen
@@ -26,6 +31,10 @@ public class TodayFragment extends Fragment {
     private TextView mStepDetector;
     private TextView todaysSteps;
     private TextView currencyText;
+    private TextView greetings;
+    private TextView totalHats;
+    private TextView totalBodies;
+    private TextView totalQuests;
 
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -35,11 +44,30 @@ public class TodayFragment extends Fragment {
     private int count = 0;
     private int dailyCount = 0;
     private int currencyCount = 0;
+    private int hats = 0;
+    private int bodies = 0;
+
+    private int bodyIndex;
+    private int hatIndex;
+    private DatabaseReference dbRef = db.getReference("Users").child(uid);
+    private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
+    private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
+    private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
+            .child("Hat");
+    ArrayList<Integer> hatArray = new ArrayList<Integer>();
+
+    private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
+            .child("Body");
+    ArrayList<Integer> bodyArray = new ArrayList<>();
 
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
     private DatabaseReference todayStepCount;
     private DatabaseReference currencyCountDb;
+    private DatabaseReference userHats;
+    private DatabaseReference userBodies;
+
+    private String greeting;
 
     @Nullable
     @Override
@@ -48,9 +76,10 @@ public class TodayFragment extends Fragment {
 
         // get the text by id
         username = rootView.findViewById(R.id.name);
-        mStepDetector = rootView.findViewById(R.id.total_steps);
+        //mStepDetector = rootView.findViewById(R.id.total_steps);
         todaysSteps = rootView.findViewById(R.id.stepCount);
-        currencyText = rootView.findViewById(R.id.currency_count);
+        //currencyText = rootView.findViewById(R.id.currency_count);
+        greetings = rootView.findViewById(R.id.textView);
 
         // Get the current time
         Date today = Calendar.getInstance().getTime();
@@ -60,16 +89,62 @@ public class TodayFragment extends Fragment {
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
-        currencyCountDb = db.getReference("Users").child(uid).child("Currency");
 
 
+        final int [] bodiesDrawables = {
+                R.drawable.cowboy_body,
+                R.drawable.magician_body,
+                R.drawable.jojo_body,
+                R.drawable.earth_body,
+                R.drawable.chef_body,
+                R.drawable.viking_body,
+                R.drawable.striped_body,
+                R.drawable.yellow_body,
+                R.drawable.lee,
+                R.drawable.gary_body
+        };
+
+        final int [] hatDrawables = {
+                R.drawable.baseball_scale,
+                R.drawable.magician_scale,
+                R.drawable.pirate_scale,
+                R.drawable.tree_scale,
+                R.drawable.poop_scale,
+                R.drawable.cowboyhat_scale,
+                R.drawable.chef_scale,
+                R.drawable.konoha_scale,
+                R.drawable.viking_scale,
+                R.drawable.leprechaun_hat_scale,
+                R.drawable.sun_hat_scale,
+                R.drawable.jojo_hat_scale,
+                R.drawable.duck_hat_scale
+        };
+
+
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+
+        if(hour>= 12 && hour < 17){
+            greeting = "Good Afternoon, ";
+        } else if(hour >= 17 && hour < 21){
+            greeting = "Good Evening,";
+        } else if(hour >= 21 && hour < 24){
+            greeting = "Good Night,";
+        } else if (hour < 12){
+            greeting = "Good Morning,";
+        } else{
+            greeting = "Hello,";
+        }
 
         //Add listener to get the username
         userName.addValueEventListener(new ValueEventListener(){
            @Override
            public void onDataChange(DataSnapshot dataSnapshot){
                if(dataSnapshot.exists()) name = dataSnapshot.getValue(String.class);
-               username.setText(String.valueOf(name));
+               String greetUsername = greeting + String.valueOf(name) + ".";
+               username.setText(greetUsername);
            }
 
            @Override
@@ -78,16 +153,16 @@ public class TodayFragment extends Fragment {
         });
 
         // Add listener to get the total step count
-        userStepCount.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
-                mStepDetector.setText(String.valueOf(count));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+//        userStepCount.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
+//                mStepDetector.setText(String.valueOf(count));
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {}
+//        });
 
         // Add listener to get today's step count
         todayStepCount.addValueEventListener(new ValueEventListener() {
@@ -103,16 +178,133 @@ public class TodayFragment extends Fragment {
             }
         });
 
-        // Add listener to get currency count
-        currencyCountDb.addValueEventListener(new ValueEventListener() {
+//        // Add listener to get currency count
+//        currencyCountDb.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
+//                currencyText.setText(String.valueOf(currencyCount));
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
+
+//
+//        // Add listener to get the total hats
+//        userHats.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                List array = (List) dataSnapshot.getValue();
+//                if(array != null)
+//                {
+//                    for(int i = 0; i < array.size(); i++){
+//                        if(Integer.valueOf(array.get(i).toString()) > 0){
+//                            hats++;
+//                        }
+//                    }
+//                    totalHats.setText(String.valueOf(hats));
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {}
+//        });
+//
+//
+//        // Add listener to get the total bodies
+//        userBodies.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                List array = (List) dataSnapshot.getValue();
+//                if(array != null)
+//                {
+//                    for(int i = 0; i < array.size(); i++){
+//                        if(Integer.valueOf(array.get(i).toString()) > 0){
+//                            bodies++;
+//                        }
+//                    }
+//                    totalBodies.setText(String.valueOf(bodies));
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {}
+//        });
+
+
+        /* Set up inventory array */
+        bodyDB.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
-                currencyText.setText(String.valueOf(currencyCount));
+            public void onDataChange(DataSnapshot snapshot) {
+
+                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
+                    if( item.getValue(Integer.class)  == 2){
+                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"set body index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
+                        bodyIndex = Integer.parseInt(item.getKey());
+                        dbBodyIdx.setValue(item.getKey());
+
+                        if(isAdded())
+                        {
+                            DisplayMetrics dimension = new DisplayMetrics();
+                            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
+                            ImageView imgView = (ImageView) rootView.findViewById(R.id.imgView) ;
+
+
+                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
+                            Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
+                            imgView.setImageDrawable(drawable);
+                        }
+
+
+                    }
+                }
             }
+            // onCancelled...
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                // DO nothing
+            }
+        });
 
+        hatDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
+                    if( item.getValue(Integer.class)  == 2){
+                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),"set hat index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
+                        hatIndex = Integer.parseInt(item.getKey());
+                        dbHatIdx.setValue(item.getKey());
+
+                        if(isAdded())
+                        {
+                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
+                            ImageView imgViewHat = (ImageView) rootView.findViewById(R.id.imgViewHat) ;
+                            Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
+                            imgViewHat.setImageDrawable(drawableHat);
+                        }
+
+
+
+                    }
+                }
+            }
+            // onCancelled...
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // DO nothing
             }
         });
 
