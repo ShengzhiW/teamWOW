@@ -367,7 +367,7 @@ public class TodayFragment extends Fragment {
 
                     Iterator randomUser = dataSnapshot.getChildren().iterator();
 
-                    for(int i = 0; i < 2; i++) {
+                    for(int i = 0; i < newChallenger; i++) {
                         randomUser.next();
                     }
 
