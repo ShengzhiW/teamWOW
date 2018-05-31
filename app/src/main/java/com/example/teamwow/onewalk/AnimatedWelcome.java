@@ -14,7 +14,7 @@ public class AnimatedWelcome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hat_page);
+        setContentView(R.layout.activity_welcome);
 
         closeButton = (Button)findViewById(R.id.closeHatShop);
 
