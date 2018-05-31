@@ -34,11 +34,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class ProfileFragment extends Fragment {
-
-
-
     Button closeButton;
 
     // variable for the default text currently on screen
@@ -71,16 +69,13 @@ public class ProfileFragment extends Fragment {
 
     private int bodyIndex;
     private int hatIndex;
-    private DatabaseReference dbRef = db.getReference("Users").child(uid);
     private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
     private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
     private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Hat");
-    ArrayList<Integer> hatArray = new ArrayList<Integer>();
 
     private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Body");
-    ArrayList<Integer> bodyArray = new ArrayList<>();
 
 
     @Nullable
@@ -239,12 +234,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
                     if( item.getValue(Integer.class)  == 2){
-                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getActivity(),"set body index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
                         bodyIndex = Integer.parseInt(item.getKey());
                         dbBodyIdx.setValue(item.getKey());
 
@@ -255,7 +246,6 @@ public class ProfileFragment extends Fragment {
                             ImageView imgView = (ImageView) rootView.findViewById(R.id.imgView) ;
 
 
-                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
                             Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
                             imgView.setImageDrawable(drawable);
                         }
@@ -275,18 +265,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
                     if( item.getValue(Integer.class)  == 2){
-                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getActivity(),"set hat index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
                         hatIndex = Integer.parseInt(item.getKey());
                         dbHatIdx.setValue(item.getKey());
 
                         if(isAdded())
                         {
-                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
                             ImageView imgViewHat = (ImageView) rootView.findViewById(R.id.imgViewHat) ;
                             Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
                             imgViewHat.setImageDrawable(drawableHat);
@@ -310,10 +295,22 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap array = (HashMap) dataSnapshot.getValue();
+
                 if(array != null)
                 {
-                    // divide by 2 because for each day there is a step count and challenger
-                    totalDays.setText(String.valueOf(array.size()/2));
+
+                    Set<String> keys = array.keySet();
+                    String[] keyList = keys.toArray(new String[keys.size()]);
+
+                    ArrayList<String> days = new ArrayList<String>();
+
+                    // only add days walked, not challengers
+                    for(String key: keyList) {
+                        if(key.length() <= 10) {
+                            days.add(key);
+                        }
+                    }
+                    totalDays.setText(String.valueOf(days.size()));
                 }
 
             }

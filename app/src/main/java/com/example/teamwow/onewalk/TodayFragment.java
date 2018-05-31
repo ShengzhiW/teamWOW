@@ -58,25 +58,18 @@ public class TodayFragment extends Fragment {
 
     private int bodyIndex;
     private int hatIndex;
-    private DatabaseReference dbRef = db.getReference("Users").child(uid);
     private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
     private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
     private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Hat");
-    ArrayList<Integer> hatArray = new ArrayList<Integer>();
 
     private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
             .child("Body");
-    ArrayList<Integer> bodyArray = new ArrayList<>();
 
     private String challengerUid = "";
 
     private DatabaseReference userName;
-    private DatabaseReference userStepCount;
     private DatabaseReference todayStepCount;
-    private DatabaseReference currencyCountDb;
-    private DatabaseReference userHats;
-    private DatabaseReference userBodies;
 
     private String greeting;
 
@@ -106,7 +99,6 @@ public class TodayFragment extends Fragment {
         final String todayDate = df.format(today);
 
         userName = db.getReference("Users").child(uid).child("Name");
-        userStepCount = db.getReference("Users").child(uid).child("Steps");
         todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
 
 
@@ -173,18 +165,6 @@ public class TodayFragment extends Fragment {
 
         });
 
-        // Add listener to get the total step count
-//        userStepCount.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()) count = dataSnapshot.getValue(Integer.class);
-//                mStepDetector.setText(String.valueOf(count));
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-
         // Add listener to get today's step count
         todayStepCount.addValueEventListener(new ValueEventListener() {
             @Override
@@ -199,77 +179,14 @@ public class TodayFragment extends Fragment {
             }
         });
 
-//        // Add listener to get currency count
-//        currencyCountDb.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()) currencyCount = dataSnapshot.getValue(Integer.class);
-//                currencyText.setText(String.valueOf(currencyCount));
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
-
-
-//
-//        // Add listener to get the total hats
-//        userHats.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List array = (List) dataSnapshot.getValue();
-//                if(array != null)
-//                {
-//                    for(int i = 0; i < array.size(); i++){
-//                        if(Integer.valueOf(array.get(i).toString()) > 0){
-//                            hats++;
-//                        }
-//                    }
-//                    totalHats.setText(String.valueOf(hats));
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-//
-//
-//        // Add listener to get the total bodies
-//        userBodies.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List array = (List) dataSnapshot.getValue();
-//                if(array != null)
-//                {
-//                    for(int i = 0; i < array.size(); i++){
-//                        if(Integer.valueOf(array.get(i).toString()) > 0){
-//                            bodies++;
-//                        }
-//                    }
-//                    totalBodies.setText(String.valueOf(bodies));
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-
 
         /* Set up inventory array */
         bodyDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
                     if( item.getValue(Integer.class)  == 2){
-                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getActivity(),"set body index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
                         bodyIndex = Integer.parseInt(item.getKey());
                         dbBodyIdx.setValue(item.getKey());
 
@@ -279,8 +196,6 @@ public class TodayFragment extends Fragment {
                             getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
                             ImageView imgView = (ImageView) rootView.findViewById(R.id.imgView) ;
 
-
-                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
                             Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
                             imgView.setImageDrawable(drawable);
                         }
@@ -300,18 +215,13 @@ public class TodayFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                //    Toast.makeText(getActivity(),"hi",Toast.LENGTH_SHORT).show();
                 for (DataSnapshot item : snapshot.getChildren()) {
-                    //       Toast.makeText(getActivity(),item.toString(),Toast.LENGTH_SHORT).show();
                     if( item.getValue(Integer.class)  == 2){
-                        // Toast.makeText(getActivity(),"this value is a 2 " + item.getKey(),Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(getActivity(),"set hat index to " + item.getKey().toString(),Toast.LENGTH_SHORT).show();
                         hatIndex = Integer.parseInt(item.getKey());
                         dbHatIdx.setValue(item.getKey());
 
                         if(isAdded())
                         {
-                            //Toast.makeText(getActivity(), "the bodyIdx is" + bodyIndex, Toast.LENGTH_SHORT).show();
                             ImageView imgViewHat = (ImageView) rootView.findViewById(R.id.imgViewHat) ;
                             Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
                             imgViewHat.setImageDrawable(drawableHat);
