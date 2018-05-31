@@ -75,7 +75,7 @@
     <string name="privacy_steps">Show steps on leaderboard</string>
 
     <!-- Profile strings -->
-    <string name="total_curr">Total # of Gary Bucks</string>
+    <string name="total_curr">Gary Bucks</string>
     <string name="total_hats">Hats Owned</string>
     <string name="total_bodies">Bodies Owned</string>
     <string name="total_quests">Quests Completed</string>
