@@ -34,7 +34,7 @@
         android:layout_marginEnd="20dp"
         android:layout_height="wrap_content"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="4dp"
+        app:cardCornerRadius="10dp"
         cardview:cardElevation="10dp"
         android:layout_marginTop="60dp"
         android:hardwareAccelerated="false"
