@@ -83,7 +83,7 @@
 
     <!-- Quest strings -->
     <string name="instructions">Walk around in your daily life and everytime you meet the step requirement you\'ll gain Gary Bucks! \n\n Happy walking!</string>
-    <string name="daily_challenge">Daily Challenge</string>
+    <string name="daily_challenge">Daily Quest</string>
     <string name="reward">Reward</string>
 
     <!-- About strings -->
