@@ -21,6 +21,11 @@
     <string name="title_today">Today</string>
     <string name="total_steps">Total Steps Walked</string>
     <string name="currency_title">Gary Bucks</string>
+    <string name="greeting">Good Afternoon, UserNickname.</string>
+    <string name="greeting_message">It\'s a good day to take a walk.</string>
+    <string name="steps_no_space">Steps</string>
+    <string name="challenger_title">Daily Challenger</string>
+    <string name="challenger_nickname">UserNickname</string>
 
     <!-- Settings strings -->
     <string name="view_profile">View Profile</string>

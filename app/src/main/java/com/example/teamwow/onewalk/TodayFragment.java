@@ -39,6 +39,9 @@ public class TodayFragment extends Fragment {
     private TextView totalBodies;
     private TextView totalQuests;
 
+    private TextView challengerNickname;
+    private TextView challengerSteps;
+
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
@@ -49,6 +52,9 @@ public class TodayFragment extends Fragment {
     private int currencyCount = 0;
     private int hats = 0;
     private int bodies = 0;
+
+    private String opponentNickname = "";
+    private int opponentSteps = 0;
 
     private int bodyIndex;
     private int hatIndex;
@@ -75,6 +81,7 @@ public class TodayFragment extends Fragment {
     private String greeting;
 
     private DatabaseReference challengerDb;
+    private DatabaseReference opponentRef;
 
     @Nullable
     @Override
@@ -87,6 +94,11 @@ public class TodayFragment extends Fragment {
         todaysSteps = rootView.findViewById(R.id.stepCount);
         //currencyText = rootView.findViewById(R.id.currency_count);
         greetings = rootView.findViewById(R.id.textView);
+
+        // set textviews to challenger
+        challengerNickname = rootView.findViewById(R.id.challengerToday);
+        challengerSteps = rootView.findViewById(R.id.opponentStepCount);
+
 
         // Get the current time
         Date today = Calendar.getInstance().getTime();
@@ -136,13 +148,13 @@ public class TodayFragment extends Fragment {
         if(hour>= 12 && hour < 17){
             greeting = "Good Afternoon, ";
         } else if(hour >= 17 && hour < 21){
-            greeting = "Good Evening,";
+            greeting = "Good Evening, ";
         } else if(hour >= 21 && hour < 24){
-            greeting = "Good Night,";
+            greeting = "Good Night, ";
         } else if (hour < 12){
-            greeting = "Good Morning,";
+            greeting = "Good Morning, ";
         } else{
-            greeting = "Hello,";
+            greeting = "Hello, ";
         }
 
         challengerDb = db.getReference("Users").child(uid).child("Archive").child(todayDate + " Challenger");
@@ -323,12 +335,13 @@ public class TodayFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // if no challenger is found, then add a challenger for the day
                 if(!dataSnapshot.exists()) {
-                    getRandomUid(db.getReference("Users"));
+                    getRandomUid(db.getReference("Users"), todayDate);
                 }
                 else {
                     challengerUid = dataSnapshot.getValue(String.class);
 
                     // TODO with access to challenger uid, it would be best to call a function here because i think these are async calls
+                    connectChallengerToLayout(todayDate);
                 }
             }
 
@@ -344,7 +357,7 @@ public class TodayFragment extends Fragment {
     /*
      * Gets a random uid from users list and sets it to challenger uid
      */
-    private void getRandomUid(DatabaseReference users) {
+    private void getRandomUid(DatabaseReference users, final String todayDate) {
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -354,14 +367,21 @@ public class TodayFragment extends Fragment {
 
                     Iterator randomUser = dataSnapshot.getChildren().iterator();
 
-                    for(int i = 0; i < newChallenger; i++) {
+                    for(int i = 0; i < 2; i++) {
                         randomUser.next();
                     }
 
                     DataSnapshot childSnapshot = (DataSnapshot)randomUser.next();
+
                     challengerUid = childSnapshot.getKey();
 
-                    challengerDb.setValue(challengerUid);
+                    if(!childSnapshot.getKey().equals(uid)) {
+                        challengerDb.setValue(challengerUid);
+                        connectChallengerToLayout(todayDate);
+                    }
+                    else {
+                        challengerNickname.setText("Come back later!");
+                    }
 
                     //TODO like the above TODO, probably make a function call from here if you use challenger uid
                 }
@@ -373,4 +393,30 @@ public class TodayFragment extends Fragment {
         });
     }
 
+    private void connectChallengerToLayout(final String todayDate) {
+        opponentRef = db.getReference("Users").child(challengerUid);
+        opponentRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) {
+                    opponentNickname = dataSnapshot.child("Name").getValue(String.class);
+
+                    DataSnapshot checkOpponentSteps = dataSnapshot.child("Archive").child(todayDate);
+                    if(checkOpponentSteps.exists()) {
+                        opponentSteps = checkOpponentSteps.getValue(Integer.class);
+                    }
+                    else {
+                        opponentSteps = 0;
+                    }
+
+                    challengerNickname.setText(opponentNickname);
+                    challengerSteps.setText(String.valueOf(opponentSteps));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
