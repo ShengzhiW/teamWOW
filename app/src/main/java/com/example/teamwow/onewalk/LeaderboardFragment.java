@@ -169,14 +169,17 @@ public class LeaderboardFragment extends Fragment {
                             stepCounts.add(leaderSnapshot.child("Steps").getValue(Integer.class));
 
                             totalMembers++;
-                            if (totalMembers >= 10) break;
+                            //if (totalMembers >= 10) break;
                         }
                     }
                 }
 
                 TextView name;
                 TextView stepCount;
-                for(int i = 0; i < names.size(); i++) {
+
+                int max = names.size() < 10 ? names.size() : 10;
+
+                for(int i = 0; i < max; i++) {
                     name = (TextView) v.findViewById(nameIds[i]);
                     name.setText(names.get(i));
                     name.setTextColor(Color.parseColor("#747474"));
