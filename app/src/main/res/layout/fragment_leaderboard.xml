@@ -59,23 +59,25 @@
                     android:id="@+id/userLB"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="0dp"
                     android:text="@string/Username"
-                    android:paddingTop="10dp"
+                    android:paddingTop="12dp"
                     android:paddingStart="20dp"
                     android:layout_column="2"
                     android:maxLines="1"
                     android:maxLength="12"
+                    android:textSize="17sp"
                     android:ellipsize="end"/>
 
                 <TextView
                     android:id="@+id/userLBSteps"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:paddingTop="10dp"
+                    android:paddingTop="12dp"
                     android:layout_column="3"
                     android:maxLines="1"
                     android:maxLength="9"
+                    android:textSize="17sp"
                     android:text="100" />
 
                 <TextView

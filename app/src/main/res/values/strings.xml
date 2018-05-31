@@ -80,15 +80,15 @@
     <string name="privacy_steps">Show steps on leaderboard</string>
 
     <!-- Profile strings -->
-    <string name="total_curr">Total # of Gary Bucks</string>
+    <string name="total_curr">Gary Bucks</string>
     <string name="total_hats">Hats Owned</string>
     <string name="total_bodies">Bodies Owned</string>
     <string name="total_quests">Quests Completed</string>
-    <string name="total_days">Total # of Days Walked</string>
+    <string name="total_days">Total Days on OneWalk</string>
 
     <!-- Quest strings -->
     <string name="instructions">Walk around in your daily life and everytime you meet the step requirement you\'ll gain Gary Bucks! \n\n Happy walking!</string>
-    <string name="daily_challenge">Daily Challenge</string>
+    <string name="daily_challenge">Daily Quest</string>
     <string name="reward">Reward</string>
 
     <!-- About strings -->

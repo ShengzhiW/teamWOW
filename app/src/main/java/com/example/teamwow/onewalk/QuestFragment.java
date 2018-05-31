@@ -10,19 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class QuestFragment extends Fragment {
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private TextView questText;
     private TextView rewardText;
     private int questNum;
+    private TextView todaysSteps;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String uid = user.getUid();
+    private int dailyCount = 0;
+    private DatabaseReference todayStepCount;
 
     @Nullable
     @Override
@@ -30,6 +39,14 @@ public class QuestFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_quest, container, false);
         questText = rootView.findViewById(R.id.quest_text);
         rewardText = rootView.findViewById(R.id.reward_text);
+        todaysSteps = rootView.findViewById(R.id.stepCount);
+
+        // Get the current time
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        final String todayDate = df.format(today);
+
+        todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
 
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();
@@ -54,6 +71,20 @@ public class QuestFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Do nothing
+            }
+        });
+
+
+        todayStepCount.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) dailyCount = dataSnapshot.getValue(Integer.class);
+                todaysSteps.setText(String.valueOf(dailyCount));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
