@@ -146,7 +146,7 @@ public class LeaderboardFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
+        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Step Sort");
 
         // attaches a listener to check when a user's step count is updated
         leaderQuery.addValueEventListener(new ValueEventListener() {
@@ -173,9 +173,6 @@ public class LeaderboardFragment extends Fragment {
                         }
                     }
                 }
-                Collections.reverse(names);
-                Collections.reverse(stepCounts);
-                Collections.reverse(showSteps);
 
                 TextView name;
                 TextView stepCount;

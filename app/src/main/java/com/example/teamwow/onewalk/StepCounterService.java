@@ -44,6 +44,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private DatabaseReference currencyCountDb;
     private DatabaseReference lifetimeCurrencyCountDb;
     private DatabaseReference questDb;
+    private DatabaseReference lbSortSteps;
 
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -174,6 +175,8 @@ public class StepCounterService extends Service implements SensorEventListener {
         lifetimeCurrencyCountDb.addListenerForSingleValueEvent(lifetimeCurrencyListener);
         questDb.addListenerForSingleValueEvent(questListener);
 
+        lbSortSteps = db.getReference("Leaderboard").child(uid).child("Step Sort");
+
         // if service killed, recreate service (may change to different value found on android service guide)
         return START_STICKY;
     }
@@ -229,6 +232,7 @@ public class StepCounterService extends Service implements SensorEventListener {
 
         userStepCount.setValue(count);
         lbStepCount.setValue(count);
+        lbSortSteps.setValue(count * -1);
         todayStepCount.setValue(dailyCount);
     }
 
