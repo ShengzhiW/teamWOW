@@ -146,7 +146,7 @@ public class LeaderboardFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps").limitToLast(11);
+        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
 
         // attaches a listener to check when a user's step count is updated
         leaderQuery.addValueEventListener(new ValueEventListener() {
@@ -169,7 +169,7 @@ public class LeaderboardFragment extends Fragment {
                             stepCounts.add(leaderSnapshot.child("Steps").getValue(Integer.class));
 
                             totalMembers++;
-                            if (totalMembers >= 10) break;
+                            //if (totalMembers >= 10) break;
                         }
                     }
                 }
@@ -179,7 +179,10 @@ public class LeaderboardFragment extends Fragment {
 
                 TextView name;
                 TextView stepCount;
-                for(int i = 0; i < names.size(); i++) {
+
+                int max = names.size() < 10 ? names.size() : 10;
+
+                for(int i = 0; i < max; i++) {
                     name = (TextView) v.findViewById(nameIds[i]);
                     name.setText(names.get(i));
                     name.setTextColor(Color.parseColor("#747474"));
