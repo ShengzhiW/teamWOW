@@ -339,8 +339,6 @@ public class TodayFragment extends Fragment {
                 }
                 else {
                     challengerUid = dataSnapshot.getValue(String.class);
-
-                    // TODO with access to challenger uid, it would be best to call a function here because i think these are async calls
                     connectChallengerToLayout(todayDate);
                 }
             }
@@ -382,8 +380,6 @@ public class TodayFragment extends Fragment {
                     else {
                         challengerNickname.setText("Come back later!");
                     }
-
-                    //TODO like the above TODO, probably make a function call from here if you use challenger uid
                 }
             }
             @Override
@@ -411,6 +407,10 @@ public class TodayFragment extends Fragment {
 
                     challengerNickname.setText(opponentNickname);
                     challengerSteps.setText(String.valueOf(opponentSteps));
+                }
+                else {
+                    challengerNickname.setText("Please reload.");
+                    challengerDb.removeValue();
                 }
             }
             @Override
