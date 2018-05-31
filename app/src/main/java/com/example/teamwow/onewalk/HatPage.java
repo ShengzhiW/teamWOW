@@ -128,7 +128,7 @@ public class HatPage extends AppCompatActivity {
                         Builder builder = new Builder(HatPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                .setMessage("Price:" + price + "\n" + "Currency: " + garyBucks)
+                                .setMessage("Price:" + price + "\n" + "You have " + garyBucks + " Gary Bucks")
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
