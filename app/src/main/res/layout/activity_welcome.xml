@@ -13,6 +13,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:background="@color/Figma"
+    android:clipToPadding="false"
     >
 
     <!--<VideoView-->
@@ -80,7 +81,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="left"
-                android:text="Walk to earn Gary Bucks\nPurchase amazing avatars"
+                android:text="Walk to earn Gary Bucks\nGet amazing avatars"
                 android:textSize="15sp"
                 android:layout_marginTop="20dp"
                 android:textStyle="normal"
@@ -118,7 +119,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="left"
-                android:text="Compete with others \nStrive for the leaderboard"
+                android:text="Compete with others \nAim for the leaderboard"
                 android:textSize="15sp"
                 android:layout_marginTop="20dp"
                 android:textStyle="normal"
@@ -156,7 +157,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:gravity="left"
-                android:text="Have fun with daily challenges \nDaily quests to earn extra"
+                android:text="Fun with daily challenges \nDaily quests to earn extra"
                 android:textSize="15sp"
                 android:layout_marginTop="20dp"
                 android:textStyle="normal"
@@ -175,7 +176,7 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
         android:gravity="bottom"
 
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_margin="30dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:clipToPadding="false">
@@ -189,10 +190,10 @@ https://www.youtube.com/watch?v=go9q4O44b4E -->
             android:background="@drawable/round_continue_button"
             android:textColor="@color/Figma"
             android:text="Continue"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:stateListAnimator="@null"
             android:textAllCaps="false"
-            android:elevation="5dp"
+            android:elevation="4dp"
             />
     </LinearLayout>
 </RelativeLayout>
