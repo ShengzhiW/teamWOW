@@ -168,7 +168,7 @@
                         android:textSize="13sp"
                         android:textStyle="bold"
                         android:id="@+id/total_currency"
-                        android:text="@string/total_curr"/>
+                        android:text="Lifetime Gary Bucks"/>
                     <TextView
                         android:paddingLeft="90dp"
                         android:layout_width="match_parent"
@@ -176,7 +176,7 @@
                         android:textColor="#000000"
                         android:textSize="35sp"
                         android:id="@+id/total_currency_count"
-                        android:text="0"
+                        android:text=""
                         android:layout_marginTop="20dp"
                         android:textStyle="normal"/>
                 </RelativeLayout>
