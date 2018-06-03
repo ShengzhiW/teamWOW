@@ -70,17 +70,12 @@ public class BodyPage extends AppCompatActivity {
                         bodyArray.add(Integer.valueOf(array.get(i).toString()));
                     }
                 }
-
-
             }
-
-            // onCancelled...
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // DO nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
+
         ValueEventListener currencyListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -88,9 +83,7 @@ public class BodyPage extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
         currencyDB.addListenerForSingleValueEvent(currencyListener);
 
@@ -119,9 +112,9 @@ public class BodyPage extends AppCompatActivity {
                 public void onClick(View view) {
 
                     ImageView image = new ImageView(BodyPage.this);
-                    ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
+                    ImageView getter = (ImageView)((LinearLayout) cardView.getChildAt(0)).getChildAt(0);
                     image.setImageDrawable(getter.getDrawable());
-                    TextView getterName = (TextView)((LinearLayout)cardView.getChildAt(0)).getChildAt(1);
+                    TextView getterName = (TextView)((LinearLayout) cardView.getChildAt(0)).getChildAt(1);
 
                     if(bodyArray.get(finalI) == 0){
                         // Dialog Box to buy hat
@@ -149,14 +142,14 @@ public class BodyPage extends AppCompatActivity {
                                             garyBucks -= price;
                                             bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
                                             bodyArray.set(finalI, 2);
-                                        }else{
+                                        } else {
                                             Toast.makeText(BodyPage.this, "Go walk more you potato", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
-                    }else if(bodyArray.get(finalI) == 1){
+                    } else if(bodyArray.get(finalI) == 1) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(BodyPage.this);
                         builder
                                 .setTitle("Equip " + getterName.getText().toString() + "?")
@@ -181,13 +174,15 @@ public class BodyPage extends AppCompatActivity {
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
-                    }else{
+                    } else {
                         Toast.makeText(BodyPage.this, "Already equipped", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
-
         }
+    }
+
+    public void changeCurrency() {
+
     }
 }

@@ -63,24 +63,18 @@ public class HatPage extends AppCompatActivity {
                 // the snapshot provides a generic list holding Objects
                 List array = (List) snapshot.getValue();
 
-                if(array != null)
-                {
+                if(array != null) {
                     // we then transform those objects into integers for our hat array
                     for(int i = 0; i < array.size(); i++){
                         hatArray.add(Integer.valueOf(array.get(i).toString()));
                     }
                 }
-
-
             }
-
-            // onCancelled...
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // DO nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
+
         ValueEventListener currencyListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,16 +113,16 @@ public class HatPage extends AppCompatActivity {
                 public void onClick(View view) {
 
                     ImageView image = new ImageView(HatPage.this);
-                    ImageView getter = (ImageView)((LinearLayout)cardView.getChildAt(0)).getChildAt(0);
+                    ImageView getter = (ImageView)((LinearLayout) cardView.getChildAt(0)).getChildAt(0);
                     image.setImageDrawable(getter.getDrawable());
-                    TextView getterName = (TextView)((LinearLayout)cardView.getChildAt(0)).getChildAt(1);
+                    TextView getterName = (TextView)((LinearLayout) cardView.getChildAt(0)).getChildAt(1);
 
                     if(hatArray.get(finalI) == 0){
                         // Dialog Box to buy hat
                         Builder builder = new Builder(HatPage.this);
                         builder
                                 .setTitle("Buy " + getterName.getText().toString() + "?")
-                                .setMessage("Price:" + price + "\n" + "You have " + garyBucks + " Gary Bucks")
+                                .setMessage("Price: " + price + "\n" + "You have " + garyBucks + " Gary Bucks")
                                 .setView(image)
                                 // Line below creates icon for dialog box in upper left corner
                                 .setIcon(image.getDrawable())
@@ -156,7 +150,7 @@ public class HatPage extends AppCompatActivity {
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
-                    }else if(hatArray.get(finalI) == 1){
+                    } else if(hatArray.get(finalI) == 1) {
                         Builder builder = new Builder(HatPage.this);
                         builder
                                 .setTitle("Equip " + getterName.getText().toString() + "?")
@@ -181,11 +175,15 @@ public class HatPage extends AppCompatActivity {
                                 })
                                 .setNegativeButton("No", null)
                                 .show();
-                    }else{
+                    } else {
                         Toast.makeText(HatPage.this, "Already equipped", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
+    }
+
+    public void changeCurrency() {
+
     }
 }
