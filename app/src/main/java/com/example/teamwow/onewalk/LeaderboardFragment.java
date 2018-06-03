@@ -32,9 +32,6 @@ public class LeaderboardFragment extends Fragment {
     TextView steps;
 
     // for leaderboard
-    private RecyclerView leaderboardView;
-    private RecyclerView.Adapter leaderboardAdapter;
-    private RecyclerView.LayoutManager leaderboardLayoutManager;
     private int[] nameIds = {R.id.rank1username, R.id.rank2username, R.id.rank3username,
             R.id.rank4username, R.id.rank5username, R.id.rank6username, R.id.rank7username,
             R.id.rank8username, R.id.rank9username, R.id.rank10username};
@@ -52,53 +49,6 @@ public class LeaderboardFragment extends Fragment {
 
     private DatabaseReference userName;
     private DatabaseReference userStepCount;
-
-
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        rootView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-//        buildLeaderboard();
-//        return rootView;
-//    }
-//
-//    /* Pulls and displays the top 10 users on the leaderboard from the database */
-//    public void buildLeaderboard() {
-//        Query leaderQuery = db.getReference("Leaderboard").orderByChild("Steps");
-//
-//        // attaches a listener to check when a user's step count is updated
-//        leaderQuery.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                list.clear();
-//                int totalMembers = 0;
-//                for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
-//                    if(leaderSnapshot.child("Steps").exists()) {
-//                        if((leaderSnapshot.child("Private").getValue()).equals(false)) {
-//                                    list.add(leaderSnapshot.child("Name").getValue(String.class)
-//                                            + ": " + leaderSnapshot.child("Steps").getValue(Integer.class));
-//                                    totalMembers++;
-//                                    if (totalMembers >= 10) break;
-//                                }
-//                    }
-//                }
-//                Collections.reverse(list);
-//
-//                leaderboardAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        });
-//
-//        // sets up the leaderboard using a recycler view and adapter
-//        leaderboardView = (RecyclerView) rootView.findViewById(R.id.leaderboardView);
-//        leaderboardView.setHasFixedSize(true);
-//        leaderboardLayoutManager = new LinearLayoutManager(getActivity());
-//        leaderboardView.setLayoutManager(leaderboardLayoutManager);
-//        leaderboardAdapter = new LeaderboardAdapter(list);
-//        leaderboardView.setAdapter(leaderboardAdapter);
-//    }
 
     @Nullable
     @Override

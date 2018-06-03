@@ -24,7 +24,6 @@ import java.util.Arrays;
 
 public class Login extends AppCompatActivity{
     // Firebase authentication
-    private FirebaseAuth auth; // Firebase authentication for log in
     private static final int RC_SIGN_IN = 123; // Some number needed for authentication
 
     // Reference to the firebase database
@@ -37,10 +36,7 @@ public class Login extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         /* Firebase Database */
-        db = FirebaseDatabase.getInstance(); // Get the firebase database
-
-        /* Firebase Authentication */
-        auth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
 
         /* Start log in. Email is available for log in */
         startActivityForResult(AuthUI.getInstance()
@@ -52,44 +48,37 @@ public class Login extends AppCompatActivity{
     }
 
     /*
-     * Name: onActivityResult()
-     * Description:  If user signed in correctly then, user logs in
-     *  Otherwise displays an error message
-     *
-     * Author: Connie Guan
+     * If user signed in correctly then, user logs in
+     * Otherwise displays an error message
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
-            IdpResponse response = IdpResponse.fromResultIntent(data);
 
             // If successfully signed in
             if(resultCode == RESULT_OK) {
-                updateDatabase();
-
-                //Test making an intent
-                Intent intent = new Intent(this, AnimatedWelcome.class);
-                //Intent intent = new Intent(this, ContainerPage.class);
-                startActivity(intent);
+                loginUser();
             }
 
-            //means you cancelled sign in, just return to home page
+            // means you cancelled sign in, just return to home page
             if(resultCode == RESULT_CANCELED){
-
-                //exits the current activity
-                finish();
+                finish(); // exits the current activity
             }
             return;
         }
         displayMessage(getString(R.string.unknown_response));
-
     }
 
-    /* Name: updateDatabase()
+    private void loginUser() {
+        updateDatabase();
+
+        Intent intent = new Intent(this, AnimatedWelcome.class);
+        startActivity(intent);
+    }
+
+    /*
      * Description: When user is logged in, load their uid/name/email into the database
-     *
-     * Author: Alex Lo
      */
     private void updateDatabase() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -161,7 +150,6 @@ public class Login extends AppCompatActivity{
         });
     }
 
-    /* Had to be a different function due to it not being a String */
     public void initializeInventory(final  DatabaseReference dr, final List<Integer> list){
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -174,16 +162,16 @@ public class Login extends AppCompatActivity{
         });
     }
 
-    /* Name: displayMessage()
-     * Description: Displays a pop up message to user
-     *
-     * Author: Connie Guan
+    /*
+     * Displays a pop up message to user
      */
     private void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    /** have the back button redirect to the phone's home screen */
+    /*
+     * Have the back button redirect to the phone's home screen
+     */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent();

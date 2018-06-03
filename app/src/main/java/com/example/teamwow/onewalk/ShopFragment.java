@@ -44,6 +44,35 @@ public class ShopFragment extends Fragment {
     private int hatIndex;
     private int currency = 0;
 
+    final int [] bodiesDrawables = {
+            R.drawable.cowboy_body,
+            R.drawable.magician_body,
+            R.drawable.jojo_body,
+            R.drawable.earth_body,
+            R.drawable.chef_body,
+            R.drawable.viking_body,
+            R.drawable.striped_body,
+            R.drawable.yellow_body,
+            R.drawable.lee,
+            R.drawable.gary_body
+    };
+
+    final int [] hatDrawables = {
+            R.drawable.baseball_scale,
+            R.drawable.magician_scale,
+            R.drawable.pirate_scale,
+            R.drawable.tree_scale,
+            R.drawable.poop_scale,
+            R.drawable.cowboyhat_scale,
+            R.drawable.chef_scale,
+            R.drawable.konoha_scale,
+            R.drawable.viking_scale,
+            R.drawable.leprechaun_hat_scale,
+            R.drawable.sun_hat_scale,
+            R.drawable.jojo_hat_scale,
+            R.drawable.duck_hat_scale
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,61 +82,28 @@ public class ShopFragment extends Fragment {
 
         currencyAmount = view.findViewById(R.id.currencyShop);
         //Add listener to get the username
-        currencyDB.addValueEventListener(new ValueEventListener(){
+        currencyDB.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot){
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()) currency = dataSnapshot.getValue(Integer.class);
                 currencyAmount.setText(String.valueOf(currency));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError){}
-
+            public void onCancelled(DatabaseError databaseError) {}
         });
-
-
-        final int [] bodiesDrawables = {
-                R.drawable.cowboy_body,
-                R.drawable.magician_body,
-                R.drawable.jojo_body,
-                R.drawable.earth_body,
-                R.drawable.chef_body,
-                R.drawable.viking_body,
-                R.drawable.striped_body,
-                R.drawable.yellow_body,
-                R.drawable.lee,
-                R.drawable.gary_body
-        };
-
-        final int [] hatDrawables = {
-                R.drawable.baseball_scale,
-                R.drawable.magician_scale,
-                R.drawable.pirate_scale,
-                R.drawable.tree_scale,
-                R.drawable.poop_scale,
-                R.drawable.cowboyhat_scale,
-                R.drawable.chef_scale,
-                R.drawable.konoha_scale,
-                R.drawable.viking_scale,
-                R.drawable.leprechaun_hat_scale,
-                R.drawable.sun_hat_scale,
-                R.drawable.jojo_hat_scale,
-                R.drawable.duck_hat_scale
-        };
 
         hatButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getActivity(), HatPage.class);
-                startActivity(intent);
+                sendToHat();
             }
         });
 
         bodyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(getActivity(), BodyPage.class);
-                startActivity(intent);
+                sendToBody();
             }
         });
 
@@ -115,72 +111,79 @@ public class ShopFragment extends Fragment {
         bodyDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot item : snapshot.getChildren()) {
-                    if( item.getValue(Integer.class)  == 2){
-                        bodyIndex = Integer.parseInt(item.getKey());
-                        dbBodyIdx.setValue(item.getKey());
-
-                        if(isAdded())
-                        {
-                            DisplayMetrics dimension = new DisplayMetrics();
-                            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
-                            int height = dimension.heightPixels;
-                            ImageView imgView = (ImageView) view.findViewById(R.id.imgView) ;
-                            imgView.getLayoutParams().height = height / 3;
-                            imgView.getLayoutParams().width = height / 3;
-
-
-                            Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
-                            imgView.setImageDrawable(drawable);
-                        }
-
-
-                    }
-                }
+                bodyDB(view, snapshot);
             }
-            // onCancelled...
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // DO nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         hatDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot item : snapshot.getChildren()) {
-                    if( item.getValue(Integer.class)  == 2){
-                        hatIndex = Integer.parseInt(item.getKey());
-                        dbHatIdx.setValue(item.getKey());
-
-                        if(isAdded())
-                        {
-                            DisplayMetrics dimension = new DisplayMetrics();
-                            getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
-                            int height = dimension.heightPixels;
-                            ImageView imgViewHat = (ImageView) view.findViewById(R.id.imgViewHat) ;
-
-                            imgViewHat.getLayoutParams().height = height / 3;
-                            imgViewHat.getLayoutParams().width = height / 3;
-
-                            Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
-                            imgViewHat.setImageDrawable(drawableHat);
-                        }
-
-
-
-                    }
-                }
+                hatDB(view, snapshot);
             }
-            // onCancelled...
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // DO nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         return view;
+    }
+
+    private void sendToHat() {
+        Intent intent = new Intent(getActivity(), HatPage.class);
+        startActivity(intent);
+    }
+
+    private void sendToBody() {
+        Intent intent = new Intent(getActivity(), BodyPage.class);
+        startActivity(intent);
+    }
+
+    private void hatDB(final View v, DataSnapshot snapshot) {
+        for (DataSnapshot item : snapshot.getChildren()) {
+            if( item.getValue(Integer.class)  == 2){
+                hatIndex = Integer.parseInt(item.getKey());
+                dbHatIdx.setValue(item.getKey());
+
+                if(isAdded())
+                {
+                    DisplayMetrics dimension = new DisplayMetrics();
+                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
+                    int height = dimension.heightPixels;
+                    ImageView imgViewHat = (ImageView) v.findViewById(R.id.imgViewHat) ;
+
+                    imgViewHat.getLayoutParams().height = height / 3;
+                    imgViewHat.getLayoutParams().width = height / 3;
+
+                    Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
+                    imgViewHat.setImageDrawable(drawableHat);
+                }
+            }
+        }
+    }
+
+    private void bodyDB(final View v, DataSnapshot snapshot) {
+        for (DataSnapshot item : snapshot.getChildren()) {
+            if( item.getValue(Integer.class)  == 2){
+                bodyIndex = Integer.parseInt(item.getKey());
+                dbBodyIdx.setValue(item.getKey());
+
+                if(isAdded())
+                {
+                    DisplayMetrics dimension = new DisplayMetrics();
+                    getActivity().getWindowManager().getDefaultDisplay().getMetrics(dimension);
+                    int height = dimension.heightPixels;
+                    ImageView imgView = (ImageView) v.findViewById(R.id.imgView) ;
+                    imgView.getLayoutParams().height = height / 3;
+                    imgView.getLayoutParams().width = height / 3;
+
+
+                    Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
+                    imgView.setImageDrawable(drawable);
+                }
+            }
+        }
     }
 }

@@ -44,68 +44,14 @@ public class SettingsFragment extends Fragment {
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater li = LayoutInflater.from(getActivity());
-                View promptsView = li.inflate(R.layout.about_while_walk, null);
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-
-                // set prompts.xml to alert dialog builder
-                alertDialogBuilder.setView(promptsView);
-
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setNegativeButton("Close",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                // create alert dialog, show it
-                alertDialogBuilder.create().show();
-
-
+                viewAbout();
             }});
 
         // Add a listener to the change nickname button that prompts the user for input and then updates the database
         nicknameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // get prompts.xml view
-                LayoutInflater li = LayoutInflater.from(getActivity());
-                View promptsView = li.inflate(R.layout.change_nickname, null);
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-
-                // set prompts.xml to alert dialog builder
-                alertDialogBuilder.setView(promptsView);
-
-                final EditText userInput = (EditText) promptsView.findViewById(R.id.newNickname);
-
-                // set dialog message
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // get user input and update database
-                                        String input = userInput.getText().toString();
-                                        if(!(input.equals(""))) {
-                                            db.getReference("Users").child(uid).child("Name").setValue(input);
-                                            db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
-                                            displayMessage(getString(R.string.changed_nickname) + " " + input);
-                                        }
-                                    }
-                                })
-                        .setNegativeButton("Cancel",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                // create alert dialog, show it
-                alertDialogBuilder.create().show();
+                changeNickname();
             }
         });
 
@@ -113,21 +59,7 @@ public class SettingsFragment extends Fragment {
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                auth.signOut(getActivity()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            displayMessage(getString(R.string.signout));
-
-                            // if logged out, service is stopped so steps aren't detected
-                            getActivity().stopService(new Intent(getActivity(), StepCounterService.class));
-
-                            LogIn();
-                        } else {
-                            displayMessage(getString(R.string.signout_failed));
-                        }
-                    }
-                });
+                logoutUser();
             }
         });
 
@@ -135,7 +67,7 @@ public class SettingsFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                createAlertDialogue();
+                deleteUser();
             }
         });
 
@@ -160,7 +92,7 @@ public class SettingsFragment extends Fragment {
     }
 
     /* Starts the login activity and brings the user back to the login page */
-    private void LogIn(){
+    private void logIn(){
 
         Intent logInIntent = new Intent(getActivity(), Login.class);
 
@@ -169,15 +101,89 @@ public class SettingsFragment extends Fragment {
         startActivity(logInIntent);
     }
 
-    public void displayMessage(String message){
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    private void viewAbout() {
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        View promptsView = li.inflate(R.layout.about_while_walk, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+        // set prompts.xml to alert dialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        alertDialogBuilder
+                .setCancelable(false)
+                .setNegativeButton("Close",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog, show it
+        alertDialogBuilder.create().show();
+    }
+
+    private void changeNickname() {
+        // get prompts.xml view
+        LayoutInflater li = LayoutInflater.from(getActivity());
+        View promptsView = li.inflate(R.layout.change_nickname, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+        // set prompts.xml to alert dialog builder
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.newNickname);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and update database
+                                String input = userInput.getText().toString();
+                                if(!(input.equals(""))) {
+                                    db.getReference("Users").child(uid).child("Name").setValue(input);
+                                    db.getReference("Leaderboard").child(uid).child("Name").setValue(input);
+                                    displayMessage(getString(R.string.changed_nickname) + " " + input);
+                                }
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog, show it
+        alertDialogBuilder.create().show();
+    }
+
+    private void logoutUser() {
+        auth.signOut(getActivity()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    displayMessage(getString(R.string.signout));
+
+                    // if logged out, service is stopped so steps aren't detected
+                    getActivity().stopService(new Intent(getActivity(), StepCounterService.class));
+
+                    logIn();
+                } else {
+                    displayMessage(getString(R.string.signout_failed));
+                }
+            }
+        });
     }
 
     /*
      * Creates a confirmation dialogue for account deletion
      * If user confirms then account is deleted and they are returned to sign in page
      */
-    private void createAlertDialogue()
+    private void deleteUser()
     {
         // Alert Builder
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
@@ -201,7 +207,7 @@ public class SettingsFragment extends Fragment {
                             getActivity().stopService(new Intent(getActivity(), StepCounterService.class));
 
                             displayMessage(getString(R.string.delete_account_success));
-                            LogIn();
+                            logIn();
                         }
                         else {
                             displayMessage(getString(R.string.delete_account_failed));
@@ -221,6 +227,10 @@ public class SettingsFragment extends Fragment {
 
         // Create the dialog and show it
         alertBuilder.create().show();
+    }
+
+    public void displayMessage(String message){
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
 }

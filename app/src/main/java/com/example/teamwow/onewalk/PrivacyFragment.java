@@ -52,6 +52,7 @@ public class PrivacyFragment extends Fragment {
                 leaderboardSwitch.setChecked(value);
                 if(!leaderboardSwitch.isChecked()) {
                     stepsSwitch.setChecked(false);
+                    stepsSwitch.setEnabled(false);
                     privacyDB.child("Display Steps on Leaderboard").setValue(false);
                 }
             }
@@ -89,7 +90,6 @@ public class PrivacyFragment extends Fragment {
             }
         });
 
-
         // Set up step count switch functionality
         stepsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -108,5 +108,13 @@ public class PrivacyFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    private void changeLBPrivacy(Switch s) {
+
+    }
+
+    private void changeStepsPrivacy(Switch s) {
+
     }
 }
