@@ -95,7 +95,7 @@ public class HatPage extends AppCompatActivity {
         currencyDB.addListenerForSingleValueEvent(currencyListener);
 
         /* Begin process */
-        setSingleEvent(mainGrid);
+        changeHat(mainGrid);
         closeHatShop(closeButton);
     }
 
@@ -108,7 +108,7 @@ public class HatPage extends AppCompatActivity {
         });
     }
 
-    public void setSingleEvent(GridLayout singleEvent) {
+    public void changeHat(GridLayout singleEvent) {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;

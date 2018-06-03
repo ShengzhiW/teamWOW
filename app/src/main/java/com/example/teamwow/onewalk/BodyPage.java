@@ -95,7 +95,7 @@ public class BodyPage extends AppCompatActivity {
         currencyDB.addListenerForSingleValueEvent(currencyListener);
 
         /* Begin process */
-        setSingleEvent(mainGrid);
+        changeBody(mainGrid);
         closeBodyShop(closeButton);
     }
 
@@ -108,7 +108,7 @@ public class BodyPage extends AppCompatActivity {
         });
     }
 
-    public void setSingleEvent(GridLayout singleEvent) {
+    public void changeBody(GridLayout singleEvent) {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
             final int finalI = i;
