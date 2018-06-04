@@ -93,6 +93,7 @@ public class HatPage extends AppCompatActivity {
         closeHatShop(closeButton);
     }
 
+    /* Return to the shop main page */
     private void closeHatShop(Button closeButton) {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +103,7 @@ public class HatPage extends AppCompatActivity {
         });
     }
 
+    /* Buy and/or equip a hat */
     public void changeHat(GridLayout singleEvent) {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);

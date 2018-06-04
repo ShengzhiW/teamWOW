@@ -42,7 +42,7 @@ public class ShopFragment extends Fragment {
     private int hatIndex;
     private int currency = 0;
 
-    final int [] bodiesDrawables = {
+    final private int [] bodiesDrawables = {
             R.drawable.cowboy_body,
             R.drawable.magician_body,
             R.drawable.jojo_body,
@@ -55,7 +55,7 @@ public class ShopFragment extends Fragment {
             R.drawable.gary_body
     };
 
-    final int [] hatDrawables = {
+    final private int [] hatDrawables = {
             R.drawable.baseball_scale,
             R.drawable.magician_scale,
             R.drawable.pirate_scale,

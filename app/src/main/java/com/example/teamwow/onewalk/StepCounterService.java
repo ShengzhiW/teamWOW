@@ -47,7 +47,6 @@ public class StepCounterService extends Service implements SensorEventListener {
     private DatabaseReference questDb;
     private DatabaseReference lbSortSteps;
 
-
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private String uid = user.getUid();
 

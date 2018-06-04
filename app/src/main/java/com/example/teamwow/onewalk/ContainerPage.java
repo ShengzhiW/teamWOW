@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/* Holds all of the main fragments, is essentially an empty page with a navigation bar */
 public class ContainerPage extends AppCompatActivity {
 
     @Override
@@ -21,13 +22,12 @@ public class ContainerPage extends AppCompatActivity {
         // prevents the expanding of the menu icons
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-
         setupNavigationView();
 
         startService(new Intent(this, StepCounterService.class));
     }
 
-    /* if app is killed, stop service here */
+    /* If app is killed, stop service here */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -55,7 +55,8 @@ public class ContainerPage extends AppCompatActivity {
         }
     }
 
-    /* Chooses the fragment to display on the screen
+    /*
+     * Chooses the fragment to display on the screen
      * Calls pushFragment
      */
     public void selectFragment(MenuItem item) {
@@ -97,7 +98,7 @@ public class ContainerPage extends AppCompatActivity {
     }
 
 
-    /* have the back button redirect to the home page */
+    /* Back button redirects to the home page */
     @Override
     public void onBackPressed(){
         selectFragment(((BottomNavigationView)findViewById(R.id.bottom_navigation)).getMenu().getItem(2));

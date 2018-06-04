@@ -4,8 +4,6 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +19,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class LeaderboardFragment extends Fragment {
 
@@ -127,10 +124,12 @@ public class LeaderboardFragment extends Fragment {
                 stepCounts.clear();
                 int totalMembers = 0;
                 for (DataSnapshot leaderSnapshot: dataSnapshot.getChildren()) {
+                    // check that user has steps and is not set to private
                     if(leaderSnapshot.child("Steps").exists()) {
                         if((leaderSnapshot.child("Private").getValue()).equals(false)) {
                             names.add(leaderSnapshot.child("Name").getValue(String.class));
 
+                            // determine whether or not to display step count on leaderboard
                             if((leaderSnapshot.child("Private Steps").getValue()).equals(false)) {
                                 showSteps.add(true);
                             } else {
@@ -143,7 +142,6 @@ public class LeaderboardFragment extends Fragment {
                         }
                     }
                 }
-
                 updateLeaderboardText(v);
             }
 
@@ -166,8 +164,7 @@ public class LeaderboardFragment extends Fragment {
             stepCount = (TextView) v.findViewById(stepIds[i]);
             if((showSteps.get(i)).equals(true)) {
                 stepCount.setText(String.valueOf(stepCounts.get(i)));
-            }
-            else{
+            } else {
                 stepCount.setText(" ");
             }
             stepCount.setTextColor(Color.parseColor("#B7B7B7"));

@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,14 +30,15 @@ public class Login extends AppCompatActivity{
     private DatabaseReference userdb;
     private DatabaseReference lbdb;
 
+    /* Begin FirebaseAuth prebuilt login system */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* Firebase Database */
+        // Firebase Database
         db = FirebaseDatabase.getInstance();
 
-        /* Start log in. Email is available for log in */
+        // Start log in activity; email is available for log in
         startActivityForResult(AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build()))
@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity{
                 loginUser();
             }
 
-            // means you cancelled sign in, just return to home page
+            // Cancelled sign in: return to home page
             if(resultCode == RESULT_CANCELED){
                 finish(); // exits the current activity
             }
@@ -85,9 +85,9 @@ public class Login extends AppCompatActivity{
     private void updateDatabase() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        /* Initialize empty list for inventory */
+        // Initialize empty list for inventory
         List<Integer> t = new ArrayList<Integer>(Collections.nCopies(20, 0));
-        t.set(0, 2);
+        t.set(0, 2); // Default hat and body
 
         // Look up / add the specific user in/to the database and keep a reference while app is open
         final String email = user.getEmail();
@@ -113,9 +113,9 @@ public class Login extends AppCompatActivity{
         initializeReference(lbdb.child("Private"), false);
         initializeReference(lbdb.child("Name"), name);
 
-        // Update shop database if not already
-        initializeInventory(userdb.child("Inventory").child("Hat"),t);
-        initializeInventory(userdb.child("Inventory").child("Body"),t);
+        // Update shop database if not already present
+        initializeInventory(userdb.child("Inventory").child("Hat"), t);
+        initializeInventory(userdb.child("Inventory").child("Body") ,t);
 
     }
 
@@ -165,16 +165,12 @@ public class Login extends AppCompatActivity{
         });
     }
 
-    /*
-     * Displays a pop up message to user
-     */
+    /* Displays a pop up message to user */
     private void displayMessage(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
-    /*
-     * Have the back button redirect to the phone's home screen
-     */
+    /* Have the back button redirect to the phone's home screen */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent();

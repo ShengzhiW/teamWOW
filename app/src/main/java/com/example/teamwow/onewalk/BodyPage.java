@@ -92,6 +92,7 @@ public class BodyPage extends AppCompatActivity {
         closeBodyShop(closeButton);
     }
 
+    /* Return to the shop main page */
     private void closeBodyShop(Button closeButton) {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +102,7 @@ public class BodyPage extends AppCompatActivity {
         });
     }
 
+    /* Buy and/or equip a body */
     public void changeBody(GridLayout singleEvent) {
         for(int i = 0; i < mainGrid.getChildCount();i++){
             final CardView cardView = (CardView)mainGrid.getChildAt(i);
