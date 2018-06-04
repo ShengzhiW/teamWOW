@@ -121,7 +121,7 @@ public class TodayFragment extends Fragment {
         } else if(hour >= 17 && hour < 21) {
             greeting = "Good Evening, ";
         } else if(hour >= 21 && hour < 24) {
-            greeting = "Good Night, ";
+            greeting = "Good Evening, ";
         } else if (hour < 12) {
             greeting = "Good Morning, ";
         } else {
