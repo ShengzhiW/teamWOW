@@ -97,7 +97,7 @@ public class ContainerPage extends AppCompatActivity {
     }
 
 
-    /* have the back button redirect to the home page*/
+    /* have the back button redirect to the home page */
     @Override
     public void onBackPressed(){
         selectFragment(((BottomNavigationView)findViewById(R.id.bottom_navigation)).getMenu().getItem(2));

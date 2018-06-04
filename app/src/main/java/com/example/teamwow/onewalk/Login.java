@@ -70,6 +70,10 @@ public class Login extends AppCompatActivity{
         displayMessage(getString(R.string.unknown_response));
     }
 
+    /*
+     * Updates database with user info if user does not exist in database
+     * Displays welcome screen
+     */
     private void loginUser() {
         updateDatabase();
 
@@ -77,9 +81,7 @@ public class Login extends AppCompatActivity{
         startActivity(intent);
     }
 
-    /*
-     * Description: When user is logged in, load their uid/name/email into the database
-     */
+    /* When user is logged in, load their uid/name/email into the database */
     private void updateDatabase() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -117,6 +119,7 @@ public class Login extends AppCompatActivity{
 
     }
 
+    /* Reusable code */
     public void initializeReference(final DatabaseReference dr, final String value) {
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

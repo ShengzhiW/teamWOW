@@ -67,16 +67,43 @@ public class ProfileFragment extends Fragment {
     private DatabaseReference questsCompleted;
     private DatabaseReference daysWalked;
 
+    private DatabaseReference userDB = db.getReference("Users").child(uid);
+
     private int bodyIndex;
     private int hatIndex;
-    private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
-    private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
-    private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
-            .child("Hat");
+    private DatabaseReference dbBodyIdx = userDB.child("BodyIdx");
+    private DatabaseReference dbHatIdx = userDB.child("HatIdx");
+    private DatabaseReference hatDB = userDB.child("Inventory").child("Hat");
+    private DatabaseReference bodyDB = userDB.child("Inventory").child("Body");
 
-    private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
-            .child("Body");
+    final private int [] bodiesDrawables = {
+            R.drawable.cowboy_body,
+            R.drawable.magician_body,
+            R.drawable.jojo_body,
+            R.drawable.earth_body,
+            R.drawable.chef_body,
+            R.drawable.viking_body,
+            R.drawable.striped_body,
+            R.drawable.yellow_body,
+            R.drawable.lee,
+            R.drawable.gary_body
+    };
 
+    final private int [] hatDrawables = {
+            R.drawable.baseball_scale,
+            R.drawable.magician_scale,
+            R.drawable.pirate_scale,
+            R.drawable.tree_scale,
+            R.drawable.poop_scale,
+            R.drawable.cowboyhat_scale,
+            R.drawable.chef_scale,
+            R.drawable.konoha_scale,
+            R.drawable.viking_scale,
+            R.drawable.leprechaun_hat_scale,
+            R.drawable.sun_hat_scale,
+            R.drawable.jojo_hat_scale,
+            R.drawable.duck_hat_scale
+    };
 
     @Nullable
     @Override
@@ -94,44 +121,13 @@ public class ProfileFragment extends Fragment {
         totalQuests = rootView.findViewById(R.id.total_quests);
         totalDays = rootView.findViewById(R.id.total_days);
 
-        userName = db.getReference("Users").child(uid).child("Name");
-        userStepCount = db.getReference("Users").child(uid).child("Steps");
-        userCurrency = db.getReference("Users").child(uid).child("Lifetime Currency");
-        userHats = db.getReference("Users").child(uid).child("Inventory").child("Hat");
-        userBodies = db.getReference("Users").child(uid).child("Inventory").child("Body");
-        questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
-        daysWalked = db.getReference("Users").child(uid).child("Archive");
-
-
-        final int [] bodiesDrawables = {
-                R.drawable.cowboy_body,
-                R.drawable.magician_body,
-                R.drawable.jojo_body,
-                R.drawable.earth_body,
-                R.drawable.chef_body,
-                R.drawable.viking_body,
-                R.drawable.striped_body,
-                R.drawable.yellow_body,
-                R.drawable.lee,
-                R.drawable.gary_body
-        };
-
-        final int [] hatDrawables = {
-                R.drawable.baseball_scale,
-                R.drawable.magician_scale,
-                R.drawable.pirate_scale,
-                R.drawable.tree_scale,
-                R.drawable.poop_scale,
-                R.drawable.cowboyhat_scale,
-                R.drawable.chef_scale,
-                R.drawable.konoha_scale,
-                R.drawable.viking_scale,
-                R.drawable.leprechaun_hat_scale,
-                R.drawable.sun_hat_scale,
-                R.drawable.jojo_hat_scale,
-                R.drawable.duck_hat_scale
-        };
-
+        userName = userDB.child("Name");
+        userStepCount = userDB.child("Steps");
+        userCurrency = userDB.child("Lifetime Currency");
+        userHats = userDB.child("Inventory").child("Hat");
+        userBodies = userDB.child("Inventory").child("Body");
+        questsCompleted = userDB.child("Quests Completed");
+        daysWalked = userDB.child("Archive");
 
         //Add listener to get the username
         userName.addValueEventListener(new ValueEventListener(){
@@ -169,8 +165,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
-
-
 
         // Add listener to get the total hats
         userHats.addValueEventListener(new ValueEventListener() {
@@ -254,11 +248,9 @@ public class ProfileFragment extends Fragment {
                     }
                 }
             }
-            // onCancelled...
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // DO nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         hatDB.addValueEventListener(new ValueEventListener() {
@@ -276,17 +268,11 @@ public class ProfileFragment extends Fragment {
                             Drawable drawableHat = getResources().getDrawable(hatDrawables[hatIndex]);
                             imgViewHat.setImageDrawable(drawableHat);
                         }
-
-
-
                     }
                 }
             }
-            // onCancelled...
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // DO nothing
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
 
@@ -312,7 +298,6 @@ public class ProfileFragment extends Fragment {
                     }
                     totalDays.setText(String.valueOf(days.size()));
                 }
-
             }
 
             @Override

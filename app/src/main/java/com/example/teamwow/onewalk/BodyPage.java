@@ -40,9 +40,9 @@ public class BodyPage extends AppCompatActivity {
     final FirebaseDatabase db = FirebaseDatabase.getInstance();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
-    private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
-            .child("Body");
-    private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
+    private DatabaseReference userDB = db.getReference("Users").child(uid);
+    private DatabaseReference bodyDB = userDB.child("Inventory").child("Body");
+    private DatabaseReference currencyDB = userDB.child("Currency");
 
     // body shop variables
     private ArrayList<Integer> bodyArray = new ArrayList<>();
@@ -138,8 +138,7 @@ public class BodyPage extends AppCompatActivity {
                                                     break;
                                                 }
                                             }
-                                            currencyDB.setValue(garyBucks - price);
-                                            garyBucks -= price;
+                                            changeCurrency(price);
                                             bodyDB.child(Integer.valueOf(finalI).toString()).setValue(2);
                                             bodyArray.set(finalI, 2);
                                         } else {
@@ -182,7 +181,9 @@ public class BodyPage extends AppCompatActivity {
         }
     }
 
-    public void changeCurrency() {
-
+    /* For screen sequence diagram purposes */
+    public void changeCurrency(int p) {
+        currencyDB.setValue(garyBucks - p);
+        garyBucks -= p;
     }
 }

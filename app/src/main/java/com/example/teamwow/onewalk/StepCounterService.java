@@ -37,6 +37,7 @@ public class StepCounterService extends Service implements SensorEventListener {
     private int stepReq = 0;
     private int reward = 0;
 
+    private DatabaseReference userDB;
     private DatabaseReference userStepCount;
     private DatabaseReference lbStepCount;
     private DatabaseReference questsCompleted;
@@ -60,6 +61,8 @@ public class StepCounterService extends Service implements SensorEventListener {
         currencyCount = 0;
         lifetimeCurrencyCount = 0;
 
+        userDB = db.getReference("Users").child(uid);
+
         // Get the current time
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("MM-dd-yyyy");
@@ -79,12 +82,12 @@ public class StepCounterService extends Service implements SensorEventListener {
         mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
 
         // Get a reference to the step count, and read the data and attach it to the screen
-        userStepCount = db.getReference("Users").child(uid).child("Steps");
+        userStepCount = userDB.child("Steps");
         lbStepCount = db.getReference("Leaderboard").child(uid).child("Steps");
-        todayStepCount = db.getReference("Users").child(uid).child("Archive").child(todayDate);
-        currencyCountDb = db.getReference("Users").child(uid).child("Currency");
-        questsCompleted = db.getReference("Users").child(uid).child("Quests Completed");
-        lifetimeCurrencyCountDb = db.getReference("Users").child(uid).child("Lifetime Currency");
+        todayStepCount = userDB.child("Archive").child(todayDate);
+        currencyCountDb = userDB.child("Currency");
+        questsCompleted = userDB.child("Quests Completed");
+        lifetimeCurrencyCountDb = userDB.child("Lifetime Currency");
         questDb = db.getReference("Quests").child("" + dailyQuestNum);
 
         // set a listener every time a user's steps change
@@ -106,9 +109,7 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         // Set a listener for the currency
@@ -119,9 +120,7 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         // Set a listener for the number of quests completed
@@ -132,10 +131,7 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         // Set a listener for the lifetime currency
@@ -147,9 +143,7 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         // Set a listener for the quests
@@ -163,9 +157,7 @@ public class StepCounterService extends Service implements SensorEventListener {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         userStepCount.addListenerForSingleValueEvent(stepListener);
@@ -181,16 +173,16 @@ public class StepCounterService extends Service implements SensorEventListener {
         return START_STICKY;
     }
 
-    /*
-     * Method must be overridden, but since service is a started service, onBind is never used.
-     */
+    /* Method must be overridden, but since service is a started service, onBind is never used */
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
 
     /*
-     * Method called every time step detector is triggered.
+     * Called every time step detector is triggered
+     * Updates the database and local variables
+     * Also checks for currency updates and quest completion
      */
     @Override
     public void onSensorChanged(SensorEvent event) {
@@ -236,16 +228,11 @@ public class StepCounterService extends Service implements SensorEventListener {
         todayStepCount.setValue(dailyCount);
     }
 
-    /*
-     * Method must be overridden to implement SensorEventListener, but has no use currently.
-     */
+    /* Must be overridden to implement SensorEventListener, but has no use currently */
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
-    /*
-     * Method called when service is stopped; must unregister step detector so steps no longer
-     * counted.
-     */
+    /* Called when service is stopped; must unregister step detector so steps no longer counted */
     @Override
     public void onDestroy() {
         mSensorManager.unregisterListener(this);

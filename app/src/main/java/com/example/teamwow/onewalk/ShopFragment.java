@@ -29,16 +29,14 @@ public class ShopFragment extends Fragment {
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final String uid = user.getUid();
 
-    private DatabaseReference dbBodyIdx = db.getReference("Users").child(uid).child("BodyIdx");
-    private DatabaseReference dbHatIdx = db.getReference("Users").child(uid).child("HatIdx");
-    private DatabaseReference currencyDB = db.getReference("Users").child(uid).child("Currency");
+    private DatabaseReference userDB = db.getReference("Users").child(uid);
 
+    private DatabaseReference dbBodyIdx = userDB.child("BodyIdx");
+    private DatabaseReference dbHatIdx = userDB.child("HatIdx");
+    private DatabaseReference currencyDB = userDB.child("Currency");
 
-    private DatabaseReference hatDB = db.getReference("Users").child(uid).child("Inventory")
-            .child("Hat");
-
-    private DatabaseReference bodyDB = db.getReference("Users").child(uid).child("Inventory")
-            .child("Body");
+    private DatabaseReference hatDB = userDB.child("Inventory").child("Hat");
+    private DatabaseReference bodyDB = userDB.child("Inventory").child("Body");
 
     private int bodyIndex;
     private int hatIndex;
@@ -99,7 +97,6 @@ public class ShopFragment extends Fragment {
                 sendToHat();
             }
         });
-
         bodyButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -131,16 +128,19 @@ public class ShopFragment extends Fragment {
         return view;
     }
 
+    /* Opens the hat page */
     private void sendToHat() {
         Intent intent = new Intent(getActivity(), HatPage.class);
         startActivity(intent);
     }
 
+    /* Opens the body page */
     private void sendToBody() {
         Intent intent = new Intent(getActivity(), BodyPage.class);
         startActivity(intent);
     }
 
+    /* Displays the current hat */
     private void hatDB(final View v, DataSnapshot snapshot) {
         for (DataSnapshot item : snapshot.getChildren()) {
             if( item.getValue(Integer.class)  == 2){
@@ -164,6 +164,7 @@ public class ShopFragment extends Fragment {
         }
     }
 
+    /* Displays the current body */
     private void bodyDB(final View v, DataSnapshot snapshot) {
         for (DataSnapshot item : snapshot.getChildren()) {
             if( item.getValue(Integer.class)  == 2){
@@ -178,7 +179,6 @@ public class ShopFragment extends Fragment {
                     ImageView imgView = (ImageView) v.findViewById(R.id.imgView) ;
                     imgView.getLayoutParams().height = height / 3;
                     imgView.getLayoutParams().width = height / 3;
-
 
                     Drawable drawable = getResources().getDrawable(bodiesDrawables[bodyIndex]);
                     imgView.setImageDrawable(drawable);

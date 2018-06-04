@@ -44,6 +44,23 @@ public class PrivacyFragment extends Fragment {
         stepsSwitch = rootView.findViewById(R.id.stepsSwitch);
 
         // Access current data, and update switches as necessary
+        changeLBPrivacy(rootView);
+        changeStepsPrivacy(rootView);
+
+        // Finish activity, should return to Settings Page activity
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ContainerPage)getActivity()).pushFragment(new SettingsFragment());
+            }
+        });
+
+        return rootView;
+    }
+
+
+    /* Set up leaderboard switch functionality */
+    private void changeLBPrivacy(final View v) {
         ValueEventListener leaderboardListener = new ValueEventListener() {
             boolean value;
             @Override
@@ -61,19 +78,6 @@ public class PrivacyFragment extends Fragment {
         };
         privacy_leaderboard.addValueEventListener(leaderboardListener);
 
-        ValueEventListener stepsListener = new ValueEventListener() {
-            boolean value;
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
-                stepsSwitch.setChecked(value);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        privacy_steps.addValueEventListener(stepsListener);
-
-        // Set up leaderboard switch functionality
         leaderboardSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -89,8 +93,22 @@ public class PrivacyFragment extends Fragment {
                 stepsSwitch.setEnabled(isChecked);
             }
         });
+    }
 
-        // Set up step count switch functionality
+    /* Set up step count switch functionality */
+    private void changeStepsPrivacy(final View v) {
+        ValueEventListener stepsListener = new ValueEventListener() {
+            boolean value;
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()) value = dataSnapshot.getValue(Boolean.class);
+                stepsSwitch.setChecked(value);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        privacy_steps.addValueEventListener(stepsListener);
+
         stepsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -98,23 +116,5 @@ public class PrivacyFragment extends Fragment {
                 privacystepslbdb.setValue(!isChecked);
             }
         });
-
-        // Finish activity, should return to Settings Page activity
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((ContainerPage)getActivity()).pushFragment(new SettingsFragment());
-            }
-        });
-
-        return rootView;
-    }
-
-    private void changeLBPrivacy(Switch s) {
-
-    }
-
-    private void changeStepsPrivacy(Switch s) {
-
     }
 }

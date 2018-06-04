@@ -41,6 +41,7 @@ public class SettingsFragment extends Fragment {
         Button profileButton = rootView.findViewById(R.id.profile_button);
         Button aboutButton = rootView.findViewById(R.id.about_walk);
 
+        // Add a listener to the about button that displays the about page
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +76,6 @@ public class SettingsFragment extends Fragment {
         privacyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                // Create a popup screen
                 ((ContainerPage)getActivity()).pushFragment(new PrivacyFragment());
             }
         });
@@ -84,7 +84,6 @@ public class SettingsFragment extends Fragment {
         profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                // Create pop-up screen, similar to privacy
                 ((ContainerPage) getActivity()).pushFragment(new ProfileFragment());
             }
         });
@@ -101,6 +100,7 @@ public class SettingsFragment extends Fragment {
         startActivity(logInIntent);
     }
 
+    /* Displays the about page */
     private void viewAbout() {
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.about_while_walk, null);
@@ -123,6 +123,7 @@ public class SettingsFragment extends Fragment {
         alertDialogBuilder.create().show();
     }
 
+    /* Changes the user's nickname that is displayed in the leaderboard*/
     private void changeNickname() {
         // get prompts.xml view
         LayoutInflater li = LayoutInflater.from(getActivity());
@@ -161,6 +162,7 @@ public class SettingsFragment extends Fragment {
         alertDialogBuilder.create().show();
     }
 
+    /* Logs the user out of their account */
     private void logoutUser() {
         auth.signOut(getActivity()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

@@ -31,13 +31,33 @@ public class LeaderboardFragment extends Fragment {
     TextView username;
     TextView steps;
 
-    // for leaderboard
-    private int[] nameIds = {R.id.rank1username, R.id.rank2username, R.id.rank3username,
-            R.id.rank4username, R.id.rank5username, R.id.rank6username, R.id.rank7username,
-            R.id.rank8username, R.id.rank9username, R.id.rank10username};
-    private int[] stepIds = {R.id.rank1steps, R.id.rank2steps, R.id.rank3steps,
-            R.id.rank4steps, R.id.rank5steps, R.id.rank6steps, R.id.rank7steps,
-            R.id.rank8steps, R.id.rank9steps, R.id.rank10steps};
+    // IDs for xml text elements to update
+    final private int[] nameIds = {
+            R.id.rank1username,
+            R.id.rank2username,
+            R.id.rank3username,
+            R.id.rank4username,
+            R.id.rank5username,
+            R.id.rank6username,
+            R.id.rank7username,
+            R.id.rank8username,
+            R.id.rank9username,
+            R.id.rank10username
+    };
+
+    final private int[] stepIds = {
+            R.id.rank1steps,
+            R.id.rank2steps,
+            R.id.rank3steps,
+            R.id.rank4steps,
+            R.id.rank5steps,
+            R.id.rank6steps,
+            R.id.rank7steps,
+            R.id.rank8steps,
+            R.id.rank9steps,
+            R.id.rank10steps
+    };
+
     private ArrayList<String> names = new ArrayList<>();
     private ArrayList<Integer> stepCounts = new ArrayList<>();
     private ArrayList<Boolean> showSteps = new ArrayList<>();
@@ -57,6 +77,7 @@ public class LeaderboardFragment extends Fragment {
         return rootView;
     }
 
+    /* Ensure that view has been created first */
     @Nullable
     @Override
     public void onViewCreated(View v, Bundle savedInstanceState) {
@@ -64,7 +85,6 @@ public class LeaderboardFragment extends Fragment {
     }
 
     public void buildLeaderboard(final View v) {
-
         userName = db.getReference("Users").child(uid).child("Name");
         userStepCount = db.getReference("Users").child(uid).child("Steps");
 
@@ -96,6 +116,7 @@ public class LeaderboardFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+        // sort in descending order of step count ("step sort" is negative)
         Query leaderQuery = db.getReference("Leaderboard").orderByChild("Step Sort");
 
         // attaches a listener to check when a user's step count is updated
@@ -110,50 +131,54 @@ public class LeaderboardFragment extends Fragment {
                         if((leaderSnapshot.child("Private").getValue()).equals(false)) {
                             names.add(leaderSnapshot.child("Name").getValue(String.class));
 
-                            if((leaderSnapshot.child("Private Steps").getValue()).equals(false)){
-                               showSteps.add(true);
-                            }
-                            else{
+                            if((leaderSnapshot.child("Private Steps").getValue()).equals(false)) {
+                                showSteps.add(true);
+                            } else {
                                 showSteps.add(false);
                             }
                             stepCounts.add(leaderSnapshot.child("Steps").getValue(Integer.class));
 
                             totalMembers++;
-                            if (totalMembers >= 10) break;
+                            if (totalMembers >= 10) break; // count top 10 users that are not private
                         }
                     }
                 }
 
-                TextView name;
-                TextView stepCount;
-
-                for(int i = 0; i < names.size(); i++) {
-                    name = (TextView) v.findViewById(nameIds[i]);
-                    name.setText(names.get(i));
-                    name.setTextColor(Color.parseColor("#747474"));
-
-                    stepCount = (TextView) v.findViewById(stepIds[i]);
-                    if((showSteps.get(i)).equals(true)) {
-                        stepCount.setText(String.valueOf(stepCounts.get(i)));
-                    }
-                    else{
-                        stepCount.setText(" ");
-                    }
-                    stepCount.setTextColor(Color.parseColor("#B7B7B7"));
-                }
-
-
-                ((TextView)v.findViewById(nameIds[0])).setTextColor(Color.parseColor("#FFD700"));
-                ((TextView)v.findViewById(nameIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
-                ((TextView)v.findViewById(nameIds[2])).setTextColor(Color.parseColor("#CD7F32"));
-                ((TextView)v.findViewById(stepIds[0])).setTextColor(Color.parseColor("#FFD700"));
-                ((TextView)v.findViewById(stepIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
-                ((TextView)v.findViewById(stepIds[2])).setTextColor(Color.parseColor("#CD7F32"));
+                updateLeaderboardText(v);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
 
+
+    /* Update the names and step counts of each user on the leaderboard */
+    public void updateLeaderboardText(final View v) {
+        TextView name;
+        TextView stepCount;
+
+        for(int i = 0; i < names.size(); i++) {
+            name = (TextView) v.findViewById(nameIds[i]);
+            name.setText(names.get(i));
+            name.setTextColor(Color.parseColor("#747474"));
+
+            stepCount = (TextView) v.findViewById(stepIds[i]);
+            if((showSteps.get(i)).equals(true)) {
+                stepCount.setText(String.valueOf(stepCounts.get(i)));
+            }
+            else{
+                stepCount.setText(" ");
+            }
+            stepCount.setTextColor(Color.parseColor("#B7B7B7"));
+        }
+
+        // Gold for 1st, Silver for 2nd, Bronze for 3rd
+        ((TextView)v.findViewById(nameIds[0])).setTextColor(Color.parseColor("#FFD700"));
+        ((TextView)v.findViewById(nameIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
+        ((TextView)v.findViewById(nameIds[2])).setTextColor(Color.parseColor("#CD7F32"));
+        ((TextView)v.findViewById(stepIds[0])).setTextColor(Color.parseColor("#FFD700"));
+        ((TextView)v.findViewById(stepIds[1])).setTextColor(Color.parseColor("#A8A8A8"));
+        ((TextView)v.findViewById(stepIds[2])).setTextColor(Color.parseColor("#CD7F32"));
     }
 }
