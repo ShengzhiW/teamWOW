@@ -45,7 +45,7 @@ public class SettingsFragment extends Fragment {
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewAbout();
+                alertAbout();
             }});
 
         // Add a listener to the change nickname button that prompts the user for input and then updates the database
@@ -101,7 +101,7 @@ public class SettingsFragment extends Fragment {
     }
 
     /* Displays the about page */
-    private void viewAbout() {
+    private void alertAbout() {
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.about_while_walk, null);
 
