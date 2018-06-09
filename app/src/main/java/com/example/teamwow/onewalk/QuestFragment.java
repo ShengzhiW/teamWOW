@@ -72,6 +72,11 @@ public class QuestFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
+        displayYourSteps(todayStepCount);
+    }
+
+    private void displayYourSteps(DatabaseReference todayStepCount)
+    {
         todayStepCount.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
