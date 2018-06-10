@@ -69,8 +69,8 @@ Now you should have OneWalk on your phone!
 In case of unexpected behavior, close the application and relaunch it by following the section “How to Run”. 
 
 # Contacts for Technical Support:
-Jungyong Yi : (702) 237-0649
-Kimberly Li: (415) 770-8388
-David Liau: (949) 245-4781
+1.Jungyong Yi : (702) 237-0649
+2.Kimberly Li: (415) 770-8388
+3.David Liau: (949) 245-4781
 
 
