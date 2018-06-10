@@ -72,5 +72,5 @@ In case of unexpected behavior, close the application and relaunch it by followi
 1.Jungyong Yi : (702) 237-0649
 2.Kimberly Li: (415) 770-8388
 3.David Liau: (949) 245-4781
-
+4. Connie Guan (call others first): (408)838-7198
 
